@@ -16,6 +16,12 @@ const FOUNDERS = [
     bio: 'Passionate about making AI education accessible and practical. Building AI Trade School to bridge the gap between potential and capability.',
     image: '/howard_image.png',
   },
+  {
+    name: 'Ecko Steadman',
+    role: 'Co-Founder',
+    bio: 'Dedicated to empowering professionals with the AI skills they need to thrive. Bringing strategy and vision to AI Trade School.',
+    image: '/ecko_image.png',
+  },
 ];
 
 const VALUES = [
