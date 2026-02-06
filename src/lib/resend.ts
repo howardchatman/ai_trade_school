@@ -1,11 +1,21 @@
 import { Resend } from 'resend';
 
-export const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) {
+    console.warn('RESEND_API_KEY not set — skipping email');
+    return null;
+  }
+  return new Resend(key);
+}
 
 const from = process.env.RESEND_FROM_EMAIL || 'AI Trade School <support@aitradeschool.org>';
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://aitradeschool.org';
 
 export async function sendWelcomeEmail(to: string, firstName: string) {
+  const resend = getResend();
+  if (!resend) return;
+
   return resend.emails.send({
     from,
     to,
@@ -37,6 +47,9 @@ export async function sendPurchaseConfirmation(
   courseName: string,
   amountCents: number
 ) {
+  const resend = getResend();
+  if (!resend) return;
+
   const price = `$${(amountCents / 100).toFixed(0)}`;
 
   return resend.emails.send({
