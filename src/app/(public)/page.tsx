@@ -45,7 +45,7 @@ export default function HomePage() {
                 size="lg"
                 variant="outline"
                 asChild
-                className="border-white/30 text-white hover:bg-white/10"
+                className="bg-white text-[#0f172a] border-white hover:bg-transparent hover:text-white"
               >
                 <Link href={ROUTES.TRACKS}>View Courses</Link>
               </Button>
