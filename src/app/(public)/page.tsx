@@ -264,7 +264,7 @@ export default function HomePage() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button variant="outline" size="lg" asChild className="border-slate-600 text-white hover:bg-white/10">
+            <Button variant="outline" size="lg" asChild className="bg-white text-[#0f172a] border-white hover:bg-transparent hover:text-white">
               <Link href={ROUTES.TRACKS}>Browse Courses</Link>
             </Button>
           </div>

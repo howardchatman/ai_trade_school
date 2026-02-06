@@ -11,16 +11,10 @@ export const metadata = {
 
 const FOUNDERS = [
   {
-    name: 'Founder Name',
-    role: 'CEO & Co-founder',
-    bio: 'Passionate about making AI education accessible. Previously led product at a Fortune 500 tech company.',
-    image: null, // Placeholder - would be actual image path
-  },
-  {
-    name: 'Co-founder Name',
-    role: 'CTO & Co-founder',
-    bio: '15+ years in software engineering. Built AI systems at scale. Believes in learning by doing.',
-    image: null,
+    name: 'Howard',
+    role: 'Founder',
+    bio: 'Passionate about making AI education accessible and practical. Building AI Trade School to bridge the gap between potential and capability.',
+    image: '/howard_image.png',
   },
 ];
 
@@ -99,12 +93,23 @@ export default function FoundersPage() {
         {/* Team */}
         <div className="mb-24">
           <h2 className="text-2xl font-semibold text-center mb-12">Meet the Team</h2>
-          <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+          <div className="flex justify-center gap-12 max-w-4xl mx-auto">
             {FOUNDERS.map((founder) => (
               <div key={founder.name} className="text-center">
-                <div className="w-32 h-32 rounded-full bg-secondary mx-auto mb-6 flex items-center justify-center">
-                  <Users className="h-16 w-16 text-muted-foreground" />
-                </div>
+                {founder.image ? (
+                  <div className="w-32 h-32 rounded-full mx-auto mb-6 overflow-hidden relative">
+                    <Image
+                      src={founder.image}
+                      alt={founder.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-32 h-32 rounded-full bg-secondary mx-auto mb-6 flex items-center justify-center">
+                    <Users className="h-16 w-16 text-muted-foreground" />
+                  </div>
+                )}
                 <h3 className="text-xl font-semibold">{founder.name}</h3>
                 <p className="text-muted-foreground mb-4">{founder.role}</p>
                 <p className="text-sm text-muted-foreground">{founder.bio}</p>

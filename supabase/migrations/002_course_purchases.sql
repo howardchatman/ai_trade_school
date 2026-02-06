@@ -38,20 +38,24 @@ CREATE INDEX IF NOT EXISTS idx_purchases_stripe_checkout ON purchases(stripe_che
 ALTER TABLE purchases ENABLE ROW LEVEL SECURITY;
 
 -- Users can read their own purchases
+DROP POLICY IF EXISTS "Users can read own purchases" ON purchases;
 CREATE POLICY "Users can read own purchases" ON purchases
   FOR SELECT USING (auth.uid() = user_id);
 
 -- Service role can insert purchases (for webhook handler)
+DROP POLICY IF EXISTS "Service role can insert purchases" ON purchases;
 CREATE POLICY "Service role can insert purchases" ON purchases
   FOR INSERT WITH CHECK (true);
 
 -- Admins can read all purchases
+DROP POLICY IF EXISTS "Admins can read all purchases" ON purchases;
 CREATE POLICY "Admins can read all purchases" ON purchases
   FOR SELECT USING (
     EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
   );
 
 -- Admins have full access to purchases
+DROP POLICY IF EXISTS "Admins full access purchases" ON purchases;
 CREATE POLICY "Admins full access purchases" ON purchases
   FOR ALL USING (
     EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
@@ -60,6 +64,7 @@ CREATE POLICY "Admins full access purchases" ON purchases
 -- ============================================
 -- TRIGGERS
 -- ============================================
+DROP TRIGGER IF EXISTS update_purchases_updated_at ON purchases;
 CREATE TRIGGER update_purchases_updated_at
   BEFORE UPDATE ON purchases
   FOR EACH ROW EXECUTE FUNCTION update_updated_at();

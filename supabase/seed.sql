@@ -1,18 +1,98 @@
 -- AI Trade School Seed Data
 -- Run this after running BOTH migrations to populate course data
 -- Tracks now use price_cents for one-time purchases
+-- This script is idempotent — safe to re-run
+
+-- =====================
+-- CLEANUP (FK-safe order) — remove existing seed data so we can re-insert
+-- =====================
+DELETE FROM user_certifications WHERE certification_id IN (
+  'c0000000-0000-0000-0000-000000000001',
+  'c0000000-0000-0000-0000-000000000002',
+  'c0000000-0000-0000-0000-000000000003',
+  'c0000000-0000-0000-0000-000000000004',
+  'c0000000-0000-0000-0000-000000000005',
+  'c0000000-0000-0000-0000-000000000006',
+  'c0000000-0000-0000-0000-000000000007'
+);
+
+DELETE FROM certifications WHERE id IN (
+  'c0000000-0000-0000-0000-000000000001',
+  'c0000000-0000-0000-0000-000000000002',
+  'c0000000-0000-0000-0000-000000000003',
+  'c0000000-0000-0000-0000-000000000004',
+  'c0000000-0000-0000-0000-000000000005',
+  'c0000000-0000-0000-0000-000000000006',
+  'c0000000-0000-0000-0000-000000000007'
+);
+
+DELETE FROM progress WHERE lesson_id IN (
+  SELECT id FROM lessons WHERE module_id IN (
+    SELECT id FROM modules WHERE track_id IN (
+      '11111111-1111-1111-1111-111111111111',
+      '22222222-2222-2222-2222-222222222222',
+      '33333333-3333-3333-3333-333333333333',
+      '44444444-4444-4444-4444-444444444444',
+      '55555555-5555-5555-5555-555555555555',
+      '66666666-6666-6666-6666-666666666666',
+      '77777777-7777-7777-7777-777777777777'
+    )
+  )
+);
+
+DELETE FROM lessons WHERE module_id IN (
+  SELECT id FROM modules WHERE track_id IN (
+    '11111111-1111-1111-1111-111111111111',
+    '22222222-2222-2222-2222-222222222222',
+    '33333333-3333-3333-3333-333333333333',
+    '44444444-4444-4444-4444-444444444444',
+    '55555555-5555-5555-5555-555555555555',
+    '66666666-6666-6666-6666-666666666666',
+    '77777777-7777-7777-7777-777777777777'
+  )
+);
+
+DELETE FROM modules WHERE track_id IN (
+  '11111111-1111-1111-1111-111111111111',
+  '22222222-2222-2222-2222-222222222222',
+  '33333333-3333-3333-3333-333333333333',
+  '44444444-4444-4444-4444-444444444444',
+  '55555555-5555-5555-5555-555555555555',
+  '66666666-6666-6666-6666-666666666666',
+  '77777777-7777-7777-7777-777777777777'
+);
+
+DELETE FROM purchases WHERE track_id IN (
+  '11111111-1111-1111-1111-111111111111',
+  '22222222-2222-2222-2222-222222222222',
+  '33333333-3333-3333-3333-333333333333',
+  '44444444-4444-4444-4444-444444444444',
+  '55555555-5555-5555-5555-555555555555',
+  '66666666-6666-6666-6666-666666666666',
+  '77777777-7777-7777-7777-777777777777'
+);
+
+DELETE FROM tracks WHERE id IN (
+  '11111111-1111-1111-1111-111111111111',
+  '22222222-2222-2222-2222-222222222222',
+  '33333333-3333-3333-3333-333333333333',
+  '44444444-4444-4444-4444-444444444444',
+  '55555555-5555-5555-5555-555555555555',
+  '66666666-6666-6666-6666-666666666666',
+  '77777777-7777-7777-7777-777777777777'
+);
 
 -- =====================
 -- TRACKS (7 launch courses)
 -- =====================
-INSERT INTO tracks (id, slug, title, description, sort_order, is_published, price_cents, price_label) VALUES
-  ('11111111-1111-1111-1111-111111111111', 'ai-essentials', 'AI Essentials', 'Learn the fundamentals of AI. How to use ChatGPT, create charts, build to-do lists, and write effective prompts. The perfect starting point.', 1, true, 0, 'Free'),
-  ('22222222-2222-2222-2222-222222222222', 'forex-trading-bot', 'AI Forex Trading Bot', 'Build your own AI-powered forex trading system from scratch. Learn to analyze markets, generate signals, and automate trades using AI.', 2, true, 9900, '$99'),
-  ('33333333-3333-3333-3333-333333333333', 'five-star-reviews', '5-Star Review System', 'Build an AI system that helps businesses earn more 5-star reviews. Automate review requests, respond to feedback, and monitor reputation.', 3, true, 9900, '$99'),
-  ('55555555-5555-5555-5555-555555555555', 'intake-lead-routing', 'AI Intake & Lead Routing System', 'Automate calls, forms, and follow-ups. Build a complete AI-powered intake system that captures leads, qualifies them, and routes them to the right person.', 4, true, 9900, '$99'),
-  ('66666666-6666-6666-6666-666666666666', 'ai-receptionist', 'AI Receptionist & Call Handling', 'Build an AI system that answers calls, routes messages, and logs conversations. Turn missed calls into booked appointments automatically.', 5, true, 9900, '$99'),
-  ('77777777-7777-7777-7777-777777777777', 'proposal-generator', 'AI Proposal & Estimate Generator', 'Build an AI tool that drafts professional proposals and estimates in minutes. Upload scope, pick a template, and let AI do the writing.', 6, true, 9900, '$99'),
-  ('44444444-4444-4444-4444-444444444444', 'platform-builder', 'AI Platform Builder', 'The flagship program. Build complete AI-powered platforms with authentication, dashboards, payments, and deployment. Go from zero to a live SaaS product.', 7, true, 49700, '$497');
+INSERT INTO tracks (id, slug, title, description, sort_order, is_published, price_cents, price_label, stripe_price_id) VALUES
+  ('11111111-1111-1111-1111-111111111111', 'ai-essentials', 'AI Essentials', 'Learn the fundamentals of AI. How to use ChatGPT, create charts, build to-do lists, and write effective prompts. The perfect starting point.', 1, true, 0, 'Free', NULL),
+  ('22222222-2222-2222-2222-222222222222', 'forex-trading-bot', 'AI Forex Trading Bot', 'Build your own AI-powered forex trading system from scratch. Learn to analyze markets, generate signals, and automate trades using AI.', 2, true, 9900, '$99', 'price_1Sxf4EAxy8FtYcx7itJH8UUY'),
+  ('33333333-3333-3333-3333-333333333333', 'five-star-reviews', '5-Star Review System', 'Build an AI system that helps businesses earn more 5-star reviews. Automate review requests, respond to feedback, and monitor reputation.', 3, true, 9900, '$99', 'price_1Sxf4aAxy8FtYcx7kgKk10us'),
+  ('55555555-5555-5555-5555-555555555555', 'intake-lead-routing', 'AI Intake & Lead Routing System', 'Automate calls, forms, and follow-ups. Build a complete AI-powered intake system that captures leads, qualifies them, and routes them to the right person.', 4, true, 9900, '$99', 'price_1Sxwq4Axy8FtYcx7GqDIIxyA'),
+  ('66666666-6666-6666-6666-666666666666', 'ai-receptionist', 'AI Receptionist & Call Handling', 'Build an AI system that answers calls, routes messages, and logs conversations. Turn missed calls into booked appointments automatically.', 5, true, 9900, '$99', 'price_1SxwqcAxy8FtYcx73LbgTSFk'),
+  ('77777777-7777-7777-7777-777777777777', 'proposal-generator', 'AI Proposal & Estimate Generator', 'Build an AI tool that drafts professional proposals and estimates in minutes. Upload scope, pick a template, and let AI do the writing.', 6, true, 9900, '$99', 'price_1Sxwr6Axy8FtYcx7tLyw1BGH'),
+  ('44444444-4444-4444-4444-444444444444', 'platform-builder', 'AI Platform Builder', 'The flagship program. Build complete AI-powered platforms with authentication, dashboards, payments, and deployment. Go from zero to a live SaaS product.', 7, true, 49700, '$497', 'price_1Sxf57Axy8FtYcx7WjbsEKfG');
 
 -- =====================
 -- MODULES - AI Essentials (Free)
@@ -58,9 +138,9 @@ INSERT INTO modules (id, track_id, title, description, sort_order, is_published)
 -- MODULES - AI Proposal & Estimate Generator ($99)
 -- =====================
 INSERT INTO modules (id, track_id, title, description, sort_order, is_published) VALUES
-  ('gggg1111-1111-1111-1111-111111111111', '77777777-7777-7777-7777-777777777777', 'Proposal System Design', 'How great proposals work and how AI can write them faster.', 1, true),
-  ('gggg2222-2222-2222-2222-222222222222', '77777777-7777-7777-7777-777777777777', 'Building the Generator', 'Build the scope intake, template engine, and AI writing pipeline.', 2, true),
-  ('gggg3333-3333-3333-3333-333333333333', '77777777-7777-7777-7777-777777777777', 'Templates & Selling', 'Create industry templates and package it as a sellable service.', 3, true);
+  ('a0a01111-1111-1111-1111-111111111111', '77777777-7777-7777-7777-777777777777', 'Proposal System Design', 'How great proposals work and how AI can write them faster.', 1, true),
+  ('a0a02222-2222-2222-2222-222222222222', '77777777-7777-7777-7777-777777777777', 'Building the Generator', 'Build the scope intake, template engine, and AI writing pipeline.', 2, true),
+  ('a0a03333-3333-3333-3333-333333333333', '77777777-7777-7777-7777-777777777777', 'Templates & Selling', 'Create industry templates and package it as a sellable service.', 3, true);
 
 -- =====================
 -- MODULES - AI Platform Builder ($497)
@@ -75,7 +155,7 @@ INSERT INTO modules (id, track_id, title, description, sort_order, is_published)
 -- LESSONS - AI Essentials - Getting Started
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-0101', 'aaaa1111-1111-1111-1111-111111111111', 'what-is-ai', 'What is AI?', 'An introduction to artificial intelligence and its practical applications.',
+  ('00000000-0000-0000-0000-000000000101', 'aaaa1111-1111-1111-1111-111111111111', 'what-is-ai', 'What is AI?', 'An introduction to artificial intelligence and its practical applications.',
    'Welcome to AI Trade School! In this lesson, we''ll explore what artificial intelligence really is and how it''s changing the way we work.
 
 Artificial Intelligence (AI) refers to computer systems designed to perform tasks that typically require human intelligence. These tasks include understanding language, recognizing patterns, making decisions, and learning from experience.
@@ -89,7 +169,7 @@ Key concepts we''ll cover:
 By the end of this lesson, you''ll have a solid foundation for understanding how AI can enhance your work.',
    10, 1, true),
 
-  ('lesson-0102', 'aaaa1111-1111-1111-1111-111111111111', 'setting-up-chatgpt', 'Setting Up ChatGPT', 'Create your account and learn your way around the ChatGPT interface.',
+  ('00000000-0000-0000-0000-000000000102', 'aaaa1111-1111-1111-1111-111111111111', 'setting-up-chatgpt', 'Setting Up ChatGPT', 'Create your account and learn your way around the ChatGPT interface.',
    'Let''s get you set up with ChatGPT — the most popular AI tool.
 
 **Step 1: Create Your Account**
@@ -114,7 +194,7 @@ Try these starter prompts:
 You''re now ready to start using AI!',
    15, 2, true),
 
-  ('lesson-0103', 'aaaa1111-1111-1111-1111-111111111111', 'ai-tools-overview', 'The AI Tool Landscape', 'Overview of the major AI tools available today and when to use each one.',
+  ('00000000-0000-0000-0000-000000000103', 'aaaa1111-1111-1111-1111-111111111111', 'ai-tools-overview', 'The AI Tool Landscape', 'Overview of the major AI tools available today and when to use each one.',
    'ChatGPT is just the beginning. Let''s explore the major AI tools you should know about:
 
 **Text & Chat**
@@ -141,7 +221,7 @@ Each tool has strengths. The key is knowing which one to reach for depending on 
 -- LESSONS - AI Essentials - Everyday AI Skills
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-0201', 'aaaa2222-2222-2222-2222-222222222222', 'charts-and-data', 'Creating Charts & Data Summaries', 'Use AI to turn raw data into charts, tables, and visual summaries.',
+  ('00000000-0000-0000-0000-000000000201', 'aaaa2222-2222-2222-2222-222222222222', 'charts-and-data', 'Creating Charts & Data Summaries', 'Use AI to turn raw data into charts, tables, and visual summaries.',
    'One of the most practical AI skills is turning messy data into clear visuals.
 
 **What You Can Do:**
@@ -161,7 +241,7 @@ INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_m
 Practice: Take any data you have and ask AI to summarize it visually.',
    20, 1, true),
 
-  ('lesson-0202', 'aaaa2222-2222-2222-2222-222222222222', 'todo-lists-planning', 'To-Do Lists & Planning with AI', 'Let AI help you plan projects, create task lists, and stay organized.',
+  ('00000000-0000-0000-0000-000000000202', 'aaaa2222-2222-2222-2222-222222222222', 'todo-lists-planning', 'To-Do Lists & Planning with AI', 'Let AI help you plan projects, create task lists, and stay organized.',
    'AI is surprisingly good at helping you organize your work and life.
 
 **Project Planning:**
@@ -179,7 +259,7 @@ Practice: Take any data you have and ask AI to summarize it visually.',
 The key is giving AI enough context about your situation so it can tailor the output to you.',
    15, 2, true),
 
-  ('lesson-0203', 'aaaa2222-2222-2222-2222-222222222222', 'writing-with-ai', 'Writing & Editing with AI', 'Use AI to draft, edit, and improve your writing.',
+  ('00000000-0000-0000-0000-000000000203', 'aaaa2222-2222-2222-2222-222222222222', 'writing-with-ai', 'Writing & Editing with AI', 'Use AI to draft, edit, and improve your writing.',
    'Whether it''s emails, reports, or social media — AI can dramatically speed up your writing.
 
 **Drafting:**
@@ -201,7 +281,7 @@ The key is giving AI enough context about your situation so it can tailor the ou
 -- LESSONS - AI Essentials - Prompt Engineering Basics
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-0301', 'aaaa3333-3333-3333-3333-333333333333', 'prompt-fundamentals', 'Prompt Engineering Fundamentals', 'Learn the framework for writing prompts that get great results every time.',
+  ('00000000-0000-0000-0000-000000000301', 'aaaa3333-3333-3333-3333-333333333333', 'prompt-fundamentals', 'Prompt Engineering Fundamentals', 'Learn the framework for writing prompts that get great results every time.',
    'The quality of AI output depends almost entirely on the quality of your input. This is prompt engineering.
 
 **The 5-Part Prompt Framework:**
@@ -218,7 +298,7 @@ INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_m
 The difference in output quality is dramatic. Practice this framework with every prompt you write this week.',
    20, 1, true),
 
-  ('lesson-0302', 'aaaa3333-3333-3333-3333-333333333333', 'advanced-prompting', 'Advanced Prompt Techniques', 'Level up with chain-of-thought, examples, and iterative refinement.',
+  ('00000000-0000-0000-0000-000000000302', 'aaaa3333-3333-3333-3333-333333333333', 'advanced-prompting', 'Advanced Prompt Techniques', 'Level up with chain-of-thought, examples, and iterative refinement.',
    'Now let''s go beyond the basics with techniques that unlock much better results.
 
 **Chain-of-Thought:**
@@ -241,7 +321,7 @@ Tell AI what NOT to do:
 Combining these techniques is how professionals get consistently great results from AI.',
    25, 2, true),
 
-  ('lesson-0303', 'aaaa3333-3333-3333-3333-333333333333', 'prompt-templates', 'Building Your Prompt Library', 'Create reusable prompt templates for your most common tasks.',
+  ('00000000-0000-0000-0000-000000000303', 'aaaa3333-3333-3333-3333-333333333333', 'prompt-templates', 'Building Your Prompt Library', 'Create reusable prompt templates for your most common tasks.',
    'The most productive AI users have a library of proven prompts they reuse and refine.
 
 **Template Format:**
@@ -276,7 +356,7 @@ This completes your AI Essentials training. You now have a strong foundation!',
 -- LESSONS - Forex Trading Bot - Foundations
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-0401', 'bbbb1111-1111-1111-1111-111111111111', 'forex-fundamentals', 'Forex Market Fundamentals', 'Understand currency markets, pairs, and how trading works.',
+  ('00000000-0000-0000-0000-000000000401', 'bbbb1111-1111-1111-1111-111111111111', 'forex-fundamentals', 'Forex Market Fundamentals', 'Understand currency markets, pairs, and how trading works.',
    'Before we build a trading bot, you need to understand the market it operates in.
 
 **What is Forex?**
@@ -300,7 +380,7 @@ AI can analyze market data faster than any human. It can:
 Trading involves significant risk. This course teaches you to build the technology — you are responsible for your own trading decisions and risk management.',
    25, 1, true),
 
-  ('lesson-0402', 'bbbb1111-1111-1111-1111-111111111111', 'trading-data-apis', 'Trading Data & APIs', 'Connect to market data APIs and start pulling real forex data.',
+  ('00000000-0000-0000-0000-000000000402', 'bbbb1111-1111-1111-1111-111111111111', 'trading-data-apis', 'Trading Data & APIs', 'Connect to market data APIs and start pulling real forex data.',
    'To build a trading bot, you need reliable market data.
 
 **Data Sources We''ll Use:**
@@ -322,7 +402,7 @@ Trading involves significant risk. This course teaches you to build the technolo
 You''ll build a data module that fetches, cleans, and stores market data — the foundation of your trading bot.',
    30, 2, true),
 
-  ('lesson-0403', 'bbbb1111-1111-1111-1111-111111111111', 'ai-market-analysis', 'AI-Powered Market Analysis', 'Use AI to analyze market conditions and identify trading opportunities.',
+  ('00000000-0000-0000-0000-000000000403', 'bbbb1111-1111-1111-1111-111111111111', 'ai-market-analysis', 'AI-Powered Market Analysis', 'Use AI to analyze market conditions and identify trading opportunities.',
    'Now we connect AI to your market data.
 
 **What AI Can Analyze:**
@@ -347,7 +427,7 @@ By the end of this module, your bot will be able to "read" the market.',
 -- LESSONS - Forex Trading Bot - Building the Bot
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-0501', 'bbbb2222-2222-2222-2222-222222222222', 'signal-generation', 'Building the Signal Engine', 'Create the core signal generation system that identifies trade opportunities.',
+  ('00000000-0000-0000-0000-000000000501', 'bbbb2222-2222-2222-2222-222222222222', 'signal-generation', 'Building the Signal Engine', 'Create the core signal generation system that identifies trade opportunities.',
    'The signal engine is the brain of your trading bot.
 
 **Signal Types:**
@@ -370,7 +450,7 @@ INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_m
 The signal engine takes market data in and outputs actionable trade signals with confidence scores.',
    40, 1, true),
 
-  ('lesson-0502', 'bbbb2222-2222-2222-2222-222222222222', 'trade-execution', 'Automated Trade Execution', 'Build the system that places and manages trades automatically.',
+  ('00000000-0000-0000-0000-000000000502', 'bbbb2222-2222-2222-2222-222222222222', 'trade-execution', 'Automated Trade Execution', 'Build the system that places and manages trades automatically.',
    'Now we connect signals to actual trade execution.
 
 **Execution Flow:**
@@ -393,7 +473,7 @@ We''ll connect to a demo broker account first. Never go live without thorough ba
 The execution module handles the mechanical side of trading — placing orders, managing positions, and enforcing risk rules.',
    45, 2, true),
 
-  ('lesson-0503', 'bbbb2222-2222-2222-2222-222222222222', 'backtesting', 'Backtesting Your Strategy', 'Test your trading bot against historical data before risking real money.',
+  ('00000000-0000-0000-0000-000000000503', 'bbbb2222-2222-2222-2222-222222222222', 'backtesting', 'Backtesting Your Strategy', 'Test your trading bot against historical data before risking real money.',
    'Backtesting is essential. Never trade live without it.
 
 **What is Backtesting?**
@@ -426,7 +506,7 @@ A profitable backtest doesn''t guarantee future results, but an unprofitable one
 -- LESSONS - Forex Trading Bot - Deployment
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-0601', 'bbbb3333-3333-3333-3333-333333333333', 'paper-trading', 'Paper Trading & Validation', 'Run your bot in paper trading mode with real-time data but no real money.',
+  ('00000000-0000-0000-0000-000000000601', 'bbbb3333-3333-3333-3333-333333333333', 'paper-trading', 'Paper Trading & Validation', 'Run your bot in paper trading mode with real-time data but no real money.',
    'Paper trading is the bridge between backtesting and live trading.
 
 **What is Paper Trading?**
@@ -452,7 +532,7 @@ Set up alerts for:
 Only move to live trading when your paper trading results are consistent and match your expectations.',
    30, 1, true),
 
-  ('lesson-0602', 'bbbb3333-3333-3333-3333-333333333333', 'live-deployment', 'Going Live', 'Deploy your trading bot and manage it in production.',
+  ('00000000-0000-0000-0000-000000000602', 'bbbb3333-3333-3333-3333-333333333333', 'live-deployment', 'Going Live', 'Deploy your trading bot and manage it in production.',
    'You''ve built it, backtested it, and paper traded it. Time to go live.
 
 **Pre-Launch:**
@@ -485,7 +565,7 @@ Congratulations — you''ve built an AI-powered forex trading bot!',
 -- LESSONS - 5-Star Review System - Strategy
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-0701', 'cccc1111-1111-1111-1111-111111111111', 'why-reviews-matter', 'Why Reviews Matter', 'The business case for AI-powered review management.',
+  ('00000000-0000-0000-0000-000000000701', 'cccc1111-1111-1111-1111-111111111111', 'why-reviews-matter', 'Why Reviews Matter', 'The business case for AI-powered review management.',
    'Online reviews are the #1 factor in local purchase decisions. Let''s understand why and how AI changes the game.
 
 **The Numbers:**
@@ -507,7 +587,7 @@ We''ll build a system that:
 This is a system you can use for your own business or sell to local businesses as a service.',
    20, 1, true),
 
-  ('lesson-0702', 'cccc1111-1111-1111-1111-111111111111', 'review-platforms', 'Understanding Review Platforms', 'How Google, Yelp, and other platforms work — and their rules.',
+  ('00000000-0000-0000-0000-000000000702', 'cccc1111-1111-1111-1111-111111111111', 'review-platforms', 'Understanding Review Platforms', 'How Google, Yelp, and other platforms work — and their rules.',
    'Each review platform has different rules and algorithms. Understanding them is critical.
 
 **Google Business Profile:**
@@ -540,7 +620,7 @@ We''ll build our system to work within these rules while maximizing review volum
 -- LESSONS - 5-Star Review System - Building
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-0801', 'cccc2222-2222-2222-2222-222222222222', 'review-request-system', 'The Review Request System', 'Build an automated system that asks customers for reviews at the right time.',
+  ('00000000-0000-0000-0000-000000000801', 'cccc2222-2222-2222-2222-222222222222', 'review-request-system', 'The Review Request System', 'Build an automated system that asks customers for reviews at the right time.',
    'Timing is everything. We''ll build a system that asks for reviews when customers are most likely to give them — right after a positive experience.
 
 **The Flow:**
@@ -565,7 +645,7 @@ The AI generates personalized follow-up messages based on:
 Simple, personal, and well-timed messages dramatically increase review rates.',
    35, 1, true),
 
-  ('lesson-0802', 'cccc2222-2222-2222-2222-222222222222', 'ai-review-responses', 'AI-Powered Review Responses', 'Use AI to draft professional responses to every review automatically.',
+  ('00000000-0000-0000-0000-000000000802', 'cccc2222-2222-2222-2222-222222222222', 'ai-review-responses', 'AI-Powered Review Responses', 'Use AI to draft professional responses to every review automatically.',
    'Responding to every review shows customers you care. AI makes it scalable.
 
 **Response Strategy:**
@@ -586,7 +666,7 @@ Simple, personal, and well-timed messages dramatically increase review rates.',
 The AI handles 90% of the work. You review and personalize the last 10%.',
    35, 2, true),
 
-  ('lesson-0803', 'cccc2222-2222-2222-2222-222222222222', 'reputation-dashboard', 'Building the Reputation Dashboard', 'Create a dashboard that shows review performance across all platforms.',
+  ('00000000-0000-0000-0000-000000000803', 'cccc2222-2222-2222-2222-222222222222', 'reputation-dashboard', 'Building the Reputation Dashboard', 'Create a dashboard that shows review performance across all platforms.',
    'Every good system needs a command center. We''ll build a dashboard that gives you a complete view of your online reputation.
 
 **Dashboard Features:**
@@ -615,7 +695,7 @@ This dashboard becomes the central hub for reputation management.',
 -- LESSONS - 5-Star Review System - Scaling
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-0901', 'cccc3333-3333-3333-3333-333333333333', 'multi-location', 'Multi-Location Management', 'Scale the review system across multiple business locations.',
+  ('00000000-0000-0000-0000-000000000901', 'cccc3333-3333-3333-3333-333333333333', 'multi-location', 'Multi-Location Management', 'Scale the review system across multiple business locations.',
    'The real power of this system is scale. Managing reviews for one location is useful. Managing 10, 50, or 100 locations is a business.
 
 **Multi-Location Features:**
@@ -633,7 +713,7 @@ INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_m
 This module turns your review system into something that can manage an entire franchise or be sold as a service to multi-location businesses.',
    30, 1, true),
 
-  ('lesson-0902', 'cccc3333-3333-3333-3333-333333333333', 'selling-the-service', 'Turning It Into a Business', 'Package your review system as a service you can sell to local businesses.',
+  ('00000000-0000-0000-0000-000000000902', 'cccc3333-3333-3333-3333-333333333333', 'selling-the-service', 'Turning It Into a Business', 'Package your review system as a service you can sell to local businesses.',
    'You''ve built a powerful system. Now let''s talk about how to make money with it.
 
 **Service Packages:**
@@ -659,7 +739,7 @@ Congratulations — you''ve built both a system and a potential business!',
 -- LESSONS - AI Intake & Lead Routing - Foundations
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-1401', 'eeee1111-1111-1111-1111-111111111111', 'intake-overview', 'Why Intake Systems Matter', 'Every business loses leads. An AI intake system catches them all.',
+  ('00000000-0000-0000-0000-000000001401', 'eeee1111-1111-1111-1111-111111111111', 'intake-overview', 'Why Intake Systems Matter', 'Every business loses leads. An AI intake system catches them all.',
    'Most businesses lose 30-50% of their leads because of slow follow-up, missed calls, or no system at all. We''re going to fix that.
 
 **What is an Intake System?**
@@ -685,7 +765,7 @@ We''ll build a system that:
 This system works for law firms, contractors, agencies, medical offices — any business that relies on inbound leads.',
    20, 1, true),
 
-  ('lesson-1402', 'eeee1111-1111-1111-1111-111111111111', 'lead-qualification', 'AI Lead Qualification', 'Teach AI to score and qualify leads based on your criteria.',
+  ('00000000-0000-0000-0000-000000001402', 'eeee1111-1111-1111-1111-111111111111', 'lead-qualification', 'AI Lead Qualification', 'Teach AI to score and qualify leads based on your criteria.',
    'Not all leads are equal. AI can instantly tell you which ones deserve immediate attention.
 
 **Qualification Criteria:**
@@ -707,7 +787,7 @@ Every business has different criteria. Common ones:
 AI handles the thinking. Your team only talks to qualified leads.',
    25, 2, true),
 
-  ('lesson-1403', 'eeee1111-1111-1111-1111-111111111111', 'routing-logic', 'Lead Routing Logic', 'Route leads to the right person based on type, location, and urgency.',
+  ('00000000-0000-0000-0000-000000001403', 'eeee1111-1111-1111-1111-111111111111', 'routing-logic', 'Lead Routing Logic', 'Route leads to the right person based on type, location, and urgency.',
    'Getting the right lead to the right person at the right time — that''s the goal.
 
 **Routing Rules:**
@@ -735,7 +815,7 @@ The router ensures no lead falls through the cracks.',
 -- LESSONS - AI Intake & Lead Routing - Building
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-1501', 'eeee2222-2222-2222-2222-222222222222', 'smart-intake-forms', 'Building Smart Intake Forms', 'Create AI-enhanced forms that adapt and qualify leads in real-time.',
+  ('00000000-0000-0000-0000-000000001501', 'eeee2222-2222-2222-2222-222222222222', 'smart-intake-forms', 'Building Smart Intake Forms', 'Create AI-enhanced forms that adapt and qualify leads in real-time.',
    'Traditional forms are static. Smart forms adapt based on the answers.
 
 **Smart Form Features:**
@@ -765,7 +845,7 @@ INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_m
 A good form converts 2-3x more visitors into leads than a bad one.',
    35, 1, true),
 
-  ('lesson-1502', 'eeee2222-2222-2222-2222-222222222222', 'call-intake', 'AI-Powered Call Intake', 'Handle phone leads with AI transcription, classification, and routing.',
+  ('00000000-0000-0000-0000-000000001502', 'eeee2222-2222-2222-2222-222222222222', 'call-intake', 'AI-Powered Call Intake', 'Handle phone leads with AI transcription, classification, and routing.',
    'Phone calls are often the highest-value leads. Let''s make sure none get missed.
 
 **Call Intake Flow:**
@@ -790,7 +870,7 @@ A good form converts 2-3x more visitors into leads than a bad one.',
 Speed-to-lead. The faster you respond, the more you close. Our system responds in seconds, not hours.',
    35, 2, true),
 
-  ('lesson-1503', 'eeee2222-2222-2222-2222-222222222222', 'lead-dashboard', 'Building the Lead Dashboard', 'Create a command center to view, manage, and act on all incoming leads.',
+  ('00000000-0000-0000-0000-000000001503', 'eeee2222-2222-2222-2222-222222222222', 'lead-dashboard', 'Building the Lead Dashboard', 'Create a command center to view, manage, and act on all incoming leads.',
    'Every lead from every channel — in one place.
 
 **Dashboard Features:**
@@ -824,7 +904,7 @@ This dashboard becomes the nerve center of the business.',
 -- LESSONS - AI Intake & Lead Routing - Automation
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-1601', 'eeee3333-3333-3333-3333-333333333333', 'auto-followup', 'Automated Follow-Up Sequences', 'Build AI-powered follow-up that nurtures leads until they convert or opt out.',
+  ('00000000-0000-0000-0000-000000001601', 'eeee3333-3333-3333-3333-333333333333', 'auto-followup', 'Automated Follow-Up Sequences', 'Build AI-powered follow-up that nurtures leads until they convert or opt out.',
    'The fortune is in the follow-up. Most leads need 5-7 touches before they convert.
 
 **Follow-Up Sequence:**
@@ -850,7 +930,7 @@ Each message is personalized by AI based on:
 Automated follow-up turns cold leads into customers while your team focuses on hot ones.',
    30, 1, true),
 
-  ('lesson-1602', 'eeee3333-3333-3333-3333-333333333333', 'crm-integration', 'CRM & Tool Integration', 'Connect your intake system to CRMs, calendars, and notification tools.',
+  ('00000000-0000-0000-0000-000000001602', 'eeee3333-3333-3333-3333-333333333333', 'crm-integration', 'CRM & Tool Integration', 'Connect your intake system to CRMs, calendars, and notification tools.',
    'Your intake system needs to play nice with the tools your team already uses.
 
 **Common Integrations:**
@@ -875,7 +955,7 @@ Map your intake fields to CRM fields:
 One source of truth. Your intake system captures the lead, then pushes it everywhere else. Never enter data twice.',
    30, 2, true),
 
-  ('lesson-1603', 'eeee3333-3333-3333-3333-333333333333', 'intake-as-service', 'Selling Intake Systems', 'Package your AI intake system as a service for local businesses.',
+  ('00000000-0000-0000-0000-000000001603', 'eeee3333-3333-3333-3333-333333333333', 'intake-as-service', 'Selling Intake Systems', 'Package your AI intake system as a service for local businesses.',
    'You''ve built something every local business needs. Let''s turn it into revenue.
 
 **Who Needs This:**
@@ -907,7 +987,7 @@ One system, many clients. This is a real business.',
 -- LESSONS - AI Receptionist - Voice Fundamentals
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-1701', 'ffff1111-1111-1111-1111-111111111111', 'ai-voice-landscape', 'The AI Voice Landscape', 'How AI phone systems work and the platforms available to build them.',
+  ('00000000-0000-0000-0000-000000001701', 'ffff1111-1111-1111-1111-111111111111', 'ai-voice-landscape', 'The AI Voice Landscape', 'How AI phone systems work and the platforms available to build them.',
    'AI can now handle phone calls that sound remarkably human. Let''s understand the technology.
 
 **How AI Phone Systems Work:**
@@ -938,7 +1018,7 @@ INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_m
 - Always offer a "press 0 for a human" option',
    25, 1, true),
 
-  ('lesson-1702', 'ffff1111-1111-1111-1111-111111111111', 'call-flow-design', 'Designing Call Flows', 'Design the conversation flows your AI receptionist will follow.',
+  ('00000000-0000-0000-0000-000000001702', 'ffff1111-1111-1111-1111-111111111111', 'call-flow-design', 'Designing Call Flows', 'Design the conversation flows your AI receptionist will follow.',
    'A great AI receptionist starts with great conversation design.
 
 **Call Flow Structure:**
@@ -971,7 +1051,7 @@ For each intent, map out:
 - Sound helpful, not robotic',
    30, 2, true),
 
-  ('lesson-1703', 'ffff1111-1111-1111-1111-111111111111', 'voice-personality', 'Crafting the AI Voice & Personality', 'Choose the right voice, tone, and personality for your AI receptionist.',
+  ('00000000-0000-0000-0000-000000001703', 'ffff1111-1111-1111-1111-111111111111', 'voice-personality', 'Crafting the AI Voice & Personality', 'Choose the right voice, tone, and personality for your AI receptionist.',
    'The voice IS the brand when someone calls. Getting it right matters.
 
 **Choosing a Voice:**
@@ -1005,7 +1085,7 @@ The voice and personality are what make callers trust your AI.',
 -- LESSONS - AI Receptionist - Building
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-1801', 'ffff2222-2222-2222-2222-222222222222', 'telephony-setup', 'Setting Up Telephony', 'Get a phone number and connect it to your AI system.',
+  ('00000000-0000-0000-0000-000000001801', 'ffff2222-2222-2222-2222-222222222222', 'telephony-setup', 'Setting Up Telephony', 'Get a phone number and connect it to your AI system.',
    'Let''s get a real phone number that your AI can answer.
 
 **Telephony Setup:**
@@ -1033,7 +1113,7 @@ When a call comes in, Twilio sends a request to your server:
 By the end of this lesson, you''ll have a phone number that connects to your AI system.',
    35, 1, true),
 
-  ('lesson-1802', 'ffff2222-2222-2222-2222-222222222222', 'conversation-engine', 'Building the Conversation Engine', 'Build the AI brain that powers real-time phone conversations.',
+  ('00000000-0000-0000-0000-000000001802', 'ffff2222-2222-2222-2222-222222222222', 'conversation-engine', 'Building the Conversation Engine', 'Build the AI brain that powers real-time phone conversations.',
    'The conversation engine is where the magic happens — AI thinking and responding in real-time.
 
 **Architecture:**
@@ -1059,7 +1139,7 @@ By the end of this lesson, you''ll have a phone number that connects to your AI 
 Response latency should be under 1 second. Callers notice delays. Optimize your STT → AI → TTS pipeline for speed.',
    45, 2, true),
 
-  ('lesson-1803', 'ffff2222-2222-2222-2222-222222222222', 'call-actions', 'Call Actions: Booking, Transfers & Messages', 'Build the actions your receptionist can take during a call.',
+  ('00000000-0000-0000-0000-000000001803', 'ffff2222-2222-2222-2222-222222222222', 'call-actions', 'Call Actions: Booking, Transfers & Messages', 'Build the actions your receptionist can take during a call.',
    'Answering is step one. Taking action is where the value is.
 
 **Booking Appointments:**
@@ -1092,7 +1172,7 @@ Each action makes your receptionist more valuable than a basic voicemail system.
 -- LESSONS - AI Receptionist - Deployment
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-1901', 'ffff3333-3333-3333-3333-333333333333', 'testing-optimization', 'Testing & Optimizing Your AI Receptionist', 'Test extensively and optimize for real-world call scenarios.',
+  ('00000000-0000-0000-0000-000000001901', 'ffff3333-3333-3333-3333-333333333333', 'testing-optimization', 'Testing & Optimizing Your AI Receptionist', 'Test extensively and optimize for real-world call scenarios.',
    'Before going live, your AI receptionist needs thorough testing.
 
 **Testing Checklist:**
@@ -1125,7 +1205,7 @@ INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_m
 Keep improving based on real call data.',
    30, 1, true),
 
-  ('lesson-1902', 'ffff3333-3333-3333-3333-333333333333', 'receptionist-deployment', 'Going Live & Monitoring', 'Deploy your AI receptionist and set up ongoing monitoring.',
+  ('00000000-0000-0000-0000-000000001902', 'ffff3333-3333-3333-3333-333333333333', 'receptionist-deployment', 'Going Live & Monitoring', 'Deploy your AI receptionist and set up ongoing monitoring.',
    'Your AI receptionist is tested and ready. Time to answer real calls.
 
 **Go-Live Strategy:**
@@ -1158,7 +1238,7 @@ You now have an AI receptionist that works around the clock.',
 -- LESSONS - AI Proposal Generator - Design
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-2001', 'gggg1111-1111-1111-1111-111111111111', 'why-proposals-matter', 'Why Proposals Win (or Lose) Business', 'Great proposals close deals. Bad proposals lose them. AI tips the scale.',
+  ('00000000-0000-0000-0000-000000002001', 'a0a01111-1111-1111-1111-111111111111', 'why-proposals-matter', 'Why Proposals Win (or Lose) Business', 'Great proposals close deals. Bad proposals lose them. AI tips the scale.',
    'A proposal is often the last thing a client sees before making a decision. Most businesses send mediocre proposals and wonder why they lose.
 
 **The Numbers:**
@@ -1183,7 +1263,7 @@ We''ll build a tool that:
 This works for contractors, consultants, agencies, freelancers — anyone who sends proposals to win work.',
    20, 1, true),
 
-  ('lesson-2002', 'gggg1111-1111-1111-1111-111111111111', 'proposal-anatomy', 'Anatomy of a Winning Proposal', 'The exact sections, structure, and language that wins business.',
+  ('00000000-0000-0000-0000-000000002002', 'a0a01111-1111-1111-1111-111111111111', 'proposal-anatomy', 'Anatomy of a Winning Proposal', 'The exact sections, structure, and language that wins business.',
    'Every great proposal follows a proven structure. Let''s break it down.
 
 **The Winning Structure:**
@@ -1207,7 +1287,7 @@ This works for contractors, consultants, agencies, freelancers — anyone who se
 AI will draft sections 2, 3, 4, and 6 based on your inputs. You provide the pricing and terms.',
    25, 2, true),
 
-  ('lesson-2003', 'gggg1111-1111-1111-1111-111111111111', 'scope-to-proposal', 'From Scope to Proposal', 'How to capture scope inputs that AI can turn into a great proposal.',
+  ('00000000-0000-0000-0000-000000002003', 'a0a01111-1111-1111-1111-111111111111', 'scope-to-proposal', 'From Scope to Proposal', 'How to capture scope inputs that AI can turn into a great proposal.',
    'Garbage in, garbage out. The better the scope input, the better the AI-generated proposal.
 
 **Scope Intake Methods:**
@@ -1242,7 +1322,7 @@ Good scope capture is the foundation of a fast, accurate proposal.',
 -- LESSONS - AI Proposal Generator - Building
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-2101', 'gggg2222-2222-2222-2222-222222222222', 'template-engine', 'Building the Template Engine', 'Create reusable proposal templates that AI fills in dynamically.',
+  ('00000000-0000-0000-0000-000000002101', 'a0a02222-2222-2222-2222-222222222222', 'template-engine', 'Building the Template Engine', 'Create reusable proposal templates that AI fills in dynamically.',
    'Templates give your proposals consistency. AI gives them speed.
 
 **Template Components:**
@@ -1278,7 +1358,7 @@ INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_m
 Each template is tailored to the industry but powered by the same AI engine.',
    35, 1, true),
 
-  ('lesson-2102', 'gggg2222-2222-2222-2222-222222222222', 'ai-writing-pipeline', 'The AI Writing Pipeline', 'Build the AI system that drafts each section of the proposal.',
+  ('00000000-0000-0000-0000-000000002102', 'a0a02222-2222-2222-2222-222222222222', 'ai-writing-pipeline', 'The AI Writing Pipeline', 'Build the AI system that drafts each section of the proposal.',
    'This is the core of the tool — AI that writes professional proposal content.
 
 **The Pipeline:**
@@ -1309,7 +1389,7 @@ Each template is tailored to the industry but powered by the same AI engine.',
 - Final human approval before sending',
    40, 2, true),
 
-  ('lesson-2103', 'gggg2222-2222-2222-2222-222222222222', 'pdf-generation', 'PDF Generation & Delivery', 'Turn the proposal into a polished PDF and deliver it to the client.',
+  ('00000000-0000-0000-0000-000000002103', 'a0a02222-2222-2222-2222-222222222222', 'pdf-generation', 'PDF Generation & Delivery', 'Turn the proposal into a polished PDF and deliver it to the client.',
    'The final step — turning your AI-drafted proposal into a beautiful document.
 
 **PDF Generation:**
@@ -1342,7 +1422,7 @@ A professional, tracked proposal dramatically increases your close rate.',
 -- LESSONS - AI Proposal Generator - Templates & Selling
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-2201', 'gggg3333-3333-3333-3333-333333333333', 'industry-templates', 'Building Industry Templates', 'Create proposal templates for specific industries that you can sell or use.',
+  ('00000000-0000-0000-0000-000000002201', 'a0a03333-3333-3333-3333-333333333333', 'industry-templates', 'Building Industry Templates', 'Create proposal templates for specific industries that you can sell or use.',
    'Industry-specific templates make your tool immediately valuable.
 
 **Templates to Build:**
@@ -1375,7 +1455,7 @@ INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_m
 5-10 good templates cover most small business needs.',
    30, 1, true),
 
-  ('lesson-2202', 'gggg3333-3333-3333-3333-333333333333', 'estimate-calculator', 'Building the Estimate Calculator', 'Add pricing logic so AI can suggest estimates based on scope.',
+  ('00000000-0000-0000-0000-000000002202', 'a0a03333-3333-3333-3333-333333333333', 'estimate-calculator', 'Building the Estimate Calculator', 'Add pricing logic so AI can suggest estimates based on scope.',
    'Proposals need prices. Let''s build a smart estimating system.
 
 **Pricing Models:**
@@ -1403,7 +1483,7 @@ INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_m
 The estimate calculator turns proposal writing from a 3-hour task into a 15-minute task.',
    35, 2, true),
 
-  ('lesson-2203', 'gggg3333-3333-3333-3333-333333333333', 'proposal-as-service', 'Selling Proposal Generation as a Service', 'Package your AI proposal tool for others to use or as a service you offer.',
+  ('00000000-0000-0000-0000-000000002203', 'a0a03333-3333-3333-3333-333333333333', 'proposal-as-service', 'Selling Proposal Generation as a Service', 'Package your AI proposal tool for others to use or as a service you offer.',
    'You''ve built a tool that saves hours on every proposal. That''s valuable.
 
 **Option 1: Use It Yourself**
@@ -1438,7 +1518,7 @@ You now have a tool, a service, or a product — your choice.',
 -- LESSONS - AI Platform Builder - Architecture
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-1001', 'dddd1111-1111-1111-1111-111111111111', 'choosing-your-stack', 'Choosing Your Tech Stack', 'The technology choices behind modern AI platforms.',
+  ('00000000-0000-0000-0000-000000001001', 'dddd1111-1111-1111-1111-111111111111', 'choosing-your-stack', 'Choosing Your Tech Stack', 'The technology choices behind modern AI platforms.',
    'Every great platform starts with good architecture decisions.
 
 **Our Stack:**
@@ -1465,7 +1545,7 @@ A complete SaaS platform with:
 Let''s set up the project.',
    30, 1, true),
 
-  ('lesson-1002', 'dddd1111-1111-1111-1111-111111111111', 'project-setup', 'Project Setup & Database Design', 'Initialize your project, set up Supabase, and design your database schema.',
+  ('00000000-0000-0000-0000-000000001002', 'dddd1111-1111-1111-1111-111111111111', 'project-setup', 'Project Setup & Database Design', 'Initialize your project, set up Supabase, and design your database schema.',
    'Time to get hands-on. We''ll initialize the project and set up the foundation.
 
 **Step 1: Create the Project**
@@ -1492,7 +1572,7 @@ RLS is critical for security:
 By the end of this lesson, you''ll have a working Next.js project connected to a Supabase database.',
    45, 2, true),
 
-  ('lesson-1003', 'dddd1111-1111-1111-1111-111111111111', 'ui-foundations', 'UI Foundations', 'Set up your component library and build the layout system.',
+  ('00000000-0000-0000-0000-000000001003', 'dddd1111-1111-1111-1111-111111111111', 'ui-foundations', 'UI Foundations', 'Set up your component library and build the layout system.',
    'A professional platform needs a professional UI. We''ll use shadcn/ui — a modern component library.
 
 **Installing shadcn/ui:**
@@ -1523,7 +1603,7 @@ The UI foundation makes everything that follows look polished and professional.'
 -- LESSONS - AI Platform Builder - Auth
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-1101', 'dddd2222-2222-2222-2222-222222222222', 'supabase-auth', 'Supabase Authentication', 'Build complete sign-up, login, and password reset flows.',
+  ('00000000-0000-0000-0000-000000001101', 'dddd2222-2222-2222-2222-222222222222', 'supabase-auth', 'Supabase Authentication', 'Build complete sign-up, login, and password reset flows.',
    'Authentication is the first real feature every platform needs.
 
 **What We''ll Build:**
@@ -1555,7 +1635,7 @@ Next.js middleware checks every request:
 By the end, your platform has a complete, secure auth system.',
    45, 1, true),
 
-  ('lesson-1102', 'dddd2222-2222-2222-2222-222222222222', 'user-profiles', 'User Profiles & Settings', 'Build user profile management with avatar uploads and settings.',
+  ('00000000-0000-0000-0000-000000001102', 'dddd2222-2222-2222-2222-222222222222', 'user-profiles', 'User Profiles & Settings', 'Build user profile management with avatar uploads and settings.',
    'Every user needs a profile page where they can manage their account.
 
 **Profile Features:**
@@ -1584,7 +1664,7 @@ We''ll use Next.js Server Actions for all mutations:
 Clean, secure, server-side mutations without building API routes.',
    40, 2, true),
 
-  ('lesson-1103', 'dddd2222-2222-2222-2222-222222222222', 'role-based-access', 'Role-Based Access Control', 'Implement admin and user roles with proper access control.',
+  ('00000000-0000-0000-0000-000000001103', 'dddd2222-2222-2222-2222-222222222222', 'role-based-access', 'Role-Based Access Control', 'Implement admin and user roles with proper access control.',
    'Not all users are equal. Admins need more access than regular users.
 
 **Role System:**
@@ -1616,7 +1696,7 @@ Role-based access control is the foundation for any multi-user platform.',
 -- LESSONS - AI Platform Builder - AI Features
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-1201', 'dddd3333-3333-3333-3333-333333333333', 'integrating-ai-apis', 'Integrating AI APIs', 'Connect your platform to OpenAI, Anthropic, and other AI services.',
+  ('00000000-0000-0000-0000-000000001201', 'dddd3333-3333-3333-3333-333333333333', 'integrating-ai-apis', 'Integrating AI APIs', 'Connect your platform to OpenAI, Anthropic, and other AI services.',
    'This is where your platform gets its AI superpowers.
 
 **Setting Up AI Clients:**
@@ -1644,7 +1724,7 @@ INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_m
 Your AI service layer becomes the core value of your platform.',
    45, 1, true),
 
-  ('lesson-1202', 'dddd3333-3333-3333-3333-333333333333', 'streaming-chat', 'Building a Streaming Chat Interface', 'Create a real-time chat interface with streaming AI responses.',
+  ('00000000-0000-0000-0000-000000001202', 'dddd3333-3333-3333-3333-333333333333', 'streaming-chat', 'Building a Streaming Chat Interface', 'Create a real-time chat interface with streaming AI responses.',
    'A streaming chat interface is the most common AI feature. Let''s build one that feels great.
 
 **Components:**
@@ -1675,7 +1755,7 @@ Use Next.js route handlers with streaming:
 This chat interface can be adapted for any AI-powered product.',
    50, 2, true),
 
-  ('lesson-1203', 'dddd3333-3333-3333-3333-333333333333', 'dashboards-analytics', 'Building Dashboards & Analytics', 'Create data-driven dashboards that give users actionable insights.',
+  ('00000000-0000-0000-0000-000000001203', 'dddd3333-3333-3333-3333-333333333333', 'dashboards-analytics', 'Building Dashboards & Analytics', 'Create data-driven dashboards that give users actionable insights.',
    'Dashboards turn raw data into value for your users.
 
 **Dashboard Components:**
@@ -1709,7 +1789,7 @@ A great dashboard is the reason users come back every day.',
 -- LESSONS - AI Platform Builder - Payments & Deployment
 -- =====================
 INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_minutes, sort_order, is_published) VALUES
-  ('lesson-1301', 'dddd4444-4444-4444-4444-444444444444', 'stripe-payments', 'Stripe Payments Integration', 'Add one-time purchases and subscriptions with Stripe.',
+  ('00000000-0000-0000-0000-000000001301', 'dddd4444-4444-4444-4444-444444444444', 'stripe-payments', 'Stripe Payments Integration', 'Add one-time purchases and subscriptions with Stripe.',
    'If you want to make money, you need payments. Stripe makes it straightforward.
 
 **What We''ll Build:**
@@ -1740,7 +1820,7 @@ INSERT INTO lessons (id, module_id, slug, title, summary, content_md, duration_m
 Stripe handles PCI compliance, fraud detection, and payment processing. You focus on your product.',
    50, 1, true),
 
-  ('lesson-1302', 'dddd4444-4444-4444-4444-444444444444', 'deployment', 'Deploying to Production', 'Deploy your platform to Vercel and configure your production environment.',
+  ('00000000-0000-0000-0000-000000001302', 'dddd4444-4444-4444-4444-444444444444', 'deployment', 'Deploying to Production', 'Deploy your platform to Vercel and configure your production environment.',
    'Your platform is built. Let''s put it on the internet.
 
 **Deployment with Vercel:**
@@ -1777,7 +1857,7 @@ Stripe handles PCI compliance, fraud detection, and payment processing. You focu
 Your AI platform is live. Congratulations — you built a real SaaS product!',
    45, 2, true),
 
-  ('lesson-1303', 'dddd4444-4444-4444-4444-444444444444', 'capstone-project', 'Capstone: Launch Your Platform', 'Apply everything and launch your own AI-powered platform.',
+  ('00000000-0000-0000-0000-000000001303', 'dddd4444-4444-4444-4444-444444444444', 'capstone-project', 'Capstone: Launch Your Platform', 'Apply everything and launch your own AI-powered platform.',
    'This is it. Your final project — launch your own AI platform.
 
 **The Challenge:**
@@ -1809,20 +1889,20 @@ Complete this capstone to earn your AI Platform Builder certification!',
 -- CERTIFICATIONS
 -- =====================
 INSERT INTO certifications (id, slug, title, description, requirements_json) VALUES
-  ('cert-essentials', 'ai-essentials', 'AI Essentials', 'Demonstrates foundational knowledge of AI tools, practical skills, and prompt engineering.',
-   '{"required_lesson_ids": ["lesson-0101", "lesson-0102", "lesson-0103", "lesson-0201", "lesson-0202", "lesson-0203", "lesson-0301", "lesson-0302", "lesson-0303"]}'),
-  ('cert-forex', 'forex-trading-bot', 'AI Forex Trading Bot', 'Demonstrates ability to build and deploy an AI-powered forex trading system.',
-   '{"required_lesson_ids": ["lesson-0401", "lesson-0402", "lesson-0403", "lesson-0501", "lesson-0502", "lesson-0503", "lesson-0601", "lesson-0602"]}'),
-  ('cert-reviews', 'five-star-reviews', '5-Star Review System', 'Demonstrates ability to build AI-powered review management and reputation systems.',
-   '{"required_lesson_ids": ["lesson-0701", "lesson-0702", "lesson-0801", "lesson-0802", "lesson-0803", "lesson-0901", "lesson-0902"]}'),
-  ('cert-intake', 'intake-lead-routing', 'AI Intake & Lead Routing', 'Demonstrates ability to build AI-powered lead intake, qualification, and routing systems.',
-   '{"required_lesson_ids": ["lesson-1401", "lesson-1402", "lesson-1403", "lesson-1501", "lesson-1502", "lesson-1503", "lesson-1601", "lesson-1602", "lesson-1603"]}'),
-  ('cert-receptionist', 'ai-receptionist', 'AI Receptionist & Call Handling', 'Demonstrates ability to build and deploy AI-powered phone answering and call handling systems.',
-   '{"required_lesson_ids": ["lesson-1701", "lesson-1702", "lesson-1703", "lesson-1801", "lesson-1802", "lesson-1803", "lesson-1901", "lesson-1902"]}'),
-  ('cert-proposals', 'proposal-generator', 'AI Proposal & Estimate Generator', 'Demonstrates ability to build AI-powered proposal writing and estimate generation tools.',
-   '{"required_lesson_ids": ["lesson-2001", "lesson-2002", "lesson-2003", "lesson-2101", "lesson-2102", "lesson-2103", "lesson-2201", "lesson-2202", "lesson-2203"]}'),
-  ('cert-builder', 'ai-platform-builder', 'AI Platform Builder', 'Demonstrates ability to build and deploy complete AI-powered SaaS platforms.',
-   '{"required_lesson_ids": ["lesson-1001", "lesson-1002", "lesson-1003", "lesson-1101", "lesson-1102", "lesson-1103", "lesson-1201", "lesson-1202", "lesson-1203", "lesson-1301", "lesson-1302", "lesson-1303"]}');
+  ('c0000000-0000-0000-0000-000000000001', 'ai-essentials', 'AI Essentials', 'Demonstrates foundational knowledge of AI tools, practical skills, and prompt engineering.',
+   '{"required_lesson_ids": ["00000000-0000-0000-0000-000000000101", "00000000-0000-0000-0000-000000000102", "00000000-0000-0000-0000-000000000103", "00000000-0000-0000-0000-000000000201", "00000000-0000-0000-0000-000000000202", "00000000-0000-0000-0000-000000000203", "00000000-0000-0000-0000-000000000301", "00000000-0000-0000-0000-000000000302", "00000000-0000-0000-0000-000000000303"]}'),
+  ('c0000000-0000-0000-0000-000000000002', 'forex-trading-bot', 'AI Forex Trading Bot', 'Demonstrates ability to build and deploy an AI-powered forex trading system.',
+   '{"required_lesson_ids": ["00000000-0000-0000-0000-000000000401", "00000000-0000-0000-0000-000000000402", "00000000-0000-0000-0000-000000000403", "00000000-0000-0000-0000-000000000501", "00000000-0000-0000-0000-000000000502", "00000000-0000-0000-0000-000000000503", "00000000-0000-0000-0000-000000000601", "00000000-0000-0000-0000-000000000602"]}'),
+  ('c0000000-0000-0000-0000-000000000003', 'five-star-reviews', '5-Star Review System', 'Demonstrates ability to build AI-powered review management and reputation systems.',
+   '{"required_lesson_ids": ["00000000-0000-0000-0000-000000000701", "00000000-0000-0000-0000-000000000702", "00000000-0000-0000-0000-000000000801", "00000000-0000-0000-0000-000000000802", "00000000-0000-0000-0000-000000000803", "00000000-0000-0000-0000-000000000901", "00000000-0000-0000-0000-000000000902"]}'),
+  ('c0000000-0000-0000-0000-000000000004', 'intake-lead-routing', 'AI Intake & Lead Routing', 'Demonstrates ability to build AI-powered lead intake, qualification, and routing systems.',
+   '{"required_lesson_ids": ["00000000-0000-0000-0000-000000001401", "00000000-0000-0000-0000-000000001402", "00000000-0000-0000-0000-000000001403", "00000000-0000-0000-0000-000000001501", "00000000-0000-0000-0000-000000001502", "00000000-0000-0000-0000-000000001503", "00000000-0000-0000-0000-000000001601", "00000000-0000-0000-0000-000000001602", "00000000-0000-0000-0000-000000001603"]}'),
+  ('c0000000-0000-0000-0000-000000000005', 'ai-receptionist', 'AI Receptionist & Call Handling', 'Demonstrates ability to build and deploy AI-powered phone answering and call handling systems.',
+   '{"required_lesson_ids": ["00000000-0000-0000-0000-000000001701", "00000000-0000-0000-0000-000000001702", "00000000-0000-0000-0000-000000001703", "00000000-0000-0000-0000-000000001801", "00000000-0000-0000-0000-000000001802", "00000000-0000-0000-0000-000000001803", "00000000-0000-0000-0000-000000001901", "00000000-0000-0000-0000-000000001902"]}'),
+  ('c0000000-0000-0000-0000-000000000006', 'proposal-generator', 'AI Proposal & Estimate Generator', 'Demonstrates ability to build AI-powered proposal writing and estimate generation tools.',
+   '{"required_lesson_ids": ["00000000-0000-0000-0000-000000002001", "00000000-0000-0000-0000-000000002002", "00000000-0000-0000-0000-000000002003", "00000000-0000-0000-0000-000000002101", "00000000-0000-0000-0000-000000002102", "00000000-0000-0000-0000-000000002103", "00000000-0000-0000-0000-000000002201", "00000000-0000-0000-0000-000000002202", "00000000-0000-0000-0000-000000002203"]}'),
+  ('c0000000-0000-0000-0000-000000000007', 'ai-platform-builder', 'AI Platform Builder', 'Demonstrates ability to build and deploy complete AI-powered SaaS platforms.',
+   '{"required_lesson_ids": ["00000000-0000-0000-0000-000000001001", "00000000-0000-0000-0000-000000001002", "00000000-0000-0000-0000-000000001003", "00000000-0000-0000-0000-000000001101", "00000000-0000-0000-0000-000000001102", "00000000-0000-0000-0000-000000001103", "00000000-0000-0000-0000-000000001201", "00000000-0000-0000-0000-000000001202", "00000000-0000-0000-0000-000000001203", "00000000-0000-0000-0000-000000001301", "00000000-0000-0000-0000-000000001302", "00000000-0000-0000-0000-000000001303"]}');
 
 -- Note: To make yourself an admin after signing up, run:
 -- UPDATE profiles SET role = 'admin' WHERE email = 'your-email@example.com';
