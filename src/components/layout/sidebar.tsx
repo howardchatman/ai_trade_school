@@ -41,11 +41,11 @@ export function Sidebar({ profile }: SidebarProps) {
           <Image
             src="/logo-white.png"
             alt="AI Trade School"
-            width={32}
-            height={32}
+            width={40}
+            height={40}
             className="rounded-full"
           />
-          <span className="text-xl font-semibold tracking-tight">
+          <span className="text-lg font-bold tracking-wide uppercase font-[family-name:var(--font-playfair)]">
             AI Trade School
           </span>
         </Link>

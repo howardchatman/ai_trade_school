@@ -44,12 +44,12 @@ export function AdminSidebar({ profile }: AdminSidebarProps) {
           <Image
             src="/logo-white.png"
             alt="AI Trade School"
-            width={32}
-            height={32}
+            width={40}
+            height={40}
             className="rounded-full"
           />
           <div>
-            <span className="text-xl font-semibold tracking-tight block">
+            <span className="text-lg font-bold tracking-wide uppercase font-[family-name:var(--font-playfair)] block">
               Admin Panel
             </span>
             <span className="text-xs text-sidebar-foreground/60">

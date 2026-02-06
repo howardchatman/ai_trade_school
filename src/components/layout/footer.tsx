@@ -32,7 +32,7 @@ export function Footer() {
                 height={40}
                 className="rounded-full"
               />
-              <span className="text-xl font-semibold tracking-tight">
+              <span className="text-xl font-bold tracking-wide uppercase font-[family-name:var(--font-playfair)]">
                 AI Trade School
               </span>
             </Link>
