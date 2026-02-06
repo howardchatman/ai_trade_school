@@ -33,7 +33,7 @@ export function Header({ isAuthenticated }: HeaderProps) {
             className="flex items-center gap-3"
           >
             <Image
-              src="/logo-white.png"
+              src="/logo-black.png"
               alt="AI Trade School"
               width={48}
               height={48}

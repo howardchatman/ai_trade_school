@@ -40,7 +40,7 @@ export default function SignupPage() {
           <div>
             <div className="text-center mb-8">
               <Image
-                src="/logo-white.png"
+                src="/logo-black.png"
                 alt="AI Trade School"
                 width={64}
                 height={64}

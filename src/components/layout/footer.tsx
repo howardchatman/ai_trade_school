@@ -16,7 +16,7 @@ const FOOTER_LINKS = {
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-background">
+    <footer className="border-t border-border bg-[#0f172a] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
@@ -36,7 +36,7 @@ export function Footer() {
                 AI Trade School
               </span>
             </Link>
-            <p className="mt-4 text-sm text-muted-foreground max-w-md">
+            <p className="mt-4 text-sm text-slate-400 max-w-md">
               Professional AI training for the new economy. Learn to operate,
               build, and lead with artificial intelligence.
             </p>
@@ -44,13 +44,13 @@ export function Footer() {
 
           {/* Product Links */}
           <div>
-            <h3 className="text-sm font-semibold mb-4">Product</h3>
+            <h3 className="text-sm font-semibold mb-4 text-white">Product</h3>
             <ul className="space-y-3">
               {FOOTER_LINKS.product.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-slate-400 hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -61,13 +61,13 @@ export function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h3 className="text-sm font-semibold mb-4">Legal</h3>
+            <h3 className="text-sm font-semibold mb-4 text-white">Legal</h3>
             <ul className="space-y-3">
               {FOOTER_LINKS.legal.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-slate-400 hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -78,8 +78,8 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-12 pt-8 border-t border-border">
-          <p className="text-sm text-muted-foreground">
+        <div className="mt-12 pt-8 border-t border-slate-700">
+          <p className="text-sm text-slate-400">
             &copy; {new Date().getFullYear()} AI Trade School. All rights
             reserved.
           </p>

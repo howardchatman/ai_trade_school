@@ -14,7 +14,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md px-4">
         <div className="text-center mb-8">
           <Image
-            src="/logo-white.png"
+            src="/logo-black.png"
             alt="AI Trade School"
             width={64}
             height={64}

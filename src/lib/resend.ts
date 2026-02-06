@@ -29,7 +29,7 @@ export async function sendWelcomeEmail(to: string, firstName: string) {
         <p style="font-size: 16px; color: #555; line-height: 1.6; margin-bottom: 24px;">
           When you are ready to go deeper, check out our project workshops ($99 each) or the full AI Platform Builder program ($497).
         </p>
-        <a href="${siteUrl}/app" style="display: inline-block; background: #10b981; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 16px;">
+        <a href="${siteUrl}/app" style="display: inline-block; background: #1e3a5f; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 16px;">
           Go to Your Dashboard
         </a>
         <p style="font-size: 14px; color: #999; margin-top: 32px; line-height: 1.5;">
@@ -68,7 +68,7 @@ export async function sendPurchaseConfirmation(
         <p style="font-size: 16px; color: #555; line-height: 1.6; margin-bottom: 24px;">
           Your course is unlocked and ready. Jump in whenever you are — lifetime access, no rush.
         </p>
-        <a href="${siteUrl}/app/courses" style="display: inline-block; background: #10b981; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 16px;">
+        <a href="${siteUrl}/app/courses" style="display: inline-block; background: #1e3a5f; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 16px;">
           Start Learning
         </a>
         <p style="font-size: 14px; color: #999; margin-top: 32px; line-height: 1.5;">

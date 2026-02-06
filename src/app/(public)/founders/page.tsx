@@ -105,7 +105,7 @@ export default function FoundersPage() {
         {/* Story */}
         <div className="mb-24 max-w-3xl mx-auto">
           <h2 className="text-2xl font-semibold mb-6">Our Story</h2>
-          <div className="prose prose-invert max-w-none">
+          <div className="prose max-w-none">
             <p className="text-muted-foreground mb-4">
               AI Trade School was born from a simple observation: the AI
               revolution was creating a skills gap that traditional education
