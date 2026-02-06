@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { ROUTES } from '@/lib/constants';
@@ -38,13 +39,24 @@ export function AdminSidebar({ profile }: AdminSidebarProps) {
       <div className="p-6 border-b border-sidebar-border">
         <Link
           href={ROUTES.ADMIN}
-          className="text-xl font-semibold tracking-tight text-sidebar-foreground"
+          className="flex items-center gap-3 text-sidebar-foreground"
         >
-          Admin Panel
+          <Image
+            src="/logo-white.png"
+            alt="AI Trade School"
+            width={32}
+            height={32}
+            className="rounded-full"
+          />
+          <div>
+            <span className="text-xl font-semibold tracking-tight block">
+              Admin Panel
+            </span>
+            <span className="text-xs text-sidebar-foreground/60">
+              AI Trade School
+            </span>
+          </div>
         </Link>
-        <p className="text-xs text-sidebar-foreground/60 mt-1">
-          AI Trade School
-        </p>
       </div>
 
       {/* Navigation */}

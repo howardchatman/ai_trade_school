@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { SignupForm } from '@/components/auth/signup-form';
 import { ROUTES } from '@/lib/constants';
 import { CheckCircle } from 'lucide-react';
@@ -38,6 +39,13 @@ export default function SignupPage() {
           {/* Form */}
           <div>
             <div className="text-center mb-8">
+              <Image
+                src="/logo-white.png"
+                alt="AI Trade School"
+                width={64}
+                height={64}
+                className="mx-auto mb-4 rounded-full"
+              />
               <h1 className="text-3xl font-semibold tracking-tight mb-2">
                 Create an account
               </h1>

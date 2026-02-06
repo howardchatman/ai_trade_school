@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ROUTES } from '@/lib/constants';
 
 const FOOTER_LINKS = {
@@ -22,9 +23,18 @@ export function Footer() {
           <div className="md:col-span-2">
             <Link
               href={ROUTES.HOME}
-              className="text-xl font-semibold tracking-tight"
+              className="flex items-center gap-3"
             >
-              AI Trade School
+              <Image
+                src="/logo-white.png"
+                alt="AI Trade School"
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
+              <span className="text-xl font-semibold tracking-tight">
+                AI Trade School
+              </span>
             </Link>
             <p className="mt-4 text-sm text-muted-foreground max-w-md">
               Professional AI training for the new economy. Learn to operate,

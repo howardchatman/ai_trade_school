@@ -7,29 +7,40 @@ export default function HomePage() {
   return (
     <div className="noise-bg">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.1] mb-6">
-              Master the
-              <br />
-              <span className="text-muted-foreground">AI Economy</span>
+      <section className="relative min-h-[75vh] flex items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="max-w-2xl">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.1] mb-0">
+              AI Is the New Skilled Trade
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-xl">
-              Professional training for the new economy. Learn to operate, build,
-              and lead with artificial intelligence. No fluff. Just results.
+            <div className="w-16 h-0.5 bg-emerald-500 mt-5 mb-6" />
+            <p className="text-lg text-muted-foreground mb-4 max-w-xl leading-relaxed">
+              Learn practical AI skills you can actually use — to automate work,
+              build systems, and create real-world value.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" asChild>
-                <Link href={ROUTES.SIGNUP}>
-                  Start Free
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+            <p className="text-lg text-muted-foreground mb-8 max-w-xl">
+              No hype. No fluff. Just skills that pay.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button
+                size="lg"
+                asChild
+                className="bg-emerald-600 hover:bg-emerald-700 text-white"
+              >
+                <Link href={ROUTES.SIGNUP}>Start Free</Link>
               </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link href={ROUTES.TRACKS}>Explore Courses</Link>
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+                className="border-border text-foreground hover:bg-white/5"
+              >
+                <Link href={ROUTES.TRACKS}>View Courses</Link>
               </Button>
             </div>
+            <p className="text-xs text-muted-foreground/70 mt-4">
+              Free introductory courses available &middot; No subscription required
+            </p>
           </div>
         </div>
       </section>

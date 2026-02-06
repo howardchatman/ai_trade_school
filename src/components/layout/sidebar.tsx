@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { ROUTES } from '@/lib/constants';
@@ -35,9 +36,18 @@ export function Sidebar({ profile }: SidebarProps) {
       <div className="p-6 border-b border-sidebar-border">
         <Link
           href={ROUTES.HOME}
-          className="text-xl font-semibold tracking-tight text-sidebar-foreground"
+          className="flex items-center gap-3 text-sidebar-foreground"
         >
-          AI Trade School
+          <Image
+            src="/logo-white.png"
+            alt="AI Trade School"
+            width={32}
+            height={32}
+            className="rounded-full"
+          />
+          <span className="text-xl font-semibold tracking-tight">
+            AI Trade School
+          </span>
         </Link>
       </div>
 

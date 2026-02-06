@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ROUTES } from '@/lib/constants';
@@ -29,9 +30,18 @@ export function Header({ isAuthenticated }: HeaderProps) {
           {/* Logo */}
           <Link
             href={ROUTES.HOME}
-            className="text-xl font-semibold tracking-tight"
+            className="flex items-center gap-2"
           >
-            AI Trade School
+            <Image
+              src="/logo-white.png"
+              alt="AI Trade School"
+              width={36}
+              height={36}
+              className="rounded-full"
+            />
+            <span className="text-xl font-semibold tracking-tight">
+              AI Trade School
+            </span>
           </Link>
 
           {/* Desktop Navigation */}

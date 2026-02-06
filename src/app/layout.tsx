@@ -17,10 +17,15 @@ export const metadata: Metadata = {
   title: "AI Trade School | Master the AI Economy",
   description: "Learn to operate, build, and lead with AI. Professional training for the new economy.",
   keywords: ["AI training", "AI education", "machine learning", "professional development"],
+  icons: {
+    icon: "/logo-black.png",
+    apple: "/logo-black.png",
+  },
   openGraph: {
     title: "AI Trade School",
     description: "Master the AI Economy",
     type: "website",
+    images: ["/logo-white.png"],
   },
 };
 
