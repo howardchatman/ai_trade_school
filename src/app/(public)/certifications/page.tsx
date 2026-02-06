@@ -25,7 +25,7 @@ export default async function CertificationsPage() {
       {/* Hero Banner */}
       <section className="relative h-64 md:h-80 flex items-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1523050854058-8df90110c476?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1920&q=80"
           alt="Professional achievement and certification"
           fill
           className="object-cover"
