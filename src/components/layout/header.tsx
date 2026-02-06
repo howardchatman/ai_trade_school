@@ -51,7 +51,7 @@ export function Header({ isAuthenticated }: HeaderProps) {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  'text-sm transition-colors',
+                  'text-sm font-bold transition-colors',
                   pathname === link.href
                     ? 'text-foreground'
                     : 'text-muted-foreground hover:text-foreground'
