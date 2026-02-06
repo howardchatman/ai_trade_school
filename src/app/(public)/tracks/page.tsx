@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/server';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -30,18 +31,29 @@ export default async function TracksPage() {
     .order('sort_order');
 
   return (
-    <div className="min-h-screen py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-4">
+    <div className="min-h-screen">
+      {/* Hero Banner */}
+      <section className="relative h-64 md:h-80 flex items-center overflow-hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1920&q=80"
+          alt="Students learning with technology"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-[#0f172a]/70" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-4 text-white">
             Courses
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-slate-300 max-w-2xl">
             Professional AI training. Start free, then go deeper with
             project-based workshops and our flagship platform builder program.
           </p>
         </div>
+      </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
         {/* Tracks Grid */}
         {tracks && tracks.length > 0 ? (
