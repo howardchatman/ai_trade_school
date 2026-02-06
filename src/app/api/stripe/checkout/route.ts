@@ -5,11 +5,11 @@ import { stripe } from '@/lib/stripe/client';
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
-    const priceId = formData.get('priceId') as string;
+    const trackId = formData.get('trackId') as string;
 
-    if (!priceId) {
+    if (!trackId) {
       return NextResponse.json(
-        { error: 'Price ID is required' },
+        { error: 'Track ID is required' },
         { status: 400 }
       );
     }
@@ -22,6 +22,36 @@ export async function POST(request: Request) {
     if (!user) {
       return NextResponse.redirect(
         new URL('/login', process.env.NEXT_PUBLIC_APP_URL)
+      );
+    }
+
+    // Look up the track to get its Stripe price ID
+    const { data: track } = await supabase
+      .from('tracks')
+      .select('id, slug, stripe_price_id, price_cents')
+      .eq('id', trackId)
+      .single();
+
+    if (!track || !track.stripe_price_id || track.price_cents === 0) {
+      return NextResponse.json(
+        { error: 'Invalid course or course is free' },
+        { status: 400 }
+      );
+    }
+
+    // Check if user already purchased this course
+    const { data: existingPurchase } = await supabase
+      .from('purchases')
+      .select('id')
+      .eq('user_id', user.id)
+      .eq('track_id', trackId)
+      .eq('status', 'completed')
+      .single();
+
+    if (existingPurchase) {
+      return NextResponse.redirect(
+        new URL(`/app/track/${track.slug}`, process.env.NEXT_PUBLIC_APP_URL),
+        { status: 303 }
       );
     }
 
@@ -51,21 +81,22 @@ export async function POST(request: Request) {
         .eq('id', user.id);
     }
 
-    // Create Checkout Session
+    // Create one-time payment Checkout Session
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
-      mode: 'subscription',
+      mode: 'payment',
       payment_method_types: ['card'],
       line_items: [
         {
-          price: priceId,
+          price: track.stripe_price_id,
           quantity: 1,
         },
       ],
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/app?success=true`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/app/settings/billing?canceled=true`,
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/app/track/${track.slug}?purchased=true`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/app/courses?canceled=true`,
       metadata: {
         supabase_user_id: user.id,
+        track_id: track.id,
       },
     });
 

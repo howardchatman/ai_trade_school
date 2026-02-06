@@ -3,7 +3,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { revalidatePath } from 'next/cache';
-import type { Profile, Track, Module, Lesson } from '@/types';
+import type { Profile, Track, Module, Lesson, Purchase } from '@/types';
 
 // =====================
 // TRACKS
@@ -39,6 +39,9 @@ export async function createTrack(formData: FormData) {
   const description = formData.get('description') as string;
   const sort_order = parseInt(formData.get('sort_order') as string) || 0;
   const is_published = formData.get('is_published') === 'true';
+  const price_cents = parseInt(formData.get('price_cents') as string) || 0;
+  const stripe_price_id = (formData.get('stripe_price_id') as string) || null;
+  const price_label = (formData.get('price_label') as string) || (price_cents === 0 ? 'Free' : `$${price_cents / 100}`);
 
   const { error } = await supabase.from('tracks').insert({
     title,
@@ -46,6 +49,9 @@ export async function createTrack(formData: FormData) {
     description,
     sort_order,
     is_published,
+    price_cents,
+    stripe_price_id,
+    price_label,
   });
 
   if (error) {
@@ -64,6 +70,9 @@ export async function updateTrack(id: string, formData: FormData) {
   const description = formData.get('description') as string;
   const sort_order = parseInt(formData.get('sort_order') as string) || 0;
   const is_published = formData.get('is_published') === 'true';
+  const price_cents = parseInt(formData.get('price_cents') as string) || 0;
+  const stripe_price_id = (formData.get('stripe_price_id') as string) || null;
+  const price_label = (formData.get('price_label') as string) || (price_cents === 0 ? 'Free' : `$${price_cents / 100}`);
 
   const { error } = await supabase
     .from('tracks')
@@ -73,6 +82,9 @@ export async function updateTrack(id: string, formData: FormData) {
       description,
       sort_order,
       is_published,
+      price_cents,
+      stripe_price_id,
+      price_label,
     })
     .eq('id', id);
 
@@ -226,7 +238,6 @@ export async function createLesson(formData: FormData) {
   const duration_minutes = parseInt(formData.get('duration_minutes') as string) || null;
   const sort_order = parseInt(formData.get('sort_order') as string) || 0;
   const is_published = formData.get('is_published') === 'true';
-  const required_tier = formData.get('required_tier') as string || 'free';
 
   const { error } = await supabase.from('lessons').insert({
     module_id,
@@ -238,7 +249,6 @@ export async function createLesson(formData: FormData) {
     duration_minutes,
     sort_order,
     is_published,
-    required_tier,
   });
 
   if (error) {
@@ -261,7 +271,6 @@ export async function updateLesson(id: string, formData: FormData) {
   const duration_minutes = parseInt(formData.get('duration_minutes') as string) || null;
   const sort_order = parseInt(formData.get('sort_order') as string) || 0;
   const is_published = formData.get('is_published') === 'true';
-  const required_tier = formData.get('required_tier') as string || 'free';
 
   const { error } = await supabase
     .from('lessons')
@@ -275,7 +284,6 @@ export async function updateLesson(id: string, formData: FormData) {
       duration_minutes,
       sort_order,
       is_published,
-      required_tier,
     })
     .eq('id', id);
 
@@ -336,13 +344,18 @@ export async function updateUserRole(userId: string, role: 'student' | 'admin') 
   return { success: true };
 }
 
-export async function updateUserTier(userId: string, tier: string) {
+export async function grantCourseAccess(userId: string, trackId: string) {
   const supabase = await createClient();
 
-  const { error } = await supabase
-    .from('profiles')
-    .update({ tier })
-    .eq('id', userId);
+  const { error } = await supabase.from('purchases').upsert(
+    {
+      user_id: userId,
+      track_id: trackId,
+      amount_cents: 0,
+      status: 'completed',
+    },
+    { onConflict: 'user_id,track_id' }
+  );
 
   if (error) {
     return { error: error.message };
@@ -350,6 +363,42 @@ export async function updateUserTier(userId: string, tier: string) {
 
   revalidatePath('/admin/users');
   return { success: true };
+}
+
+export async function revokeCourseAccess(userId: string, trackId: string) {
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from('purchases')
+    .delete()
+    .eq('user_id', userId)
+    .eq('track_id', trackId);
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  revalidatePath('/admin/users');
+  return { success: true };
+}
+
+export async function getAdminTracks_Simple() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from('tracks')
+    .select('id, title, price_cents')
+    .order('sort_order');
+  return data || [];
+}
+
+export async function getUserPurchases_Admin(userId: string) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from('purchases')
+    .select('track_id')
+    .eq('user_id', userId)
+    .eq('status', 'completed');
+  return (data || []).map((p) => p.track_id);
 }
 
 // =====================
@@ -363,11 +412,13 @@ export async function getAdminStats() {
     { count: usersCount },
     { count: tracksCount },
     { count: lessonsCount },
+    { count: purchasesCount },
     { data: recentUsers },
   ] = await Promise.all([
     supabase.from('profiles').select('*', { count: 'exact', head: true }),
     supabase.from('tracks').select('*', { count: 'exact', head: true }),
     supabase.from('lessons').select('*', { count: 'exact', head: true }),
+    supabase.from('purchases').select('*', { count: 'exact', head: true }),
     supabase
       .from('profiles')
       .select('*')
@@ -379,6 +430,7 @@ export async function getAdminStats() {
     usersCount: usersCount || 0,
     tracksCount: tracksCount || 0,
     lessonsCount: lessonsCount || 0,
+    purchasesCount: purchasesCount || 0,
     recentUsers: recentUsers || [],
   };
 }

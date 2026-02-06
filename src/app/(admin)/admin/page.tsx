@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { getAdminStats } from '@/actions/admin';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ROUTES, TIER_LABELS } from '@/lib/constants';
-import { Users, Layers, FileText, ArrowRight } from 'lucide-react';
+import { ROUTES } from '@/lib/constants';
+import { Users, Layers, FileText, ShoppingCart, ArrowRight } from 'lucide-react';
 import type { Profile } from '@/types';
 
 export const metadata = {
@@ -25,7 +25,7 @@ export default async function AdminPage() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardDescription>Total Users</CardDescription>
@@ -38,7 +38,7 @@ export default async function AdminPage() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardDescription>Tracks</CardDescription>
+            <CardDescription>Courses</CardDescription>
             <Layers className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -53,6 +53,16 @@ export default async function AdminPage() {
           </CardHeader>
           <CardContent>
             <CardTitle className="text-3xl">{stats.lessonsCount}</CardTitle>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardDescription>Purchases</CardDescription>
+            <ShoppingCart className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <CardTitle className="text-3xl">{stats.purchasesCount}</CardTitle>
           </CardContent>
         </Card>
       </div>
@@ -117,7 +127,7 @@ export default async function AdminPage() {
                   <p className="text-sm text-muted-foreground">{user.email}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm">{TIER_LABELS[user.tier]}</p>
+                  <p className="text-sm capitalize">{user.role}</p>
                   <p className="text-xs text-muted-foreground">
                     {new Date(user.created_at).toLocaleDateString()}
                   </p>

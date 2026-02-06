@@ -1,18 +1,19 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
-import type { Tier } from '@/lib/constants';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function canAccessLesson(userTier: Tier, lessonTier: Tier): boolean {
-  // Free lessons are always accessible
-  if (lessonTier === 'free') return true;
+export function canAccessCourse(trackPriceCents: number, purchasedTrackIds: string[], trackId: string): boolean {
+  // Free courses are accessible to all logged-in users
+  if (trackPriceCents === 0) return true;
 
-  // All access can view everything
-  if (userTier === 'all_access') return true;
+  // Paid courses require a purchase
+  return purchasedTrackIds.includes(trackId);
+}
 
-  // Exact tier match required
-  return userTier === lessonTier;
+export function formatPrice(priceCents: number): string {
+  if (priceCents === 0) return 'Free';
+  return `$${(priceCents / 100).toFixed(0)}`;
 }

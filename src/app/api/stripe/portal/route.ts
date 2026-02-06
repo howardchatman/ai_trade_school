@@ -24,14 +24,14 @@ export async function POST() {
 
     if (!profile?.stripe_customer_id) {
       return NextResponse.redirect(
-        new URL('/app/settings/billing?error=no_customer', process.env.NEXT_PUBLIC_APP_URL)
+        new URL('/app/courses', process.env.NEXT_PUBLIC_APP_URL)
       );
     }
 
-    // Create Billing Portal session
+    // Create Billing Portal session (for receipts)
     const session = await stripe.billingPortal.sessions.create({
       customer: profile.stripe_customer_id,
-      return_url: `${process.env.NEXT_PUBLIC_APP_URL}/app/settings/billing`,
+      return_url: `${process.env.NEXT_PUBLIC_APP_URL}/app/courses`,
     });
 
     return NextResponse.redirect(session.url, { status: 303 });

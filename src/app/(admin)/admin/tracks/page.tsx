@@ -26,6 +26,9 @@ interface Track {
   description: string | null;
   sort_order: number;
   is_published: boolean;
+  price_cents: number;
+  stripe_price_id: string | null;
+  price_label: string | null;
   modules: { id: string; lessons: { id: string }[] }[];
 }
 
@@ -131,23 +134,55 @@ export default function AdminTracksPage() {
                   defaultValue={editingTrack?.description || ''}
                 />
               </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="price_cents">Price (cents)</Label>
+                  <Input
+                    id="price_cents"
+                    name="price_cents"
+                    type="number"
+                    defaultValue={editingTrack?.price_cents || 0}
+                    placeholder="0 = Free, 9900 = $99"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="price_label">Price Label</Label>
+                  <Input
+                    id="price_label"
+                    name="price_label"
+                    defaultValue={editingTrack?.price_label || ''}
+                    placeholder="Free, $99, $497"
+                  />
+                </div>
+              </div>
               <div className="space-y-2">
-                <Label htmlFor="sort_order">Sort Order</Label>
+                <Label htmlFor="stripe_price_id">Stripe Price ID</Label>
                 <Input
-                  id="sort_order"
-                  name="sort_order"
-                  type="number"
-                  defaultValue={editingTrack?.sort_order || 0}
+                  id="stripe_price_id"
+                  name="stripe_price_id"
+                  defaultValue={editingTrack?.stripe_price_id || ''}
+                  placeholder="price_xxx (from Stripe Dashboard)"
                 />
               </div>
-              <div className="flex items-center gap-2">
-                <Switch
-                  id="is_published"
-                  name="is_published"
-                  defaultChecked={editingTrack?.is_published || false}
-                  value="true"
-                />
-                <Label htmlFor="is_published">Published</Label>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="sort_order">Sort Order</Label>
+                  <Input
+                    id="sort_order"
+                    name="sort_order"
+                    type="number"
+                    defaultValue={editingTrack?.sort_order || 0}
+                  />
+                </div>
+                <div className="flex items-center gap-2 pt-8">
+                  <Switch
+                    id="is_published"
+                    name="is_published"
+                    defaultChecked={editingTrack?.is_published || false}
+                    value="true"
+                  />
+                  <Label htmlFor="is_published">Published</Label>
+                </div>
               </div>
               <Button type="submit" className="w-full">
                 {editingTrack ? 'Update' : 'Create'}
@@ -175,7 +210,7 @@ export default function AdminTracksPage() {
                 <div>
                   <CardTitle className="text-xl">{track.title}</CardTitle>
                   <p className="text-sm text-muted-foreground">
-                    /{track.slug} • {track.modules?.length || 0} modules •{' '}
+                    /{track.slug} • {track.price_cents === 0 ? 'Free' : `$${track.price_cents / 100}`} • {track.modules?.length || 0} modules •{' '}
                     {track.modules?.reduce((acc, m) => acc + (m.lessons?.length || 0), 0) || 0} lessons
                   </p>
                 </div>

@@ -89,9 +89,6 @@ SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 # Stripe
 STRIPE_SECRET_KEY=sk_test_...
 STRIPE_WEBHOOK_SECRET=whsec_...
-NEXT_PUBLIC_STRIPE_PRICE_OPERATOR=price_...
-NEXT_PUBLIC_STRIPE_PRICE_BUILDER=price_...
-NEXT_PUBLIC_STRIPE_PRICE_ALL_ACCESS=price_...
 
 # App
 NEXT_PUBLIC_APP_URL=http://localhost:3000
@@ -215,7 +212,7 @@ After deployment, verify:
 ```
 Tracks
   └── Modules
-       └── Lessons (with required_tier)
+       └── Lessons
 
 Certifications
   └── required_lesson_ids (JSON array)

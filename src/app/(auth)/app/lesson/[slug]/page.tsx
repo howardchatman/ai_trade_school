@@ -2,18 +2,18 @@ import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import { getUser } from '@/actions/auth';
 import { getLessonWithProgress, getAdjacentLessons } from '@/actions/lessons';
-import { canAccessLesson } from '@/lib/utils';
+import { getUserPurchasedTrackIds } from '@/actions/purchases';
+import { canAccessCourse } from '@/lib/utils';
 import { markLessonComplete, markLessonInProgress } from '@/actions/progress';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { ROUTES, TIER_LABELS } from '@/lib/constants';
+import { ROUTES } from '@/lib/constants';
 import {
   ArrowLeft,
   ArrowRight,
   CheckCircle,
   Clock,
-  Lock,
   Play,
 } from 'lucide-react';
 
@@ -57,12 +57,19 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const lesson = await getLessonWithProgress(slug, userData.profile.id);
   if (!lesson) notFound();
 
-  const tier = userData.profile.tier;
-  const hasAccess = canAccessLesson(tier, lesson.required_tier);
+  const track = lesson.module?.track;
+  const trackId = track?.id;
+  const trackPriceCents = track?.price_cents ?? 0;
 
-  // Redirect to billing if no access
-  if (!hasAccess) {
-    redirect(ROUTES.APP_BILLING);
+  // Check access based on course purchase
+  const purchasedTrackIds = await getUserPurchasedTrackIds(userData.profile.id);
+  const hasAccess = trackId
+    ? canAccessCourse(trackPriceCents, purchasedTrackIds, trackId)
+    : true;
+
+  // Redirect to track page if no access (shows purchase CTA)
+  if (!hasAccess && track) {
+    redirect(ROUTES.APP_TRACK(track.slug));
   }
 
   // Mark as viewing
@@ -98,9 +105,6 @@ export default async function LessonPage({ params }: LessonPageProps) {
               {lesson.duration_minutes} minutes
             </span>
           )}
-          <Badge variant={lesson.required_tier === 'free' ? 'secondary' : 'outline'}>
-            {TIER_LABELS[lesson.required_tier]}
-          </Badge>
           {isCompleted && (
             <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
               <CheckCircle className="mr-1 h-3 w-3" />
@@ -115,7 +119,6 @@ export default async function LessonPage({ params }: LessonPageProps) {
         <Card className="mb-8 overflow-hidden">
           <CardContent className="p-0">
             <div className="aspect-video bg-secondary flex items-center justify-center">
-              {/* Simple video embed - could be enhanced with a proper video player */}
               <iframe
                 src={lesson.video_url}
                 className="w-full h-full"

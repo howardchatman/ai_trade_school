@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { ROUTES } from '@/lib/constants';
+import { sendWelcomeEmail } from '@/lib/resend';
 import type { Profile } from '@/types';
 
 export async function signUp(formData: FormData) {
@@ -29,8 +30,11 @@ export async function signUp(formData: FormData) {
     return { error: error.message };
   }
 
+  // Send welcome email (fire and forget — don't block signup)
+  sendWelcomeEmail(email, firstName).catch(console.error);
+
   revalidatePath('/', 'layout');
-  redirect(ROUTES.APP);
+  redirect(ROUTES.APP_ONBOARDING);
 }
 
 export async function signIn(formData: FormData) {

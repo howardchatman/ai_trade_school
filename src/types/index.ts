@@ -1,14 +1,12 @@
-import type { Tier, Role, ProgressStatus, CertificationStatus } from '@/lib/constants';
+import type { Role, ProgressStatus, CertificationStatus } from '@/lib/constants';
 
 export interface Profile {
   id: string;
   email: string;
   full_name: string | null;
   role: Role;
-  tier: Tier;
   stripe_customer_id: string | null;
-  stripe_subscription_id: string | null;
-  stripe_subscription_status: string | null;
+  onboarding_completed: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -20,6 +18,9 @@ export interface Track {
   description: string | null;
   sort_order: number;
   is_published: boolean;
+  price_cents: number;
+  stripe_price_id: string | null;
+  price_label: string | null;
   created_at: string;
   updated_at: string;
   modules?: Module[];
@@ -49,7 +50,6 @@ export interface Lesson {
   duration_minutes: number | null;
   sort_order: number;
   is_published: boolean;
-  required_tier: Tier;
   created_at: string;
   updated_at: string;
   module?: Module;
@@ -86,6 +86,19 @@ export interface UserCertification {
   earned_at: string | null;
   created_at: string;
   certification?: Certification;
+}
+
+export interface Purchase {
+  id: string;
+  user_id: string;
+  track_id: string;
+  stripe_payment_intent_id: string | null;
+  stripe_checkout_session_id: string | null;
+  amount_cents: number;
+  status: 'pending' | 'completed' | 'refunded';
+  purchased_at: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface UserWithProfile {

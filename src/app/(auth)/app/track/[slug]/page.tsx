@@ -2,11 +2,12 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getUser } from '@/actions/auth';
 import { getTrackBySlug } from '@/actions/tracks';
+import { getUserPurchasedTrackIds } from '@/actions/purchases';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ROUTES } from '@/lib/constants';
-import { canAccessLesson } from '@/lib/utils';
+import { canAccessCourse, formatPrice } from '@/lib/utils';
 import { createClient } from '@/lib/supabase/server';
 import {
   ArrowLeft,
@@ -15,6 +16,7 @@ import {
   Lock,
   Play,
   Clock,
+  ShoppingCart,
 } from 'lucide-react';
 import type { Lesson, Module } from '@/types';
 
@@ -48,7 +50,8 @@ export default async function TrackPage({ params }: TrackPageProps) {
     (progress || []).map((p) => [p.lesson_id, p.status])
   );
 
-  const tier = userData.profile.tier;
+  const purchasedTrackIds = await getUserPurchasedTrackIds(userData.profile.id);
+  const hasAccess = canAccessCourse(track.price_cents, purchasedTrackIds, track.id);
 
   return (
     <div className="p-6 lg:p-8">
@@ -76,8 +79,30 @@ export default async function TrackPage({ params }: TrackPageProps) {
           <span>
             {track.modules?.reduce((acc: number, m: { lessons?: unknown[] }) => acc + (m.lessons?.length || 0), 0) || 0} lessons
           </span>
+          <Badge variant="secondary">{formatPrice(track.price_cents)}</Badge>
         </div>
       </div>
+
+      {/* Purchase CTA for unpurchased paid courses */}
+      {!hasAccess && track.price_cents > 0 && (
+        <Card className="mb-8 border-primary">
+          <CardContent className="py-6 flex items-center justify-between">
+            <div>
+              <p className="font-semibold text-lg">Unlock this course</p>
+              <p className="text-muted-foreground">
+                One-time purchase — full lifetime access
+              </p>
+            </div>
+            <form action="/api/stripe/checkout" method="POST">
+              <input type="hidden" name="trackId" value={track.id} />
+              <Button size="lg">
+                <ShoppingCart className="mr-2 h-4 w-4" />
+                Buy Course — {formatPrice(track.price_cents)}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Modules List */}
       <div className="space-y-6">
@@ -102,7 +127,6 @@ export default async function TrackPage({ params }: TrackPageProps) {
                       const status = progressMap.get(lesson.id);
                       const isCompleted = status === 'completed';
                       const isInProgress = status === 'in_progress';
-                      const hasAccess = canAccessLesson(tier, lesson.required_tier);
 
                       return (
                         <li key={lesson.id}>
@@ -110,12 +134,12 @@ export default async function TrackPage({ params }: TrackPageProps) {
                             href={
                               hasAccess
                                 ? ROUTES.APP_LESSON(lesson.slug)
-                                : ROUTES.APP_BILLING
+                                : '#'
                             }
                             className={`flex items-center gap-4 p-3 rounded-lg border transition-colors ${
                               hasAccess
                                 ? 'hover:bg-secondary/50 border-border'
-                                : 'border-border/50 opacity-60'
+                                : 'border-border/50 opacity-60 cursor-not-allowed'
                             }`}
                           >
                             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
@@ -145,11 +169,6 @@ export default async function TrackPage({ params }: TrackPageProps) {
                                   <Clock className="h-3 w-3" />
                                   {lesson.duration_minutes}m
                                 </span>
-                              )}
-                              {!hasAccess && (
-                                <Badge variant="secondary" className="text-xs">
-                                  {lesson.required_tier}
-                                </Badge>
                               )}
                             </div>
                           </Link>

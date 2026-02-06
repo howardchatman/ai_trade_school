@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { stripe } from '@/lib/stripe/client';
 import { createAdminClient } from '@/lib/supabase/admin';
-import { getTierFromPriceId } from '@/lib/stripe/config';
 import Stripe from 'stripe';
+import { sendPurchaseConfirmation } from '@/lib/resend';
 
 export async function POST(request: Request) {
   const body = await request.text();
@@ -40,119 +40,55 @@ export async function POST(request: Request) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;
         const userId = session.metadata?.supabase_user_id;
+        const trackId = session.metadata?.track_id;
         const customerId = session.customer as string;
 
         if (userId) {
+          // Save customer ID to profile
           await supabase
             .from('profiles')
-            .update({
-              stripe_customer_id: customerId,
-            })
+            .update({ stripe_customer_id: customerId })
             .eq('id', userId);
         }
-        break;
-      }
 
-      case 'customer.subscription.created':
-      case 'customer.subscription.updated': {
-        const subscription = event.data.object as Stripe.Subscription;
-        const customerId = subscription.customer as string;
-        const priceId = subscription.items.data[0]?.price.id;
-        const tier = priceId ? getTierFromPriceId(priceId) : null;
-
-        // Find user by stripe_customer_id
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('id')
-          .eq('stripe_customer_id', customerId)
-          .single();
-
-        if (profile) {
+        if (userId && trackId) {
+          // Record the course purchase
           await supabase
-            .from('profiles')
-            .update({
-              tier: tier || 'free',
-              stripe_subscription_id: subscription.id,
-              stripe_subscription_status: subscription.status,
-            })
-            .eq('id', profile.id);
-        }
-        break;
-      }
+            .from('purchases')
+            .upsert({
+              user_id: userId,
+              track_id: trackId,
+              stripe_checkout_session_id: session.id,
+              stripe_payment_intent_id: session.payment_intent as string,
+              amount_cents: session.amount_total || 0,
+              status: 'completed',
+              purchased_at: new Date().toISOString(),
+            }, {
+              onConflict: 'user_id,track_id',
+            });
 
-      case 'customer.subscription.deleted': {
-        const subscription = event.data.object as Stripe.Subscription;
-        const customerId = subscription.customer as string;
-
-        // Find user by stripe_customer_id
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('id')
-          .eq('stripe_customer_id', customerId)
-          .single();
-
-        if (profile) {
-          await supabase
-            .from('profiles')
-            .update({
-              tier: 'free',
-              stripe_subscription_id: null,
-              stripe_subscription_status: 'canceled',
-            })
-            .eq('id', profile.id);
-        }
-        break;
-      }
-
-      case 'invoice.payment_succeeded': {
-        const invoice = event.data.object as Stripe.Invoice & { subscription?: string | null };
-        const customerId = invoice.customer as string;
-        const subscriptionId = invoice.subscription as string | null;
-
-        if (subscriptionId) {
-          // Fetch the subscription to get the current price
-          const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-          const priceId = subscription.items.data[0]?.price.id;
-          const tier = priceId ? getTierFromPriceId(priceId) : null;
-
-          // Find user by stripe_customer_id
+          // Send purchase confirmation email
           const { data: profile } = await supabase
             .from('profiles')
-            .select('id')
-            .eq('stripe_customer_id', customerId)
+            .select('email, full_name')
+            .eq('id', userId)
             .single();
 
-          if (profile && tier) {
-            await supabase
-              .from('profiles')
-              .update({
-                tier,
-                stripe_subscription_status: subscription.status,
-              })
-              .eq('id', profile.id);
+          const { data: track } = await supabase
+            .from('tracks')
+            .select('title')
+            .eq('id', trackId)
+            .single();
+
+          if (profile?.email && track?.title) {
+            const firstName = profile.full_name?.split(' ')[0] || 'there';
+            sendPurchaseConfirmation(
+              profile.email,
+              firstName,
+              track.title,
+              session.amount_total || 0
+            ).catch(console.error);
           }
-        }
-        break;
-      }
-
-      case 'invoice.payment_failed': {
-        const invoice = event.data.object as Stripe.Invoice;
-        const customerId = invoice.customer as string;
-
-        // Find user by stripe_customer_id
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('id')
-          .eq('stripe_customer_id', customerId)
-          .single();
-
-        if (profile) {
-          await supabase
-            .from('profiles')
-            .update({
-              stripe_subscription_status: 'past_due',
-            })
-            .eq('id', profile.id);
         }
         break;
       }

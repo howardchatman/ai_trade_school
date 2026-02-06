@@ -4,13 +4,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { ROUTES } from '@/lib/constants';
-import { LayoutDashboard, BookOpen, Award, CreditCard } from 'lucide-react';
+import { LayoutDashboard, BookOpen, Award, ShoppingCart } from 'lucide-react';
 
 const NAV_ITEMS = [
   { href: ROUTES.APP, label: 'Home', icon: LayoutDashboard },
   { href: ROUTES.APP + '/tracks', label: 'Tracks', icon: BookOpen },
   { href: ROUTES.APP_CERTIFICATIONS, label: 'Certs', icon: Award },
-  { href: ROUTES.APP_BILLING, label: 'Billing', icon: CreditCard },
+  { href: ROUTES.APP_COURSES, label: 'Courses', icon: ShoppingCart },
 ];
 
 export function MobileNav() {

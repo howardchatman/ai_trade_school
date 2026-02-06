@@ -3,20 +3,21 @@ import { getUser } from '@/actions/auth';
 import { getTracksWithProgress } from '@/actions/tracks';
 import { getProgressStats } from '@/actions/progress';
 import { getCertificationsWithProgress } from '@/actions/certifications';
+import { getUserPurchasedTrackIds } from '@/actions/purchases';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ROUTES, TIER_LABELS } from '@/lib/constants';
-import { canAccessLesson } from '@/lib/utils';
-import { BookOpen, Award, ArrowRight, Lock, CheckCircle, Play } from 'lucide-react';
-import type { Lesson, Module, Track } from '@/types';
+import { ROUTES } from '@/lib/constants';
+import { canAccessCourse } from '@/lib/utils';
+import { BookOpen, Award, ArrowRight, CheckCircle, Play, ShoppingBag } from 'lucide-react';
+import type { Lesson, Module } from '@/types';
 
 // Custom Progress component since shadcn might not have it
 function ProgressBar({ value, className }: { value: number; className?: string }) {
   return (
     <div className={`h-2 w-full bg-secondary rounded-full overflow-hidden ${className}`}>
       <div
-        className="h-full bg-foreground transition-all duration-300"
+        className="h-full bg-primary transition-all duration-300"
         style={{ width: `${Math.min(100, Math.max(0, value))}%` }}
       />
     </div>
@@ -27,13 +28,12 @@ export default async function DashboardPage() {
   const userData = await getUser();
   if (!userData?.profile) return null;
 
-  const [tracks, stats, certifications] = await Promise.all([
+  const [tracks, stats, certifications, purchasedTrackIds] = await Promise.all([
     getTracksWithProgress(userData.profile.id),
     getProgressStats(userData.profile.id),
     getCertificationsWithProgress(userData.profile.id),
+    getUserPurchasedTrackIds(userData.profile.id),
   ]);
-
-  const tier = userData.profile.tier;
 
   return (
     <div className="p-6 lg:p-8">
@@ -43,7 +43,7 @@ export default async function DashboardPage() {
           Welcome back{userData.profile.full_name ? `, ${userData.profile.full_name.split(' ')[0]}` : ''}
         </h1>
         <p className="text-muted-foreground">
-          Continue your learning journey. You're making great progress.
+          Continue your learning journey. You&apos;re making great progress.
         </p>
       </div>
 
@@ -63,15 +63,16 @@ export default async function DashboardPage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardDescription>Your Plan</CardDescription>
-            <CardTitle className="text-3xl">{TIER_LABELS[tier]}</CardTitle>
+            <CardDescription>Courses Owned</CardDescription>
+            <CardTitle className="text-3xl">{purchasedTrackIds.length}</CardTitle>
           </CardHeader>
           <CardContent>
-            {tier === 'free' && (
-              <Button size="sm" variant="outline" asChild>
-                <Link href={ROUTES.APP_BILLING}>Upgrade</Link>
-              </Button>
-            )}
+            <Button size="sm" variant="outline" asChild>
+              <Link href={ROUTES.APP_COURSES}>
+                <ShoppingBag className="mr-2 h-4 w-4" />
+                Browse Courses
+              </Link>
+            </Button>
           </CardContent>
         </Card>
       </div>
@@ -107,19 +108,21 @@ export default async function DashboardPage() {
                   ? Math.round((completedLessons / totalLessons) * 100)
                   : 0;
 
+              const hasAccess = canAccessCourse(track.price_cents, purchasedTrackIds, track.id);
+
               // Find next incomplete lesson
               type LessonWithProgress = Lesson & { progress?: { status: string } | null };
               let nextLesson: LessonWithProgress | null = null;
-              for (const module of modules) {
-                for (const lesson of (module.lessons || []) as LessonWithProgress[]) {
-                  if (lesson.progress?.status !== 'completed') {
-                    if (canAccessLesson(tier, lesson.required_tier)) {
+              if (hasAccess) {
+                for (const module of modules) {
+                  for (const lesson of (module.lessons || []) as LessonWithProgress[]) {
+                    if (lesson.progress?.status !== 'completed') {
                       nextLesson = lesson;
                       break;
                     }
                   }
+                  if (nextLesson) break;
                 }
-                if (nextLesson) break;
               }
 
               return (

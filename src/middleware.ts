@@ -56,6 +56,23 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Onboarding check: redirect users who haven't completed onboarding
+  const isOnboardingPage = pathname === '/app/onboarding';
+  const isAppRoute = pathname.startsWith('/app') && !isOnboardingPage;
+  const isApiRoute = pathname.startsWith('/api');
+
+  if (isAppRoute && !isApiRoute && user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('onboarding_completed')
+      .eq('id', user.id)
+      .single();
+
+    if (profile && !profile.onboarding_completed) {
+      return NextResponse.redirect(new URL(ROUTES.APP_ONBOARDING, request.url));
+    }
+  }
+
   return supabaseResponse;
 }
 

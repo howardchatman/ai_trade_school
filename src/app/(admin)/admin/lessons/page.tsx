@@ -31,7 +31,6 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { Plus, Pencil, Trash2, FileText } from 'lucide-react';
-import { TIER_LABELS } from '@/lib/constants';
 
 interface Lesson {
   id: string;
@@ -44,7 +43,6 @@ interface Lesson {
   duration_minutes: number | null;
   sort_order: number;
   is_published: boolean;
-  required_tier: string;
   module: {
     id: string;
     title: string;
@@ -65,7 +63,6 @@ export default function AdminLessonsPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingLesson, setEditingLesson] = useState<Lesson | null>(null);
   const [selectedModuleId, setSelectedModuleId] = useState<string>('');
-  const [selectedTier, setSelectedTier] = useState<string>('free');
 
   useEffect(() => {
     loadData();
@@ -84,7 +81,6 @@ export default function AdminLessonsPage() {
 
   async function handleSubmit(formData: FormData) {
     formData.set('module_id', selectedModuleId);
-    formData.set('required_tier', selectedTier);
 
     const result = editingLesson
       ? await updateLesson(editingLesson.id, formData)
@@ -97,7 +93,6 @@ export default function AdminLessonsPage() {
       setIsDialogOpen(false);
       setEditingLesson(null);
       setSelectedModuleId('');
-      setSelectedTier('free');
       loadData();
     }
   }
@@ -117,14 +112,12 @@ export default function AdminLessonsPage() {
   function openEdit(lesson: Lesson) {
     setEditingLesson(lesson);
     setSelectedModuleId(lesson.module_id);
-    setSelectedTier(lesson.required_tier);
     setIsDialogOpen(true);
   }
 
   function openCreate() {
     setEditingLesson(null);
     setSelectedModuleId(modules[0]?.id || '');
-    setSelectedTier('free');
     setIsDialogOpen(true);
   }
 
@@ -150,39 +143,23 @@ export default function AdminLessonsPage() {
               </DialogTitle>
             </DialogHeader>
             <form action={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label>Module</Label>
-                  <Select
-                    value={selectedModuleId}
-                    onValueChange={setSelectedModuleId}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a module" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {modules.map((module) => (
-                        <SelectItem key={module.id} value={module.id}>
-                          {module.track?.title} - {module.title}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label>Required Tier</Label>
-                  <Select value={selectedTier} onValueChange={setSelectedTier}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="free">Free</SelectItem>
-                      <SelectItem value="operator">Operator</SelectItem>
-                      <SelectItem value="builder">Builder</SelectItem>
-                      <SelectItem value="all_access">All Access</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+              <div className="space-y-2">
+                <Label>Module</Label>
+                <Select
+                  value={selectedModuleId}
+                  onValueChange={setSelectedModuleId}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a module" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {modules.map((module) => (
+                      <SelectItem key={module.id} value={module.id}>
+                        {module.track?.title} - {module.title}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
@@ -296,9 +273,6 @@ export default function AdminLessonsPage() {
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Badge variant="outline">
-                    {TIER_LABELS[lesson.required_tier as keyof typeof TIER_LABELS] || lesson.required_tier}
-                  </Badge>
                   <Badge variant={lesson.is_published ? 'default' : 'secondary'}>
                     {lesson.is_published ? 'Published' : 'Draft'}
                   </Badge>

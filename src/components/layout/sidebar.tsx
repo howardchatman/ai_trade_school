@@ -8,8 +8,7 @@ import {
   LayoutDashboard,
   BookOpen,
   Award,
-  CreditCard,
-  Settings,
+  ShoppingBag,
   LogOut,
 } from 'lucide-react';
 import { signOut } from '@/actions/auth';
@@ -20,7 +19,7 @@ const SIDEBAR_LINKS = [
   { href: ROUTES.APP, label: 'Dashboard', icon: LayoutDashboard },
   { href: ROUTES.APP + '/tracks', label: 'My Tracks', icon: BookOpen },
   { href: ROUTES.APP_CERTIFICATIONS, label: 'Certifications', icon: Award },
-  { href: ROUTES.APP_BILLING, label: 'Billing', icon: CreditCard },
+  { href: ROUTES.APP_COURSES, label: 'Courses', icon: ShoppingBag },
 ];
 
 interface SidebarProps {
