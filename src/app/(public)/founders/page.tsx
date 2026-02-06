@@ -11,15 +11,15 @@ export const metadata = {
 
 const FOUNDERS = [
   {
-    name: 'Howard',
+    name: 'Howard Chatman',
     role: 'Founder',
-    bio: 'Passionate about making AI education accessible and practical. Building AI Trade School to bridge the gap between potential and capability.',
+    bio: 'Howard founded AI Trade School with a simple belief: AI should be treated like a skilled trade, not a mystery reserved for engineers. With a background in building real systems and platforms, his work focuses on practical AI applications that solve real-world problems. AI Trade School was created to give people usable skills — not theory — and a clear path from learning to capability.',
     image: '/howard_image.png',
   },
   {
     name: 'Ecko Steadman',
     role: 'Co-Founder',
-    bio: 'Dedicated to empowering professionals with the AI skills they need to thrive. Bringing strategy and vision to AI Trade School.',
+    bio: 'Ecko brings strategic leadership and operational vision to AI Trade School. With a focus on education, workforce development, and long-term impact, she helps shape programs that are accessible, structured, and aligned with real professional outcomes. Her role ensures AI Trade School remains grounded, credible, and focused on empowering learners to apply AI with confidence.',
     image: '/ecko_image.png',
   },
 ];
@@ -98,30 +98,41 @@ export default function FoundersPage() {
 
         {/* Team */}
         <div className="mb-24">
-          <h2 className="text-2xl font-semibold text-center mb-12">Meet the Team</h2>
-          <div className="flex justify-center gap-12 max-w-4xl mx-auto">
-            {FOUNDERS.map((founder) => (
-              <div key={founder.name} className="text-center">
-                {founder.image ? (
-                  <div className="w-32 h-32 rounded-full mx-auto mb-6 overflow-hidden relative">
-                    <Image
-                      src={founder.image}
-                      alt={founder.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ) : (
-                  <div className="w-32 h-32 rounded-full bg-secondary mx-auto mb-6 flex items-center justify-center">
-                    <Users className="h-16 w-16 text-muted-foreground" />
-                  </div>
-                )}
-                <h3 className="text-xl font-semibold">{founder.name}</h3>
-                <p className="text-muted-foreground mb-4">{founder.role}</p>
-                <p className="text-sm text-muted-foreground">{founder.bio}</p>
-              </div>
-            ))}
+          <div className="border-t border-border" />
+          <div className="max-w-5xl mx-auto py-16">
+            <div className="text-center mb-10">
+              <h2 className="text-2xl font-semibold mb-2">Meet the Team</h2>
+              <p className="text-sm text-muted-foreground">
+                AI Trade School is built by operators, not influencers.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {FOUNDERS.map((founder) => (
+                <div key={founder.name} className="text-center">
+                  {founder.image ? (
+                    <div className="w-40 h-40 rounded-full mx-auto mb-5 overflow-hidden relative ring-1 ring-border shadow-sm">
+                      <Image
+                        src={founder.image}
+                        alt={founder.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-40 h-40 rounded-full bg-secondary mx-auto mb-5 flex items-center justify-center ring-1 ring-border shadow-sm">
+                      <Users className="h-14 w-14 text-muted-foreground" />
+                    </div>
+                  )}
+                  <h3 className="text-lg font-bold">{founder.name}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{founder.role}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed max-w-sm mx-auto">
+                    {founder.bio}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
+          <div className="border-t border-border" />
         </div>
 
         {/* Story */}
