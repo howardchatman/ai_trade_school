@@ -11,7 +11,7 @@ interface LeadCaptureFormProps {
   placeholder?: string;
   buttonText?: string;
   className?: string;
-  variant?: 'default' | 'dark';
+  variant?: 'default' | 'dark' | 'popup';
   onSuccess?: () => void;
 }
 
@@ -54,21 +54,29 @@ export function LeadCaptureForm({
   }
 
   const isDark = variant === 'dark';
+  const isPopup = variant === 'popup';
 
   return (
-    <form onSubmit={handleSubmit} className={`flex gap-2 ${className}`}>
+    <form onSubmit={handleSubmit} className={`relative flex gap-2 ${className}`}>
       <Input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder={placeholder}
         required
+        aria-label="Email address"
         className={isDark ? 'bg-white/10 border-slate-600 text-white placeholder:text-slate-400' : ''}
       />
       <Button
         type="submit"
         disabled={status === 'loading'}
-        className={isDark ? 'bg-[var(--gold)] hover:bg-[var(--gold-dark)] text-[#0f172a] font-semibold shrink-0' : 'shrink-0'}
+        className={
+          isDark
+            ? 'bg-[var(--gold)] hover:bg-[var(--gold-dark)] text-[#0f172a] font-semibold shrink-0'
+            : isPopup
+              ? 'bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shrink-0'
+              : 'shrink-0'
+        }
       >
         {status === 'loading' ? '...' : buttonText}
       </Button>
