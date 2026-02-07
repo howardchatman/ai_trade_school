@@ -12,15 +12,23 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen flex">
       {/* Left: Image (hidden on mobile) */}
-      <div className="hidden lg:block lg:w-1/2 relative">
+      <div className="hidden lg:flex lg:w-1/2 relative">
         <Image
-          src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80"
+          src="/signin_image.png"
           alt=""
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-black/15" />
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="relative z-10 flex flex-col justify-end p-12">
+          <h2 className="text-3xl font-semibold tracking-tight text-white mb-3">
+            AI is the new skilled trade.
+          </h2>
+          <p className="text-slate-300 max-w-sm leading-relaxed">
+            Learn practical AI skills you can use right now — no fluff, no prerequisites.
+          </p>
+        </div>
       </div>
 
       {/* Right: Signup form */}
