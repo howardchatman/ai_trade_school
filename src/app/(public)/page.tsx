@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ROUTES } from '@/lib/constants';
-import { Award, CheckCircle } from 'lucide-react';
 import { LeadCapturePopup } from '@/components/lead-capture-popup';
 import { LeadCaptureForm } from '@/components/lead-capture-form';
 
@@ -10,9 +9,9 @@ export default function HomePage() {
   return (
     <div>
       <LeadCapturePopup />
-      {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex items-center overflow-hidden">
-        {/* Background Image */}
+
+      {/* Hero */}
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         <Image
           src="/hero1_image.png"
           alt=""
@@ -20,21 +19,23 @@ export default function HomePage() {
           className="object-cover"
           priority
         />
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-[#0f172a]/75" />
-
+        <div className="absolute inset-0 bg-[#0f172a]/80" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="max-w-2xl">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.1] mb-0 text-white">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.1] text-white">
               AI Is the New Skilled Trade
             </h1>
-            <div className="w-16 h-0.5 bg-[var(--gold)] mt-5 mb-6" />
+            <div className="w-16 h-0.5 bg-[var(--gold)] mt-6 mb-8" />
+            <div className="space-y-1 text-lg text-slate-300 mb-8 max-w-xl">
+              <p>AI isn&apos;t magic.</p>
+              <p>It isn&apos;t prompts.</p>
+              <p>It isn&apos;t hype.</p>
+            </div>
             <p className="text-lg text-slate-300 mb-4 max-w-xl leading-relaxed">
-              Learn practical AI skills you can actually use — to automate work,
-              build systems, and create real-world value.
+              It&apos;s a trade — and trades require skill, discipline, and practice.
             </p>
-            <p className="text-lg text-slate-300 mb-8 max-w-xl">
-              No hype. No fluff. Just skills that pay.
+            <p className="text-lg text-white font-medium mb-10 max-w-xl">
+              AI Trade School exists to train people who don&apos;t just talk about AI, but operate it.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Button
@@ -50,164 +51,115 @@ export default function HomePage() {
                 asChild
                 className="bg-white text-[#0f172a] border-white hover:bg-transparent hover:text-white"
               >
-                <Link href={ROUTES.TRACKS}>View Courses</Link>
+                <Link href={ROUTES.TRACKS}>View Programs</Link>
               </Button>
             </div>
-            <p className="text-xs text-slate-400 mt-4">
-              Free introductory courses available &middot; No subscription required
-            </p>
           </div>
         </div>
       </section>
 
-      {/* Course Tiers */}
+      {/* What We Believe */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
-              Three levels of training
+          <div className="max-w-2xl">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-8">
+              What We Believe
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              From AI fundamentals to building full platforms.
-              Choose the level that matches where you are.
+            <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+              We believe AI will define the next generation of skilled workers — not
+              because it&apos;s powerful, but because most people don&apos;t know how
+              to use it properly.
+            </p>
+            <div className="space-y-1 text-lg text-foreground font-medium mb-6">
+              <p>The gap isn&apos;t tools.</p>
+              <p>The gap is competence.</p>
+            </div>
+            <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+              Knowing what AI can do isn&apos;t enough.
+              You have to know how to build, deploy, and run real systems in the real world.
+            </p>
+            <p className="text-lg text-foreground font-medium">
+              That&apos;s what we teach.
             </p>
           </div>
+        </div>
+      </section>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Free Tier */}
-            <div className="rounded-lg border border-border bg-white shadow-sm overflow-hidden flex flex-col">
-              <div className="relative h-48">
-                <Image
-                  src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80"
-                  alt="AI chat interface on screen"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-8 flex flex-col flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <h3 className="text-xl font-semibold">AI Basics</h3>
-                  <span className="text-sm text-muted-foreground">Free</span>
-                </div>
-                <p className="text-muted-foreground mb-4">
-                  Learn the fundamentals. How to use ChatGPT, create charts,
-                  build to-do lists, and write effective prompts.
-                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <CheckCircle className="h-4 w-4 text-primary" />
-                    ChatGPT fundamentals
-                  </li>
-                  <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <CheckCircle className="h-4 w-4 text-primary" />
-                    Charts and data summaries
-                  </li>
-                  <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <CheckCircle className="h-4 w-4 text-primary" />
-                    Basic automations
-                  </li>
-                </ul>
-                <div className="mt-auto">
-                  <Button className="w-full" asChild>
-                    <Link href={ROUTES.SIGNUP}>Start Free</Link>
-                  </Button>
-                </div>
-              </div>
+      {/* What We Don't Do */}
+      <section className="py-24 bg-[#0f172a]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-8 text-white">
+              What We Don&apos;t Do
+            </h2>
+            <p className="text-slate-400 mb-6">AI Trade School is not:</p>
+            <ul className="space-y-3 mb-10">
+              <li className="text-slate-300 flex items-start gap-3">
+                <span className="text-slate-500 mt-1.5 text-xs">&#x2715;</span>
+                A hype-driven AI course platform
+              </li>
+              <li className="text-slate-300 flex items-start gap-3">
+                <span className="text-slate-500 mt-1.5 text-xs">&#x2715;</span>
+                A collection of surface-level tutorials
+              </li>
+              <li className="text-slate-300 flex items-start gap-3">
+                <span className="text-slate-500 mt-1.5 text-xs">&#x2715;</span>
+                A &ldquo;get rich with AI&rdquo; program
+              </li>
+              <li className="text-slate-300 flex items-start gap-3">
+                <span className="text-slate-500 mt-1.5 text-xs">&#x2715;</span>
+                A content farm chasing trends
+              </li>
+            </ul>
+            <div className="space-y-1 text-lg text-slate-300 mb-6">
+              <p>We don&apos;t sell shortcuts.</p>
+              <p>We don&apos;t sell tricks.</p>
+              <p>We don&apos;t sell motivation.</p>
             </div>
+            <p className="text-lg text-white font-medium">
+              We train operators.
+            </p>
+          </div>
+        </div>
+      </section>
 
-            {/* $99 Workshops - featured */}
-            <div className="rounded-lg border-2 border-[var(--gold)] bg-white shadow-md overflow-hidden flex flex-col relative">
-              <div className="absolute top-4 right-4 z-10 bg-[var(--gold)] text-[#0f172a] text-xs font-bold px-3 py-1 rounded-full">
-                MOST POPULAR
-              </div>
-              <div className="relative h-48">
-                <Image
-                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80"
-                  alt="Data analytics dashboard"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-8 flex flex-col flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <h3 className="text-xl font-semibold">Skill Workshops</h3>
-                  <span className="text-sm text-muted-foreground">$99 each</span>
-                </div>
-                <p className="text-muted-foreground mb-4">
-                  Project-based courses that teach you to build real AI systems.
-                  Buy only what you need. Lifetime access.
-                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <CheckCircle className="h-4 w-4 text-[var(--gold-dark)]" />
-                    AI Forex Trading Bot
-                  </li>
-                  <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <CheckCircle className="h-4 w-4 text-[var(--gold-dark)]" />
-                    5-Star Review System
-                  </li>
-                  <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <CheckCircle className="h-4 w-4 text-[var(--gold-dark)]" />
-                    AI Intake & Lead Routing
-                  </li>
-                  <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <CheckCircle className="h-4 w-4 text-[var(--gold-dark)]" />
-                    AI Receptionist & Proposals
-                  </li>
-                </ul>
-                <div className="mt-auto">
-                  <Button className="w-full bg-[var(--gold)] hover:bg-[var(--gold-dark)] text-[#0f172a]" asChild>
-                    <Link href={ROUTES.TRACKS}>Browse Workshops</Link>
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* $497 Platform Builder */}
-            <div className="rounded-lg border border-border bg-white shadow-sm overflow-hidden flex flex-col">
-              <div className="relative h-48">
-                <Image
-                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80"
-                  alt="Developer building a web platform"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-8 flex flex-col flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <h3 className="text-xl font-semibold">Platform Builder</h3>
-                  <span className="text-sm text-muted-foreground">$497</span>
-                </div>
-                <p className="text-muted-foreground mb-4">
-                  The flagship program. Learn to build complete AI-powered platforms
-                  with auth, dashboards, payments, and deployment.
-                </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <CheckCircle className="h-4 w-4 text-primary" />
-                    Full-stack AI applications
-                  </li>
-                  <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <CheckCircle className="h-4 w-4 text-primary" />
-                    Auth, APIs, Stripe, deployment
-                  </li>
-                  <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <CheckCircle className="h-4 w-4 text-primary" />
-                    Certification eligible
-                  </li>
-                </ul>
-                <div className="mt-auto">
-                  <Button className="w-full" asChild>
-                    <Link href={ROUTES.SIGNUP}>Enroll in Platform Builder</Link>
-                  </Button>
-                </div>
-              </div>
+      {/* What an AI Operator Is */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-8">
+              What an AI Operator Is
+            </h2>
+            <p className="text-lg text-muted-foreground mb-6">
+              An AI operator is someone who can:
+            </p>
+            <ul className="space-y-3 mb-10">
+              <li className="text-foreground flex items-start gap-3">
+                <span className="text-[var(--gold)] mt-0.5 font-bold">&#8212;</span>
+                Turn business problems into working systems
+              </li>
+              <li className="text-foreground flex items-start gap-3">
+                <span className="text-[var(--gold)] mt-0.5 font-bold">&#8212;</span>
+                Deploy AI in production environments
+              </li>
+              <li className="text-foreground flex items-start gap-3">
+                <span className="text-[var(--gold)] mt-0.5 font-bold">&#8212;</span>
+                Automate real workflows, not demos
+              </li>
+              <li className="text-foreground flex items-start gap-3">
+                <span className="text-[var(--gold)] mt-0.5 font-bold">&#8212;</span>
+                Build platforms that people actually use
+              </li>
+            </ul>
+            <div className="space-y-1 text-lg text-muted-foreground">
+              <p>Operators don&apos;t rely on luck.</p>
+              <p className="text-foreground font-medium">They rely on skill.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Certifications Preview - dark image section */}
+      {/* How This School Works */}
       <section className="relative py-24 overflow-hidden">
         <Image
           src="/hero2_image.png"
@@ -215,53 +167,153 @@ export default function HomePage() {
           fill
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-[#0f172a]/70" />
+        <div className="absolute inset-0 bg-[#0f172a]/75" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl">
-            <Award className="h-12 w-12 mb-6 text-[var(--gold)]" />
+          <div className="max-w-2xl mb-16">
             <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4 text-white">
-              Earn Certifications
+              How This School Works
             </h2>
-            <p className="text-slate-300 mb-6">
-              Complete courses and earn certifications that demonstrate your
-              AI skills. Show employers and clients what you can build.
+            <p className="text-slate-300">
+              AI Trade School is structured like a real trade:
             </p>
-            <ul className="space-y-3 mb-8">
-              <li className="flex items-center gap-3 text-slate-300">
-                <CheckCircle className="h-5 w-5 text-[var(--gold)]" />
-                Verified completion tracking
-              </li>
-              <li className="flex items-center gap-3 text-slate-300">
-                <CheckCircle className="h-5 w-5 text-[var(--gold)]" />
-                Shareable credential badges
-              </li>
-              <li className="flex items-center gap-3 text-slate-300">
-                <CheckCircle className="h-5 w-5 text-[var(--gold)]" />
-                Skills-based assessments
-              </li>
-            </ul>
-            <Button asChild className="bg-[var(--gold)] hover:bg-[var(--gold-dark)] text-[#0f172a] font-semibold">
-              <Link href={ROUTES.CERTIFICATIONS}>View Certifications</Link>
-            </Button>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl">
+            <div>
+              <p className="text-xs font-medium text-[var(--gold)] uppercase tracking-wider mb-3">
+                01
+              </p>
+              <h3 className="text-xl font-semibold text-white mb-3">Orientation</h3>
+              <p className="text-slate-300 text-sm leading-relaxed">
+                Learn the fundamentals. Understand the tools. Prove you&apos;re serious.
+              </p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-[var(--gold)] uppercase tracking-wider mb-3">
+                02
+              </p>
+              <h3 className="text-xl font-semibold text-white mb-3">Workshops</h3>
+              <p className="text-slate-300 text-sm leading-relaxed">
+                Project-based modules that teach you to build and deploy working AI systems.
+              </p>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-[var(--gold)] uppercase tracking-wider mb-3">
+                03
+              </p>
+              <h3 className="text-xl font-semibold text-white mb-3">Certification</h3>
+              <p className="text-slate-300 text-sm leading-relaxed">
+                Demonstrate competence. Earn credentials that signal real capability — not attendance.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 space-y-1 text-slate-300">
+            <p>Progress is earned.</p>
+            <p className="text-white font-medium">Nothing is handed out.</p>
           </div>
         </div>
       </section>
 
-      {/* Email Capture CTA */}
+      {/* Who This Is For */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-8">
+              Who This Is For
+            </h2>
+            <ul className="space-y-3 mb-10">
+              <li className="text-foreground flex items-start gap-3">
+                <span className="text-[var(--gold)] mt-0.5 font-bold">&#8212;</span>
+                Professionals who want practical AI skills
+              </li>
+              <li className="text-foreground flex items-start gap-3">
+                <span className="text-[var(--gold)] mt-0.5 font-bold">&#8212;</span>
+                Builders who care about real outcomes
+              </li>
+              <li className="text-foreground flex items-start gap-3">
+                <span className="text-[var(--gold)] mt-0.5 font-bold">&#8212;</span>
+                Operators who want to be taken seriously
+              </li>
+              <li className="text-foreground flex items-start gap-3">
+                <span className="text-[var(--gold)] mt-0.5 font-bold">&#8212;</span>
+                People who prefer substance over noise
+              </li>
+            </ul>
+            <div className="space-y-1 text-lg text-muted-foreground">
+              <p>If you&apos;re looking for shortcuts, this isn&apos;t for you.</p>
+              <p className="text-foreground font-medium">
+                If you&apos;re looking to build real capability, you&apos;re in the right place.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why This Matters */}
       <section className="py-24 bg-[#0f172a]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4 text-white">
-            Stay in the loop
-          </h2>
-          <p className="text-slate-400 mb-8 max-w-xl mx-auto">
-            Get free AI tips, course drops, and practical tutorials. No spam.
-          </p>
-          <div className="max-w-md mx-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-8 text-white">
+              Why This Matters
+            </h2>
+            <div className="space-y-1 text-lg text-slate-300 mb-6">
+              <p>In the next decade, AI won&apos;t replace jobs.</p>
+              <p className="text-white font-medium">Incompetence will.</p>
+            </div>
+            <div className="space-y-1 text-lg text-slate-300 mb-6">
+              <p>Those who can operate AI will thrive.</p>
+              <p>Those who can&apos;t will fall behind.</p>
+            </div>
+            <p className="text-lg text-white font-medium">
+              AI Trade School exists to make sure you&apos;re on the right side of that divide.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
+              Start with Orientation
+            </h2>
+            <p className="text-muted-foreground mb-8">
+              No hype. No pressure. Just the first step toward real skill.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button
+                size="lg"
+                asChild
+                className="bg-[var(--gold)] hover:bg-[var(--gold-dark)] text-[#0f172a] font-semibold"
+              >
+                <Link href={ROUTES.SIGNUP}>Start Free</Link>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+              >
+                <Link href={ROUTES.TRACKS}>View Programs</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Email Capture */}
+      <section className="py-16 bg-[#0f172a]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-xl">
+            <p className="text-sm text-slate-400 mb-3">
+              Get free AI tips, course drops, and practical tutorials. No spam.
+            </p>
             <LeadCaptureForm
               source="homepage_cta"
               variant="dark"
               buttonText="Subscribe"
-              placeholder="you@example.com"
+              placeholder="you@email.com"
             />
           </div>
         </div>
