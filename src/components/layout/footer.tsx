@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ROUTES } from '@/lib/constants';
+import { LeadCaptureForm } from '@/components/lead-capture-form';
 
 const FOOTER_LINKS = {
   product: [
@@ -40,6 +41,16 @@ export function Footer() {
               Professional AI training for the new economy. Learn to operate,
               build, and lead with artificial intelligence.
             </p>
+            <div className="mt-5">
+              <p className="text-sm font-semibold text-white mb-2">Get updates</p>
+              <LeadCaptureForm
+                source="footer"
+                variant="dark"
+                buttonText="Join"
+                placeholder="you@example.com"
+                className="max-w-sm"
+              />
+            </div>
           </div>
 
           {/* Product Links */}

@@ -101,6 +101,13 @@ export interface Purchase {
   updated_at: string;
 }
 
+export interface Lead {
+  id: string;
+  email: string;
+  source: string;
+  created_at: string;
+}
+
 export interface UserWithProfile {
   id: string;
   email: string;

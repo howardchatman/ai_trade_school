@@ -2,11 +2,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ROUTES } from '@/lib/constants';
-import { ArrowRight, Award, CheckCircle } from 'lucide-react';
+import { Award, CheckCircle } from 'lucide-react';
+import { LeadCapturePopup } from '@/components/lead-capture-popup';
+import { LeadCaptureForm } from '@/components/lead-capture-form';
 
 export default function HomePage() {
   return (
     <div>
+      <LeadCapturePopup />
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center overflow-hidden">
         {/* Background Image */}
@@ -247,26 +250,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA Section - navy background */}
+      {/* Email Capture CTA */}
       <section className="py-24 bg-[#0f172a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4 text-white">
-            Ready to get started?
+            Stay in the loop
           </h2>
           <p className="text-slate-400 mb-8 max-w-xl mx-auto">
-            Start with our free AI Basics course. No credit card required.
-            Upgrade to workshops or the full platform builder when you are ready.
+            Get free AI tips, course drops, and practical tutorials. No spam.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" asChild className="bg-[var(--gold)] hover:bg-[var(--gold-dark)] text-[#0f172a] font-semibold">
-              <Link href={ROUTES.SIGNUP}>
-                Create Free Account
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" asChild className="bg-white text-[#0f172a] border-white hover:bg-transparent hover:text-white">
-              <Link href={ROUTES.TRACKS}>Browse Courses</Link>
-            </Button>
+          <div className="max-w-md mx-auto">
+            <LeadCaptureForm
+              source="homepage_cta"
+              variant="dark"
+              buttonText="Subscribe"
+              placeholder="you@example.com"
+            />
           </div>
         </div>
       </section>
