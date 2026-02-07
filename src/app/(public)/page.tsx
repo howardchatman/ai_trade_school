@@ -14,7 +14,7 @@ export default function HomePage() {
       <section className="relative min-h-[80vh] flex items-center overflow-hidden">
         {/* Background Image */}
         <Image
-          src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1920&q=80"
+          src="/hero1_image.png"
           alt=""
           fill
           className="object-cover"
@@ -207,45 +207,42 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Certifications Preview - with image */}
-      <section className="py-24 bg-[#f8fafc]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div>
-              <Award className="h-12 w-12 mb-6 text-[var(--gold)]" />
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
-                Earn Certifications
-              </h2>
-              <p className="text-muted-foreground mb-6">
-                Complete courses and earn certifications that demonstrate your
-                AI skills. Show employers and clients what you can build.
-              </p>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center gap-3 text-muted-foreground">
-                  <CheckCircle className="h-5 w-5 text-primary" />
-                  Verified completion tracking
-                </li>
-                <li className="flex items-center gap-3 text-muted-foreground">
-                  <CheckCircle className="h-5 w-5 text-primary" />
-                  Shareable credential badges
-                </li>
-                <li className="flex items-center gap-3 text-muted-foreground">
-                  <CheckCircle className="h-5 w-5 text-primary" />
-                  Skills-based assessments
-                </li>
-              </ul>
-              <Button variant="outline" asChild>
-                <Link href={ROUTES.CERTIFICATIONS}>View Certifications</Link>
-              </Button>
-            </div>
-            <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-lg">
-              <Image
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80"
-                alt="Team collaborating on AI projects"
-                fill
-                className="object-cover"
-              />
-            </div>
+      {/* Certifications Preview - dark image section */}
+      <section className="relative py-24 overflow-hidden">
+        <Image
+          src="/hero2_image.png"
+          alt=""
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-[#0f172a]/70" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <Award className="h-12 w-12 mb-6 text-[var(--gold)]" />
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4 text-white">
+              Earn Certifications
+            </h2>
+            <p className="text-slate-300 mb-6">
+              Complete courses and earn certifications that demonstrate your
+              AI skills. Show employers and clients what you can build.
+            </p>
+            <ul className="space-y-3 mb-8">
+              <li className="flex items-center gap-3 text-slate-300">
+                <CheckCircle className="h-5 w-5 text-[var(--gold)]" />
+                Verified completion tracking
+              </li>
+              <li className="flex items-center gap-3 text-slate-300">
+                <CheckCircle className="h-5 w-5 text-[var(--gold)]" />
+                Shareable credential badges
+              </li>
+              <li className="flex items-center gap-3 text-slate-300">
+                <CheckCircle className="h-5 w-5 text-[var(--gold)]" />
+                Skills-based assessments
+              </li>
+            </ul>
+            <Button asChild className="bg-[var(--gold)] hover:bg-[var(--gold-dark)] text-[#0f172a] font-semibold">
+              <Link href={ROUTES.CERTIFICATIONS}>View Certifications</Link>
+            </Button>
           </div>
         </div>
       </section>
