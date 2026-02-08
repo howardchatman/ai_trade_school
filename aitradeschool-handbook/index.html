@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Program Handbook | AI Trade School</title>
+<meta name="description" content="AI Trade School Program Handbook — Workforce & Professional Education. Academic Year 2026–2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS Custom Properties ===== */
+:root {
+  --navy-900: #0a1628;
+  --navy-800: #0f1d35;
+  --navy-700: #162a4a;
+  --navy-600: #1e3a5f;
+  --blue-500: #2c5f8a;
+  --blue-400: #3a7ab8;
+  --blue-300: #5a9ad5;
+  --gold-500: #c9a227;
+  --gold-400: #d4b545;
+  --gold-300: #e0c965;
+  --gold-200: #f0e4a8;
+  --gray-900: #1a1a2e;
+  --gray-800: #2d2d44;
+  --gray-700: #4a4a5e;
+  --gray-600: #64647a;
+  --gray-500: #7e7e94;
+  --gray-400: #9e9eb0;
+  --gray-300: #c4c4d0;
+  --gray-200: #e2e2ea;
+  --gray-100: #f0f0f5;
+  --gray-50: #f8f8fb;
+  --white: #ffffff;
+  --cream: #fdfcf9;
+  --red-600: #c53030;
+  --green-600: #2f855a;
+  --sidebar-width: 300px;
+  --content-max: 920px;
+  --font-display: 'DM Serif Display', serif;
+  --font-body: 'Source Sans 3', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ===== Reset & Base ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  color: var(--gray-800);
+  background: var(--cream);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--navy-800);
+  color: var(--gray-300);
+  overflow-y: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-header {
+  padding: 2rem 1.5rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-header .institution {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--white);
+  letter-spacing: 0.02em;
+}
+.sidebar-header .document-type {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold-500);
+  margin-top: 0.25rem;
+  font-weight: 600;
+}
+.sidebar-nav {
+  flex: 1;
+  padding: 1rem 0;
+  overflow-y: auto;
+}
+.nav-group-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--gray-500);
+  padding: 1rem 1.5rem 0.4rem;
+  font-weight: 600;
+}
+.nav-link {
+  display: block;
+  padding: 0.4rem 1.5rem;
+  font-size: 0.85rem;
+  color: var(--gray-400);
+  text-decoration: none;
+  transition: all 0.15s ease;
+  border-left: 3px solid transparent;
+}
+.nav-link:hover {
+  color: var(--white);
+  background: rgba(255,255,255,0.04);
+}
+.nav-link.active {
+  color: var(--white);
+  background: rgba(255,255,255,0.06);
+  border-left-color: var(--gold-500);
+}
+.sidebar-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.7rem;
+  color: var(--gray-600);
+}
+
+/* ===== Mobile Menu Toggle ===== */
+.mobile-toggle {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 200;
+  background: var(--navy-800);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--white);
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 90;
+}
+
+/* ===== Main Content ===== */
+.main {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+}
+
+/* ===== Cover / Hero ===== */
+.cover {
+  background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 50%, var(--navy-600) 100%);
+  color: var(--white);
+  padding: 6rem 3rem 5rem;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,162,39,0.06) 0%, transparent 70%);
+}
+.cover-inner {
+  max-width: var(--content-max);
+  position: relative;
+}
+.cover .institution-name {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+.cover .document-title {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--gold-500);
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+.cover .meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+.cover .meta-item {
+  font-size: 0.8rem;
+}
+.cover .meta-label {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray-400);
+  font-size: 0.65rem;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+.cover .meta-value {
+  color: var(--white);
+  font-weight: 500;
+}
+.cover .positioning {
+  border-left: 3px solid var(--gold-500);
+  padding: 1rem 1.5rem;
+  font-style: italic;
+  color: var(--gray-300);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  background: rgba(255,255,255,0.03);
+  border-radius: 0 4px 4px 0;
+}
+
+/* ===== Content Sections ===== */
+.content-section {
+  padding: 4rem 3rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+.content-section:last-child { border-bottom: none; }
+.content-section .section-inner {
+  max-width: var(--content-max);
+}
+.section-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--blue-500);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--navy-800);
+  margin-bottom: 1.5rem;
+  line-height: 1.25;
+}
+.subsection-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--navy-800);
+  margin: 2.5rem 0 1rem;
+  line-height: 1.3;
+}
+.sub-subsection-title {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--navy-700);
+  margin: 2rem 0 0.75rem;
+}
+p { margin-bottom: 1rem; }
+.content-section ul, .content-section ol {
+  margin: 0.75rem 0 1.25rem 1.5rem;
+}
+.content-section li {
+  margin-bottom: 0.4rem;
+  padding-left: 0.25rem;
+}
+
+/* ===== Tables ===== */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-radius: 6px;
+  border: 1px solid var(--gray-200);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  min-width: 500px;
+}
+thead th {
+  background: var(--navy-800);
+  color: var(--white);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+tbody td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--gray-200);
+  vertical-align: top;
+}
+tbody tr:nth-child(even) { background: var(--gray-50); }
+tbody tr:hover { background: var(--gray-100); }
+
+/* ===== Course Cards ===== */
+.course-card {
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 1.75rem;
+  margin: 1.5rem 0;
+  background: var(--white);
+  transition: box-shadow 0.2s ease;
+}
+.course-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+.course-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.course-card-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--navy-800);
+}
+.course-card-meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.tag-hours {
+  background: var(--blue-500);
+  color: var(--white);
+}
+.tag-tier {
+  background: var(--gold-200);
+  color: var(--gray-900);
+}
+.tag-paid {
+  background: var(--navy-700);
+  color: var(--white);
+}
+
+/* ===== Credential Badges ===== */
+.credential-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+.credential-card {
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 1.75rem;
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+.credential-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+.credential-card.tier-1::before { background: var(--blue-400); }
+.credential-card.tier-2::before { background: var(--gold-500); }
+.credential-card.tier-3::before { background: var(--navy-800); }
+.credential-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+.tier-1 .credential-icon { background: rgba(44,95,138,0.1); color: var(--blue-500); }
+.tier-2 .credential-icon { background: rgba(201,162,39,0.1); color: var(--gold-500); }
+.tier-3 .credential-icon { background: rgba(15,29,53,0.1); color: var(--navy-800); }
+.credential-card h4 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--navy-800);
+  margin-bottom: 0.25rem;
+}
+.credential-card .credential-level {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+}
+.tier-1 .credential-level { color: var(--blue-500); }
+.tier-2 .credential-level { color: var(--gold-500); }
+.tier-3 .credential-level { color: var(--navy-700); }
+.credential-card p, .credential-card li {
+  font-size: 0.88rem;
+  color: var(--gray-700);
+}
+
+/* ===== Callout Boxes ===== */
+.callout {
+  border-left: 4px solid var(--blue-500);
+  background: rgba(44,95,138,0.05);
+  padding: 1.25rem 1.5rem;
+  border-radius: 0 6px 6px 0;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+.callout.warning {
+  border-left-color: var(--gold-500);
+  background: rgba(201,162,39,0.06);
+}
+.callout.important {
+  border-left-color: var(--red-600);
+  background: rgba(197,48,48,0.04);
+}
+.callout-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+.callout .callout-label { color: var(--blue-500); }
+.callout.warning .callout-label { color: var(--gold-500); }
+.callout.important .callout-label { color: var(--red-600); }
+
+/* ===== Back to Top ===== */
+.back-to-top {
+  display: inline-block;
+  margin-top: 2rem;
+  font-size: 0.78rem;
+  color: var(--gray-500);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  transition: color 0.15s;
+}
+.back-to-top:hover { color: var(--blue-500); }
+
+/* ===== Responsive ===== */
+@media (max-width: 960px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  .sidebar.open { transform: translateX(0); }
+  .mobile-toggle { display: flex; }
+  .mobile-overlay.open { display: block; }
+  .main { margin-left: 0; }
+  .cover { padding: 5rem 1.5rem 3.5rem; }
+  .content-section { padding: 2.5rem 1.5rem; }
+  .cover .institution-name { font-size: 2rem; }
+  .section-title { font-size: 1.6rem; }
+}
+
+/* ===== Print ===== */
+@media print {
+  .sidebar, .mobile-toggle, .mobile-overlay, .back-to-top { display: none !important; }
+  .main { margin-left: 0; }
+  .cover { padding: 2rem 0; background: none; color: var(--navy-800); }
+  .cover .institution-name { color: var(--navy-800); }
+  .cover .document-title { color: var(--navy-700); }
+  .cover .meta-label { color: var(--gray-600); }
+  .cover .meta-value { color: var(--gray-800); }
+  .cover .positioning { border-left-color: var(--gray-400); color: var(--gray-700); background: none; }
+  .content-section { padding: 1.5rem 0; page-break-inside: avoid; }
+  .course-card { break-inside: avoid; box-shadow: none; }
+  .credential-card { break-inside: avoid; }
+  body { font-size: 11pt; }
+}
+</style>
+</head>
+<body>
+
+<!-- Mobile Menu Toggle -->
+<button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">&#9776;</button>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="institution">AI Trade School</div>
+    <div class="document-type">Program Handbook</div>
+  </div>
+  <nav class="sidebar-nav" id="sidebarNav">
+    <a href="#cover" class="nav-link active">Cover</a>
+    <a href="#overview" class="nav-link">Institutional Overview</a>
+
+    <div class="nav-group-label">Program Design</div>
+    <a href="#structure" class="nav-link">Program Structure</a>
+    <a href="#credentials" class="nav-link">Stackable Credentials</a>
+
+    <div class="nav-group-label">Curriculum</div>
+    <a href="#foundational" class="nav-link">Foundational Courses</a>
+    <a href="#applied" class="nav-link">Core Applied Courses</a>
+    <a href="#caio" class="nav-link">CAIO Program</a>
+
+    <div class="nav-group-label">Policies &amp; Standards</div>
+    <a href="#delivery" class="nav-link">Delivery Model</a>
+    <a href="#assessment" class="nav-link">Assessment &amp; Evaluation</a>
+    <a href="#certification" class="nav-link">Certification Standards</a>
+    <a href="#records" class="nav-link">Records &amp; Transcripts</a>
+    <a href="#conduct" class="nav-link">Code of Conduct</a>
+    <a href="#accessibility" class="nav-link">Accessibility &amp; Inclusion</a>
+
+    <div class="nav-group-label">Governance</div>
+    <a href="#instructors" class="nav-link">Instructor Standards</a>
+    <a href="#governance" class="nav-link">Curriculum Governance</a>
+    <a href="#alignment" class="nav-link">External Alignment</a>
+
+    <div class="nav-group-label">Reference</div>
+    <a href="#disclaimer" class="nav-link">Disclaimer</a>
+    <a href="#administration" class="nav-link">Administration</a>
+    <a href="#version" class="nav-link">Version Control</a>
+  </nav>
+  <div class="sidebar-footer">
+    Version 1.0 &mdash; August 2026<br>
+    &copy; AI Trade School
+  </div>
+</aside>
+
+<!-- Main Content -->
+<main class="main">
+
+  <!-- COVER -->
+  <section class="cover" id="cover">
+    <div class="cover-inner">
+      <div class="institution-name">AI Trade School</div>
+      <div class="document-title">Program Handbook &middot; Workforce &amp; Professional Education</div>
+      <div class="meta-grid">
+        <div class="meta-item">
+          <div class="meta-label">Academic Year</div>
+          <div class="meta-value">2026&ndash;2027</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Credential</div>
+          <div class="meta-value">Certified AI Operator (CAIO)</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Delivery</div>
+          <div class="meta-value">Online, Asynchronous</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Institution Type</div>
+          <div class="meta-value">Workforce Education Provider</div>
+        </div>
+      </div>
+      <div class="positioning">
+        AI Trade School is an online workforce and professional education provider dedicated to preparing competent, ethical AI Operators &mdash; professionals who deploy, manage, document, and responsibly operate AI systems for real organizations.
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 1: INSTITUTIONAL OVERVIEW -->
+  <section class="content-section" id="overview">
+    <div class="section-inner">
+      <div class="section-label">Section 1</div>
+      <h2 class="section-title">Institutional Overview</h2>
+
+      <h3 class="subsection-title">Mission Statement</h3>
+      <p>AI Trade School exists to equip working adults and career-changers with the applied skills, professional judgment, and ethical foundations necessary to deploy, manage, document, and operate artificial intelligence systems in organizational settings. Through a rigorous, competency-based curriculum grounded in workforce development principles, the institution prepares learners for immediate productive employment as AI Operators across public, private, and nonprofit sectors.</p>
+
+      <h3 class="subsection-title">Vision Statement</h3>
+      <p>AI Trade School envisions a workforce in which AI literacy is as fundamental as digital literacy, and in which trained AI Operators serve as essential contributors to organizational efficiency, innovation, and responsible technology adoption. The institution aspires to be the preeminent non-degree workforce credential for applied AI operations, recognized by employers, workforce development boards, and industry partners as a standard of professional competence.</p>
+
+      <h3 class="subsection-title">Educational Philosophy</h3>
+      <p>The institution&rsquo;s instructional design is guided by four core principles:</p>
+      <ol>
+        <li><strong>Applied Competence Over Theoretical Abstraction.</strong> All instruction centers on real-world tasks, tools, and decision-making scenarios that learners will encounter in professional settings. Theory is introduced only to the extent it informs applied practice.</li>
+        <li><strong>Demonstration-Based Mastery.</strong> Students prove competence through portfolio artifacts, applied projects, and performance assessments rather than passive examination. Evidence of ability is the standard of achievement.</li>
+        <li><strong>Ethical Responsibility as a Core Competency.</strong> Responsible AI use is not an elective consideration; it is integrated into every course and every assessment. Graduates are expected to operate AI systems with awareness of bias, privacy, transparency, and organizational accountability.</li>
+        <li><strong>Accessible, Stackable Credentialing.</strong> The program begins with free foundational courses, ensuring that financial barriers do not prevent entry. Credentials are stackable, providing clear and incremental pathways to professional recognition.</li>
+      </ol>
+
+      <h3 class="subsection-title">Workforce &amp; Trade-School Model</h3>
+      <p>AI Trade School operates under a workforce and trade-school educational model. The institution:</p>
+      <ul>
+        <li>Does not grant academic degrees; it awards professional certificates and certifications aligned with employer expectations</li>
+        <li>Designs curriculum to meet documented employer needs and workforce development frameworks</li>
+        <li>Emphasizes job-readiness, applied skill demonstration, and portfolio development over academic credit accumulation</li>
+        <li>Structures clock hours and competency standards in alignment with continuing education norms</li>
+        <li>Serves adult learners, career-changers, incumbent workers, and organizational cohorts seeking practical AI capability</li>
+      </ul>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 2: PROGRAM STRUCTURE -->
+  <section class="content-section" id="structure">
+    <div class="section-inner">
+      <div class="section-label">Section 2</div>
+      <h2 class="section-title">Program Structure &amp; Credential Pathway</h2>
+
+      <p>The AI Trade School program is organized into three progressive tiers. Each tier builds on the competencies established in the previous tier, creating a clear pathway from foundational awareness to professional certification.</p>
+
+      <h3 class="subsection-title">Three-Tier Model</h3>
+      <ul>
+        <li><strong>Tier 1: Foundational Courses (Free, Non-Credit)</strong> &mdash; AI Literacy Certificate</li>
+        <li><strong>Tier 2: Core Applied Courses (Paid)</strong> &mdash; Applied AI Practitioner Certificate</li>
+        <li><strong>Tier 3: CAIO Certification (Certification Fee)</strong> &mdash; Certified AI Operator</li>
+      </ul>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>Credential</th>
+              <th>Cost</th>
+              <th>Key Milestone</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tier 1</td>
+              <td>AI Literacy Certificate</td>
+              <td>Free</td>
+              <td>Completion of 5 foundational courses with passing assessments</td>
+            </tr>
+            <tr>
+              <td>Tier 2</td>
+              <td>Applied AI Practitioner Certificate</td>
+              <td>$149&ndash;$297 per course</td>
+              <td>Completion of 5 applied courses with portfolio artifacts</td>
+            </tr>
+            <tr>
+              <td>Tier 3</td>
+              <td>Certified AI Operator (CAIO)</td>
+              <td>Certification fee</td>
+              <td>Capstone project, written exam, oral defense</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="subsection-title">Learner Entry Points</h3>
+      <p>All learners begin at Tier 1 regardless of prior experience. There is no advanced placement or credit-for-experience pathway. This ensures all students share a common foundation in AI concepts, tools, ethics, and professional terminology before advancing to applied coursework.</p>
+
+      <h3 class="subsection-title">Workforce Alignment</h3>
+      <ul>
+        <li><strong>Tier 1</strong> prepares learners for AI awareness roles and general AI literacy within any professional context</li>
+        <li><strong>Tier 2</strong> prepares learners for applied AI operations roles, including prompt engineering, workflow automation, and business AI integration</li>
+        <li><strong>Tier 3</strong> prepares learners for autonomous AI Operator positions with organizational accountability</li>
+      </ul>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 3: STACKABLE CREDENTIALS -->
+  <section class="content-section" id="credentials">
+    <div class="section-inner">
+      <div class="section-label">Section 3</div>
+      <h2 class="section-title">Stackable Credential Model</h2>
+
+      <p>AI Trade School awards three stackable credentials, each representing a progressively deeper level of professional competence in AI operations.</p>
+
+      <div class="credential-cards">
+        <!-- Tier 1 -->
+        <div class="credential-card tier-1">
+          <div class="credential-icon">I</div>
+          <h4>AI Literacy Certificate</h4>
+          <div class="credential-level">Foundational &mdash; Free</div>
+          <p><strong>Requirements:</strong></p>
+          <ul>
+            <li>Completion of all 5 Tier 1 foundational courses</li>
+            <li>Passing knowledge assessments in each course</li>
+          </ul>
+          <p><strong>Competencies Demonstrated:</strong></p>
+          <ul>
+            <li>AI concepts and terminology</li>
+            <li>AI tools and platform identification</li>
+            <li>Personal and professional productivity with AI</li>
+            <li>Career pathways in AI</li>
+            <li>Foundational ethical reasoning</li>
+          </ul>
+          <p><strong>Workforce Application:</strong> AI awareness roles; qualifies learner for Tier 2 enrollment.</p>
+        </div>
+        <!-- Tier 2 -->
+        <div class="credential-card tier-2">
+          <div class="credential-icon">II</div>
+          <h4>Applied AI Practitioner Certificate</h4>
+          <div class="credential-level">Intermediate &mdash; Paid</div>
+          <p><strong>Prerequisites:</strong> AI Literacy Certificate</p>
+          <p><strong>Requirements:</strong></p>
+          <ul>
+            <li>Completion of all 5 Tier 2 applied courses</li>
+            <li>Submission and approval of all portfolio artifacts</li>
+          </ul>
+          <p><strong>Competencies Demonstrated:</strong></p>
+          <ul>
+            <li>Prompt engineering and optimization</li>
+            <li>AI automation and workflow design</li>
+            <li>Business operations with AI</li>
+            <li>AI content and communication systems</li>
+            <li>AI tool integration and system design</li>
+          </ul>
+          <p><strong>Workforce Application:</strong> Applied AI roles under supervision; qualifies learner for CAIO candidacy.</p>
+        </div>
+        <!-- Tier 3 -->
+        <div class="credential-card tier-3">
+          <div class="credential-icon">III</div>
+          <h4>Certified AI Operator (CAIO)</h4>
+          <div class="credential-level">Professional Certification</div>
+          <p><strong>Prerequisites:</strong> Both prior credentials</p>
+          <p><strong>Requirements:</strong></p>
+          <ul>
+            <li>Capstone AI system deployment project</li>
+            <li>Written knowledge examination (80%+)</li>
+            <li>Recorded oral defense and walkthrough</li>
+          </ul>
+          <p><strong>Competencies Demonstrated:</strong></p>
+          <ul>
+            <li>Autonomous AI system management and deployment</li>
+            <li>Professional documentation and governance</li>
+            <li>Ethical reasoning and risk assessment</li>
+            <li>Stakeholder communication at all levels</li>
+          </ul>
+          <p><strong>Workforce Application:</strong> Independent AI Operator roles with organizational accountability.</p>
+        </div>
+      </div>
+
+      <h3 class="subsection-title">Advancement Requirements</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Credential</th>
+              <th>Prerequisite</th>
+              <th>Competency Gate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AI Literacy Certificate</td>
+              <td>None</td>
+              <td>Passing all Tier 1 knowledge assessments</td>
+            </tr>
+            <tr>
+              <td>Applied AI Practitioner</td>
+              <td>AI Literacy Certificate</td>
+              <td>All portfolio artifacts rated Competent</td>
+            </tr>
+            <tr>
+              <td>Certified AI Operator (CAIO)</td>
+              <td>Both prior credentials</td>
+              <td>Capstone + Exam (80%) + Oral Defense (Pass)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 4: FOUNDATIONAL COURSES -->
+  <section class="content-section" id="foundational">
+    <div class="section-inner">
+      <div class="section-label">Section 4</div>
+      <h2 class="section-title">Foundational Courses (Tier 1)</h2>
+
+      <p>Tier 1 comprises five foundational courses totaling approximately 46 clock hours. All foundational courses are free and open to all enrolled learners. Completion of all five courses with passing assessments qualifies the learner for the AI Literacy Certificate.</p>
+
+      <!-- AI 101 -->
+      <div class="course-card">
+        <div class="course-card-header">
+          <div class="course-card-title">AI 101 &mdash; Foundations of Artificial Intelligence</div>
+          <div class="course-card-meta">
+            <span class="tag tag-hours">10 Hours</span>
+            <span class="tag tag-tier">Tier 1</span>
+          </div>
+        </div>
+        <h4 class="sub-subsection-title">Learning Objectives</h4>
+        <ol>
+          <li>Define artificial intelligence, machine learning, and large language models in professional context</li>
+          <li>Distinguish between narrow AI, general AI, and generative AI capabilities and limitations</li>
+          <li>Explain the basic architecture and training process of large language models</li>
+          <li>Identify at least five industry-specific AI use cases across different sectors</li>
+          <li>Articulate the distinction between AI as a tool and AI as an autonomous agent</li>
+        </ol>
+        <h4 class="sub-subsection-title">Assessment</h4>
+        <ul>
+          <li>Multiple-choice knowledge assessment (75% passing threshold)</li>
+          <li>Short-answer reflection on AI applications in the learner&rsquo;s professional context</li>
+        </ul>
+        <p><strong>Outcome:</strong> Foundational knowledge sufficient for informed professional conversation about AI capabilities, limitations, and applications.</p>
+      </div>
+
+      <!-- ChatGPT Fundamentals -->
+      <div class="course-card">
+        <div class="course-card-header">
+          <div class="course-card-title">ChatGPT Fundamentals &mdash; Human&ndash;AI Interaction</div>
+          <div class="course-card-meta">
+            <span class="tag tag-hours">8 Hours</span>
+            <span class="tag tag-tier">Tier 1</span>
+          </div>
+        </div>
+        <h4 class="sub-subsection-title">Learning Objectives</h4>
+        <ol>
+          <li>Compose effective prompts using structured techniques (role, context, format, constraints)</li>
+          <li>Apply iterative prompt refinement to improve output quality across task types</li>
+          <li>Identify common failure modes including hallucination, bias, and context window limitations</li>
+          <li>Use ChatGPT productively for at least three professional task categories</li>
+          <li>Evaluate AI-generated outputs for accuracy, completeness, and appropriateness</li>
+        </ol>
+        <h4 class="sub-subsection-title">Assessment</h4>
+        <ul>
+          <li>Prompt portfolio demonstrating competence across three distinct task categories</li>
+          <li>Knowledge assessment on limitations and failure modes (75% passing threshold)</li>
+        </ul>
+        <p><strong>Outcome:</strong> Competent ChatGPT use with understanding of reliability boundaries and output evaluation.</p>
+      </div>
+
+      <!-- AI Tools Overview -->
+      <div class="course-card">
+        <div class="course-card-header">
+          <div class="course-card-title">Overview of AI Tools and Platforms</div>
+          <div class="course-card-meta">
+            <span class="tag tag-hours">10 Hours</span>
+            <span class="tag tag-tier">Tier 1</span>
+          </div>
+        </div>
+        <h4 class="sub-subsection-title">Learning Objectives</h4>
+        <ol>
+          <li>Identify and describe the function of 15+ AI tools across major categories</li>
+          <li>Apply structured evaluation criteria to assess tool suitability for specific tasks</li>
+          <li>Distinguish between tool categories: generative, analytical, automation, and integration</li>
+          <li>Demonstrate basic proficiency in at least three AI tools beyond ChatGPT</li>
+          <li>Create a personal AI tool inventory with use-case documentation</li>
+        </ol>
+        <h4 class="sub-subsection-title">Assessment</h4>
+        <ul>
+          <li>Tool Evaluation Matrix covering five tools with structured criteria</li>
+          <li>Knowledge assessment (75% passing threshold)</li>
+        </ul>
+        <p><strong>Outcome:</strong> Informed tool selection capability for professional tasks and organizational contexts.</p>
+      </div>
+
+      <!-- AI Productivity -->
+      <div class="course-card">
+        <div class="course-card-header">
+          <div class="course-card-title">AI for Personal and Professional Productivity</div>
+          <div class="course-card-meta">
+            <span class="tag tag-hours">8 Hours</span>
+            <span class="tag tag-tier">Tier 1</span>
+          </div>
+        </div>
+        <h4 class="sub-subsection-title">Learning Objectives</h4>
+        <ol>
+          <li>Conduct a personal workflow audit to identify AI-augmentable tasks</li>
+          <li>Implement AI tools for at least five distinct productivity use cases</li>
+          <li>Measure and document productivity improvements from AI integration</li>
+          <li>Design a repeatable AI-augmented productivity system for ongoing use</li>
+          <li>Identify tasks where AI use is inappropriate or counterproductive</li>
+        </ol>
+        <h4 class="sub-subsection-title">Assessment</h4>
+        <ul>
+          <li>Productivity Audit with before/after demonstration</li>
+          <li>Knowledge assessment (75% passing threshold)</li>
+        </ul>
+        <p><strong>Outcome:</strong> Systematic AI integration into daily professional work with quantified productivity gains.</p>
+      </div>
+
+      <!-- AI Careers & Ethics -->
+      <div class="course-card">
+        <div class="course-card-header">
+          <div class="course-card-title">AI Careers, Ethics, and Workforce Readiness</div>
+          <div class="course-card-meta">
+            <span class="tag tag-hours">10 Hours</span>
+            <span class="tag tag-tier">Tier 1</span>
+          </div>
+        </div>
+        <h4 class="sub-subsection-title">Learning Objectives</h4>
+        <ol>
+          <li>Identify at least 10 AI-related professional roles and their requirements</li>
+          <li>Describe the scope, responsibilities, and career trajectory of the AI Operator role</li>
+          <li>Apply ethical frameworks to AI deployment scenarios including transparency, fairness, and accountability</li>
+          <li>Identify sources of AI bias and describe mitigation strategies</li>
+          <li>Articulate data privacy considerations relevant to AI tool use in organizational settings</li>
+          <li>Develop a personal career development plan incorporating AI skills</li>
+        </ol>
+        <h4 class="sub-subsection-title">Assessment</h4>
+        <ul>
+          <li>Ethical Case Analysis covering two scenarios with structured reasoning</li>
+          <li>Career Development Plan with skills inventory and growth targets</li>
+          <li>Knowledge assessment (75% passing threshold)</li>
+        </ul>
+        <p><strong>Outcome:</strong> Professional landscape understanding, ethical reasoning skills, and actionable career strategy.</p>
+      </div>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 5: CORE APPLIED COURSES -->
+  <section class="content-section" id="applied">
+    <div class="section-inner">
+      <div class="section-label">Section 5</div>
+      <h2 class="section-title">Core Applied Courses (Tier 2)</h2>
+
+      <p>Tier 2 comprises five applied courses totaling approximately 100&ndash;125 clock hours. Each course requires the AI Literacy Certificate as a prerequisite and produces a portfolio artifact demonstrating applied competence. Course pricing ranges from $149 to $297 per course.</p>
+
+      <!-- Prompt Engineering -->
+      <div class="course-card">
+        <div class="course-card-header">
+          <div class="course-card-title">Prompt Engineering for Business Operations</div>
+          <div class="course-card-meta">
+            <span class="tag tag-paid">Paid</span>
+            <span class="tag tag-tier">Tier 2</span>
+          </div>
+        </div>
+        <h4 class="sub-subsection-title">Learning Outcomes</h4>
+        <ul>
+          <li>Design multi-step prompts for complex business operations tasks</li>
+          <li>Build structured prompt frameworks for repeatable organizational use</li>
+          <li>Develop reusable prompt libraries with documentation and usage instructions</li>
+          <li>Apply testing and iteration methodologies to optimize prompt performance</li>
+          <li>Adapt prompt strategies across multiple AI platforms and models</li>
+        </ul>
+        <h4 class="sub-subsection-title">Applied Skills</h4>
+        <ul>
+          <li>Prompt chaining and sequencing</li>
+          <li>Systematic testing and iteration</li>
+          <li>Context window management</li>
+          <li>Prompt documentation and version control</li>
+          <li>Cross-platform prompt adaptation</li>
+        </ul>
+        <h4 class="sub-subsection-title">Portfolio Artifact</h4>
+        <p><strong>Organizational Prompt Library:</strong> A documented collection of 20+ reusable prompts organized by business function, including usage instructions, expected outputs, and performance benchmarks.</p>
+      </div>
+
+      <!-- AI Automation -->
+      <div class="course-card">
+        <div class="course-card-header">
+          <div class="course-card-title">AI Automation &amp; Workflow Design</div>
+          <div class="course-card-meta">
+            <span class="tag tag-paid">Paid</span>
+            <span class="tag tag-tier">Tier 2</span>
+          </div>
+        </div>
+        <h4 class="sub-subsection-title">Learning Outcomes</h4>
+        <ul>
+          <li>Map existing business workflows and identify automation opportunities</li>
+          <li>Design AI-augmented workflow architectures using platforms such as Zapier and Make</li>
+          <li>Build and deploy multi-step automated workflows with AI components</li>
+          <li>Implement testing and monitoring protocols for automated systems</li>
+          <li>Document automation systems for organizational knowledge management</li>
+        </ul>
+        <h4 class="sub-subsection-title">Applied Skills</h4>
+        <ul>
+          <li>Workflow mapping and process analysis</li>
+          <li>Automation platform configuration</li>
+          <li>Trigger-action logic design</li>
+          <li>Error handling and fallback design</li>
+          <li>System documentation</li>
+        </ul>
+        <h4 class="sub-subsection-title">Portfolio Artifact</h4>
+        <p><strong>AI Workflow Blueprint:</strong> A complete workflow automation document including process diagram, technical specifications, decision logic, error handling procedures, and maintenance schedule.</p>
+      </div>
+
+      <!-- Business Operations -->
+      <div class="course-card">
+        <div class="course-card-header">
+          <div class="course-card-title">AI for Business Operations and Administration</div>
+          <div class="course-card-meta">
+            <span class="tag tag-paid">Paid</span>
+            <span class="tag tag-tier">Tier 2</span>
+          </div>
+        </div>
+        <h4 class="sub-subsection-title">Learning Outcomes</h4>
+        <ul>
+          <li>Conduct organizational AI readiness assessments</li>
+          <li>Develop AI implementation plans aligned with business objectives</li>
+          <li>Evaluate AI vendors and deploy selected solutions within organizational constraints</li>
+          <li>Measure and communicate the impact of AI implementations on business outcomes</li>
+          <li>Manage stakeholder expectations and organizational change related to AI adoption</li>
+        </ul>
+        <h4 class="sub-subsection-title">Applied Skills</h4>
+        <ul>
+          <li>Organizational readiness assessment</li>
+          <li>Vendor evaluation and selection</li>
+          <li>Implementation planning and project management</li>
+          <li>ROI measurement and reporting</li>
+          <li>Stakeholder management and communication</li>
+        </ul>
+        <h4 class="sub-subsection-title">Portfolio Artifact</h4>
+        <p><strong>AI Operations Plan:</strong> A comprehensive organizational AI implementation plan including readiness assessment, tool recommendations, implementation timeline, budget projections, risk mitigation strategies, and success metrics.</p>
+      </div>
+
+      <!-- Content & Communication -->
+      <div class="course-card">
+        <div class="course-card-header">
+          <div class="course-card-title">AI Content, Media, and Communication Systems</div>
+          <div class="course-card-meta">
+            <span class="tag tag-paid">Paid</span>
+            <span class="tag tag-tier">Tier 2</span>
+          </div>
+        </div>
+        <h4 class="sub-subsection-title">Learning Outcomes</h4>
+        <ul>
+          <li>Design AI-augmented content production workflows for organizational use</li>
+          <li>Apply brand voice and style guidelines to AI-generated content</li>
+          <li>Implement quality assurance processes for AI-produced content</li>
+          <li>Develop multi-channel content strategies incorporating AI tools</li>
+          <li>Establish content governance frameworks for AI-assisted production</li>
+        </ul>
+        <h4 class="sub-subsection-title">Applied Skills</h4>
+        <ul>
+          <li>Content workflow design</li>
+          <li>Brand voice translation and application</li>
+          <li>Quality assurance and editorial review</li>
+          <li>Multi-channel content strategy</li>
+          <li>Content governance and compliance</li>
+        </ul>
+        <h4 class="sub-subsection-title">Portfolio Artifact</h4>
+        <p><strong>AI Content System Blueprint:</strong> A complete content system design including content strategy, prompt templates, quality assurance protocols, editorial workflow, and governance framework.</p>
+      </div>
+
+      <!-- Tool Integration & System Design -->
+      <div class="course-card">
+        <div class="course-card-header">
+          <div class="course-card-title">AI Tool Integration and System Design</div>
+          <div class="course-card-meta">
+            <span class="tag tag-paid">Paid</span>
+            <span class="tag tag-tier">Tier 2</span>
+          </div>
+        </div>
+        <h4 class="sub-subsection-title">Learning Outcomes</h4>
+        <ul>
+          <li>Design integrated AI tool ecosystems for organizational operations</li>
+          <li>Apply structured evaluation criteria for tool selection and procurement</li>
+          <li>Build multi-tool integration architectures with data flow documentation</li>
+          <li>Create comprehensive system documentation including architecture diagrams</li>
+          <li>Conduct system audits and optimization reviews</li>
+        </ul>
+        <h4 class="sub-subsection-title">Applied Skills</h4>
+        <ul>
+          <li>System architecture and design</li>
+          <li>Multi-tool integration and orchestration</li>
+          <li>API connections and data flow management</li>
+          <li>Documentation and diagramming</li>
+          <li>System audit and optimization</li>
+        </ul>
+        <h4 class="sub-subsection-title">Portfolio Artifact</h4>
+        <p><strong>AI System Architecture Document:</strong> A comprehensive system design including architecture diagram, tool inventory, integration specifications, data flow documentation, security considerations, and maintenance procedures.</p>
+      </div>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 6: CAIO PROGRAM -->
+  <section class="content-section" id="caio">
+    <div class="section-inner">
+      <div class="section-label">Section 6</div>
+      <h2 class="section-title">Certified AI Operator (CAIO) Program</h2>
+
+      <h3 class="subsection-title">Purpose</h3>
+      <p>The Certified AI Operator (CAIO) designation is the capstone professional credential of AI Trade School. It fills a critical gap in the workforce: trained professionals who manage, deploy, and operate AI systems within organizations &mdash; distinct from those who build or research AI technology.</p>
+
+      <h3 class="subsection-title">Professional Scope &mdash; The AI Operator</h3>
+      <p>The AI Operator is a professional role defined by the following competencies:</p>
+      <ul>
+        <li>Deploys AI tools and workflows within organizational settings</li>
+        <li>Manages ongoing AI operations including monitoring, troubleshooting, and optimization</li>
+        <li>Documents AI systems for knowledge management, compliance, and continuity</li>
+        <li>Applies ethical reasoning and risk assessment to AI deployment decisions</li>
+        <li>Communicates AI capabilities, limitations, and outcomes to stakeholders at all levels</li>
+        <li>Evaluates and selects AI tools and vendors based on organizational requirements</li>
+        <li>Designs AI-augmented workflows that integrate with existing business processes</li>
+        <li>Exercises professional judgment on AI outputs, recognizing when human intervention is required</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-label">Note</div>
+        <p>The AI Operator role is distinct from AI Engineer, Data Scientist, and IT Administrator. The AI Operator occupies the critical operational layer between AI technology and organizational function.</p>
+      </div>
+
+      <h3 class="subsection-title">Prerequisites</h3>
+      <ul>
+        <li>AI Literacy Certificate (Tier 1)</li>
+        <li>Applied AI Practitioner Certificate (Tier 2)</li>
+        <li>Complete professional portfolio meeting all competency standards</li>
+      </ul>
+
+      <h3 class="subsection-title">Time Commitment</h3>
+      <p>The CAIO certification phase requires approximately 40&ndash;60 additional hours of work, including capstone development, examination preparation, and oral defense. Candidates have a maximum of 12 months to complete all certification requirements from the date of eligibility.</p>
+      <p>Total program hours across all three tiers: approximately 186&ndash;231 clock hours.</p>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 7: DELIVERY MODEL -->
+  <section class="content-section" id="delivery">
+    <div class="section-inner">
+      <div class="section-label">Section 7</div>
+      <h2 class="section-title">Instructional Delivery Model</h2>
+
+      <h3 class="subsection-title">Asynchronous Instruction</h3>
+      <p>All instruction is delivered asynchronously. There are no live sessions or scheduled class meetings. Instructional delivery includes:</p>
+      <ul>
+        <li>Pre-recorded video demonstrations and lectures</li>
+        <li>Written instructional modules and reference materials</li>
+        <li>Structured project briefs and assignment specifications</li>
+        <li>Discussion forums for peer interaction and knowledge sharing</li>
+        <li>Instructor feedback on submitted work and portfolio artifacts</li>
+        <li>Self-paced progress through course materials</li>
+      </ul>
+
+      <h3 class="subsection-title">Adult Learner Model (Andragogy)</h3>
+      <p>AI Trade School&rsquo;s instructional design follows principles of adult learning theory:</p>
+      <ul>
+        <li><strong>Relevance:</strong> All content is directly tied to professional application</li>
+        <li><strong>Autonomy:</strong> Learners control their own pace and schedule</li>
+        <li><strong>Experience Integration:</strong> Prior professional experience informs learning and project work</li>
+        <li><strong>Problem-Centered:</strong> Instruction is organized around real-world problems, not abstract topics</li>
+        <li><strong>Intrinsic Motivation:</strong> Career advancement and skill development drive engagement</li>
+      </ul>
+
+      <h3 class="subsection-title">Demonstration-Based Teaching Model</h3>
+      <p>Each instructional unit follows a five-step demonstration-based model:</p>
+      <ol>
+        <li><strong>Context Setting:</strong> Establish the professional scenario and learning objective</li>
+        <li><strong>Demonstration:</strong> Instructor models the skill or workflow in a real-world context</li>
+        <li><strong>Guided Practice:</strong> Learner replicates the demonstrated skill with structured support</li>
+        <li><strong>Independent Application:</strong> Learner applies the skill to a novel scenario</li>
+        <li><strong>Reflection and Feedback:</strong> Learner receives feedback and reflects on the process</li>
+      </ol>
+
+      <h3 class="subsection-title">Portfolio-Driven Learning</h3>
+      <p>Portfolio development serves four functions within the program:</p>
+      <ul>
+        <li><strong>Evidence of Competence:</strong> Demonstrates applied skill to assessors and employers</li>
+        <li><strong>Employment Preparation:</strong> Provides concrete work samples for professional use</li>
+        <li><strong>Reflective Practice:</strong> Encourages ongoing self-assessment and improvement</li>
+        <li><strong>Assessment Basis:</strong> Serves as the primary evaluation mechanism for Tier 2 courses</li>
+      </ul>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 8: ASSESSMENT & EVALUATION -->
+  <section class="content-section" id="assessment">
+    <div class="section-inner">
+      <div class="section-label">Section 8</div>
+      <h2 class="section-title">Assessment &amp; Evaluation</h2>
+
+      <h3 class="subsection-title">Competency-Based Assessment</h3>
+      <p>All assessment at AI Trade School is competency-based. Students are evaluated against defined competency standards, not against one another. There is no curved grading, no class ranking, and no bell-curve distribution. The question is not how a student compares to peers, but whether the student has demonstrated the required competency.</p>
+
+      <h3 class="subsection-title">Grading Model</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>Assessment Type</th>
+              <th>Grading Model</th>
+              <th>Minimum Standard</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tier 1</td>
+              <td>Knowledge assessments</td>
+              <td>Percentage-based</td>
+              <td>75%</td>
+            </tr>
+            <tr>
+              <td>Tier 2</td>
+              <td>Applied projects &amp; portfolio</td>
+              <td>Rubric (Competent / Not Yet Competent)</td>
+              <td>Competent on all criteria</td>
+            </tr>
+            <tr>
+              <td>CAIO Capstone</td>
+              <td>Capstone project</td>
+              <td>Rubric-based</td>
+              <td>Competent on all criteria</td>
+            </tr>
+            <tr>
+              <td>CAIO Written Exam</td>
+              <td>Written examination</td>
+              <td>Percentage-based</td>
+              <td>80% overall, 70% per domain</td>
+            </tr>
+            <tr>
+              <td>CAIO Oral Defense</td>
+              <td>Oral defense</td>
+              <td>Rubric (Pass / Not Yet Passed)</td>
+              <td>Pass on all evaluation criteria</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="subsection-title">Rubric Evaluation Standards</h3>
+      <ul>
+        <li><strong>Competent:</strong> The student has demonstrated the required knowledge, skill, or ability at a level consistent with professional practice. The work product meets all specified criteria and demonstrates applied understanding.</li>
+        <li><strong>Not Yet Competent:</strong> The student has not yet demonstrated the required competency. Specific feedback is provided to guide improvement. The student may resubmit within the reassessment policy.</li>
+      </ul>
+
+      <h3 class="subsection-title">Reassessment Policy</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Assessment</th>
+              <th>Reassessment Allowance</th>
+              <th>Conditions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tier 1 Knowledge Assessments</td>
+              <td>Up to 3 retakes</td>
+              <td>48-hour waiting period between attempts</td>
+            </tr>
+            <tr>
+              <td>Tier 2 Portfolio Artifacts</td>
+              <td>Up to 2 revisions</td>
+              <td>Revised work must address all feedback</td>
+            </tr>
+            <tr>
+              <td>CAIO Written Examination</td>
+              <td>1 retake</td>
+              <td>30-day waiting period</td>
+            </tr>
+            <tr>
+              <td>CAIO Oral Defense</td>
+              <td>1 reattempt</td>
+              <td>30-day waiting period; revised capstone required</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 9: CERTIFICATION STANDARDS -->
+  <section class="content-section" id="certification">
+    <div class="section-inner">
+      <div class="section-label">Section 9</div>
+      <h2 class="section-title">Certification Standards</h2>
+
+      <h3 class="subsection-title">CAIO Competency Domains</h3>
+      <p>The Certified AI Operator examination and capstone project assess competence across six professional domains:</p>
+      <ol>
+        <li>AI Tool Proficiency</li>
+        <li>Prompt Engineering &amp; Optimization</li>
+        <li>Workflow Automation &amp; Integration</li>
+        <li>Business Operations &amp; Strategy</li>
+        <li>Documentation &amp; Governance</li>
+        <li>Ethics, Risk &amp; Professional Judgment</li>
+      </ol>
+
+      <h3 class="subsection-title">Competency Matrix</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Domain</th>
+              <th>Key Skills</th>
+              <th>Assessment Method</th>
+              <th>Standard</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AI Tool Proficiency</td>
+              <td>Tool selection, configuration, deployment</td>
+              <td>Capstone + Written</td>
+              <td>Competent / 80%</td>
+            </tr>
+            <tr>
+              <td>Prompt Engineering</td>
+              <td>Design, optimization, documentation</td>
+              <td>Capstone + Written</td>
+              <td>Competent / 80%</td>
+            </tr>
+            <tr>
+              <td>Workflow Automation</td>
+              <td>Mapping, architecture, deployment</td>
+              <td>Capstone + Written</td>
+              <td>Competent / 80%</td>
+            </tr>
+            <tr>
+              <td>Business Operations</td>
+              <td>Strategy, implementation, ROI</td>
+              <td>Capstone + Written</td>
+              <td>Competent / 80%</td>
+            </tr>
+            <tr>
+              <td>Documentation &amp; Governance</td>
+              <td>System docs, compliance, knowledge mgmt</td>
+              <td>Capstone + Oral</td>
+              <td>Competent / Pass</td>
+            </tr>
+            <tr>
+              <td>Ethics &amp; Professional Judgment</td>
+              <td>Risk assessment, bias, accountability</td>
+              <td>Written + Oral</td>
+              <td>80% / Pass</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="subsection-title">Capstone Requirements</h3>
+      <p>The CAIO capstone project requires six components:</p>
+      <ol>
+        <li><strong>Organizational Context Analysis:</strong> Assessment of the target organization&rsquo;s AI readiness, needs, and constraints</li>
+        <li><strong>AI System Design:</strong> Architecture and design of an AI system addressing identified organizational needs</li>
+        <li><strong>Implementation Documentation:</strong> Complete documentation of system deployment, configuration, and operation</li>
+        <li><strong>Ethical and Risk Assessment:</strong> Analysis of ethical considerations, risks, and mitigation strategies</li>
+        <li><strong>Impact Evaluation:</strong> Measurement and analysis of system impact on organizational outcomes</li>
+        <li><strong>Stakeholder Communication Materials:</strong> Professional-grade materials for presenting the system to organizational stakeholders</li>
+      </ol>
+
+      <h3 class="subsection-title">Written Examination</h3>
+      <p>The CAIO written examination comprises 100 questions across the six competency domains:</p>
+      <ul>
+        <li>60 multiple-choice questions</li>
+        <li>20 short-answer questions</li>
+        <li>20 scenario-based questions</li>
+      </ul>
+      <p>Time allowed: 3 hours. Administered online with proctoring. Passing standard: 80% overall with a minimum of 70% in each domain.</p>
+
+      <h3 class="subsection-title">Oral Defense</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Duration</th>
+              <th>Evaluation Focus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Project Presentation</td>
+              <td>20 minutes</td>
+              <td>Clarity, completeness, professional communication</td>
+            </tr>
+            <tr>
+              <td>Panel Questions</td>
+              <td>20 minutes</td>
+              <td>Technical depth, decision rationale, adaptability</td>
+            </tr>
+            <tr>
+              <td>Ethical Scenario</td>
+              <td>10 minutes</td>
+              <td>Ethical reasoning, risk assessment, judgment</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 10: RECORDS & TRANSCRIPTS -->
+  <section class="content-section" id="records">
+    <div class="section-inner">
+      <div class="section-label">Section 10</div>
+      <h2 class="section-title">Student Records &amp; Transcripts</h2>
+
+      <p>AI Trade School maintains secure digital records for all enrolled students, including course completion records, assessment results, portfolio submissions, and credentials awarded.</p>
+
+      <h3 class="subsection-title">Transcript Availability</h3>
+      <ul>
+        <li>Official transcripts are available in electronic format with a unique verification code</li>
+        <li>Transcript requests are fulfilled within 5 business days</li>
+        <li>Transcripts include all completed courses, assessment results, and credentials earned</li>
+      </ul>
+
+      <h3 class="subsection-title">Credential Verification</h3>
+      <p>Employers and third parties may verify credentials through the AI Trade School verification portal. Each credential includes a unique verification code that can be confirmed independently.</p>
+
+      <h3 class="subsection-title">Data Integrity &amp; Security</h3>
+      <ul>
+        <li>All records are stored in encrypted, access-controlled digital systems</li>
+        <li>Credential records are maintained indefinitely</li>
+        <li>Enrollment and assessment records are retained for a minimum of 7 years</li>
+        <li>Students may request access to their records at any time</li>
+      </ul>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 11: CODE OF CONDUCT -->
+  <section class="content-section" id="conduct">
+    <div class="section-inner">
+      <div class="section-label">Section 11</div>
+      <h2 class="section-title">Code of Conduct &amp; Ethics</h2>
+
+      <h3 class="subsection-title">Ethical AI Use Standards</h3>
+      <ol>
+        <li>Use AI tools responsibly, with awareness of their limitations and potential for harm</li>
+        <li>Disclose AI-generated content when required by professional, organizational, or legal standards</li>
+        <li>Avoid using AI systems to deceive, manipulate, or cause harm to individuals or organizations</li>
+        <li>Report identified biases, errors, or ethical concerns in AI outputs and systems</li>
+        <li>Protect data privacy and confidentiality when using AI tools with organizational or personal information</li>
+      </ol>
+
+      <h3 class="subsection-title">Academic Integrity</h3>
+      <ol>
+        <li>Submit only original work unless explicitly permitted to collaborate</li>
+        <li>Properly attribute all sources, tools, and AI assistance used in assignments</li>
+        <li>Do not misrepresent AI-generated work as entirely human-produced</li>
+        <li>Do not share assessment content, answers, or examination materials with other students</li>
+      </ol>
+
+      <h3 class="subsection-title">Professional Conduct</h3>
+      <ol>
+        <li>Engage respectfully with instructors, peers, and staff in all communications</li>
+        <li>Provide constructive feedback and participate in learning communities professionally</li>
+        <li>Respect intellectual property rights and licensing agreements for all tools and content</li>
+        <li>Maintain confidentiality of organizational information used in coursework and projects</li>
+        <li>Represent credentials and qualifications accurately and honestly</li>
+      </ol>
+
+      <h3 class="subsection-title">Enforcement Process</h3>
+      <ol>
+        <li><strong>Report:</strong> Concern submitted through the conduct reporting portal</li>
+        <li><strong>Investigation:</strong> Review of evidence and circumstances by administration</li>
+        <li><strong>Notification:</strong> Student notified of the concern and given opportunity to respond</li>
+        <li><strong>Determination:</strong> Finding of responsibility or no responsibility</li>
+        <li><strong>Sanctions:</strong> Range from warning to credential revocation, depending on severity</li>
+        <li><strong>Appeal:</strong> Students may appeal determinations within 14 calendar days</li>
+      </ol>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 12: ACCESSIBILITY & INCLUSION -->
+  <section class="content-section" id="accessibility">
+    <div class="section-inner">
+      <div class="section-label">Section 12</div>
+      <h2 class="section-title">Accessibility &amp; Inclusion</h2>
+
+      <h3 class="subsection-title">Commitment</h3>
+      <p>AI Trade School is committed to meeting WCAG 2.1 Level AA accessibility standards across all learning materials and digital platforms.</p>
+
+      <h3 class="subsection-title">Accommodations Policy</h3>
+      <p>The following accommodations are available upon request:</p>
+      <ol>
+        <li>Extended time on timed assessments</li>
+        <li>Alternative format materials (audio, large print, screen-reader compatible)</li>
+        <li>Modified assessment delivery methods</li>
+        <li>Assistive technology compatibility support</li>
+        <li>Communication preference accommodations</li>
+        <li>Flexible deadline arrangements for documented needs</li>
+      </ol>
+
+      <h3 class="subsection-title">Universal Design for Learning (UDL)</h3>
+      <p>AI Trade School applies UDL principles across six areas:</p>
+      <ul>
+        <li><strong>Multiple Means of Representation:</strong> Content delivered in text, video, audio, and visual formats</li>
+        <li><strong>Multiple Means of Engagement:</strong> Varied activities, self-paced progress, and choice in project topics</li>
+        <li><strong>Multiple Means of Action and Expression:</strong> Diverse assessment formats and portfolio options</li>
+        <li><strong>Culturally Responsive Design:</strong> Inclusive examples, diverse perspectives, and global applicability</li>
+        <li><strong>Plain Language:</strong> Clear, jargon-free instructional writing accessible to non-native English speakers</li>
+        <li><strong>Captioning and Transcription:</strong> All video content captioned; transcripts available for all media</li>
+      </ul>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 13: INSTRUCTOR STANDARDS -->
+  <section class="content-section" id="instructors">
+    <div class="section-inner">
+      <div class="section-label">Section 13</div>
+      <h2 class="section-title">Instructor Standards</h2>
+
+      <h3 class="subsection-title">Qualifications</h3>
+      <ol>
+        <li>Demonstrated expertise in the subject area through professional experience or equivalent credentials</li>
+        <li>Minimum of 3 years of professional experience in AI operations, technology, or a related field</li>
+        <li>Ability to design and deliver competency-based instructional materials</li>
+        <li>Commitment to ethical AI practices and responsible technology use</li>
+      </ol>
+
+      <h3 class="subsection-title">Industry Experience</h3>
+      <ol>
+        <li>Maintain active professional engagement in the AI or technology field</li>
+        <li>Incorporate current industry practices and tools into instructional materials</li>
+        <li>Provide students with relevant, real-world context for all learning activities</li>
+        <li>Update course content to reflect evolving industry standards and tool capabilities</li>
+      </ol>
+
+      <h3 class="subsection-title">Curriculum Adherence</h3>
+      <p>Instructors are expected to deliver instruction aligned with the approved curriculum, learning objectives, and assessment standards. Deviations from the curriculum require prior approval from the Curriculum and Instruction team.</p>
+
+      <h3 class="subsection-title">Professional Development</h3>
+      <p>All instructors are required to complete a minimum of 20 hours of professional development annually, focused on instructional quality, AI tool proficiency, and pedagogical best practices.</p>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 14: CURRICULUM GOVERNANCE -->
+  <section class="content-section" id="governance">
+    <div class="section-inner">
+      <div class="section-label">Section 14</div>
+      <h2 class="section-title">Curriculum Governance</h2>
+
+      <h3 class="subsection-title">Review Cycle</h3>
+      <ul>
+        <li><strong>Annual Review:</strong> All courses reviewed annually for relevance, accuracy, and alignment with industry standards</li>
+        <li><strong>Comprehensive Biennial Review:</strong> Full program review every two years including credential requirements, competency domains, and assessment standards</li>
+        <li><strong>Triggered Review:</strong> Immediate review initiated by significant industry changes, tool deprecation, or student outcome data indicating need for revision</li>
+      </ul>
+
+      <h3 class="subsection-title">Industry Alignment Processes</h3>
+      <ol>
+        <li>Employer advisory input on competency requirements and workforce needs</li>
+        <li>Analysis of job postings and employment trends in AI-related roles</li>
+        <li>Review of competing credential programs and industry certifications</li>
+        <li>Integration of emerging AI tools and platforms into course content</li>
+      </ol>
+
+      <h3 class="subsection-title">Version Control</h3>
+      <p>All curriculum materials are version-controlled with documented change histories. Major revisions are versioned with whole numbers; minor updates receive decimal increments. Students are notified of material changes that affect their current enrollment.</p>
+
+      <h3 class="subsection-title">Continuous Improvement</h3>
+      <p>AI Trade School employs a continuous improvement model drawing on five data sources:</p>
+      <ol>
+        <li>Student assessment performance data</li>
+        <li>Course completion and retention rates</li>
+        <li>Student satisfaction and feedback surveys</li>
+        <li>Instructor observations and recommendations</li>
+        <li>Employer feedback on graduate preparedness</li>
+      </ol>
+      <p>Data is reviewed quarterly and informs iterative curriculum improvements.</p>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 15: EXTERNAL ALIGNMENT -->
+  <section class="content-section" id="alignment">
+    <div class="section-inner">
+      <div class="section-label">Section 15</div>
+      <h2 class="section-title">External Alignment</h2>
+
+      <h3 class="subsection-title">Workforce Development Alignment</h3>
+      <p>AI Trade School programs are designed in alignment with established workforce development frameworks and standards:</p>
+      <ul>
+        <li><strong>U.S. Department of Labor Competency Model Framework:</strong> Industry competency model structure</li>
+        <li><strong>National Skills Coalition:</strong> Skills-based workforce development principles</li>
+        <li><strong>Workforce Innovation and Opportunity Act (WIOA):</strong> Career pathway alignment</li>
+        <li><strong>American Association for Adult and Continuing Education (AAACE):</strong> Adult education best practices</li>
+      </ul>
+
+      <h3 class="subsection-title">Employer Expectations</h3>
+      <p>Curriculum development is informed by documented employer expectations for AI-related roles. Competency domains, portfolio requirements, and assessment standards are designed to produce graduates who can contribute immediately in organizational settings.</p>
+
+      <h3 class="subsection-title">Continuing Education Alignment</h3>
+      <ul>
+        <li>Clock hour standards aligned with continuing education unit (CEU) norms</li>
+        <li>Assessment practices consistent with IACET (International Accreditors for Continuing Education and Training) standards</li>
+        <li>Portfolio-based evidence requirements consistent with competency-based education models</li>
+        <li>Capstone and oral defense practices drawn from professional certification traditions</li>
+      </ul>
+
+      <h3 class="subsection-title">Reference Resources</h3>
+      <ul>
+        <li><a href="https://www.careeronestop.org/CompetencyModel/" target="_blank" rel="noopener">U.S. DOL Competency Model</a></li>
+        <li><a href="https://careerpathways.workforcegps.org/" target="_blank" rel="noopener">WIOA Career Pathways</a></li>
+        <li><a href="https://www.iacet.org/standards/" target="_blank" rel="noopener">IACET Standards</a></li>
+        <li><a href="https://nationalskillscoalition.org/" target="_blank" rel="noopener">National Skills Coalition</a></li>
+        <li><a href="https://www.luminafoundation.org/" target="_blank" rel="noopener">Lumina Foundation</a></li>
+        <li><a href="https://www.comptia.org/" target="_blank" rel="noopener">CompTIA</a></li>
+        <li><a href="https://www.aaace.org/" target="_blank" rel="noopener">AAACE</a></li>
+      </ul>
+
+      <div class="callout warning">
+        <div class="callout-label">Important</div>
+        <p>AI Trade School is not accredited by any of the above organizations. References indicate alignment in design philosophy, not endorsement or affiliation.</p>
+      </div>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 16: DISCLAIMER -->
+  <section class="content-section" id="disclaimer">
+    <div class="section-inner">
+      <div class="section-label">Section 16</div>
+      <h2 class="section-title">Disclaimer</h2>
+
+      <h3 class="subsection-title">Non-Degree-Granting Status</h3>
+      <p>AI Trade School is a non-degree-granting professional education provider. The institution is not accredited by a regional or national accrediting agency recognized by the U.S. Department of Education. Credits earned at AI Trade School may not transfer to degree-granting institutions.</p>
+
+      <h3 class="subsection-title">Employment Disclaimer</h3>
+      <p>Completion of any AI Trade School program, including the Certified AI Operator (CAIO) designation, does not guarantee employment, salary increases, or career advancement. Employment outcomes depend on individual effort, market conditions, employer requirements, and other factors beyond the institution&rsquo;s control.</p>
+
+      <h3 class="subsection-title">Credential Scope</h3>
+      <ul>
+        <li>The CAIO designation is a professional certification issued by AI Trade School; it is not a government-issued license or regulatory credential</li>
+        <li>The value of the credential in the employment market depends on employer recognition and industry adoption</li>
+        <li>Misrepresentation of AI Trade School credentials, including falsely claiming affiliation with accrediting bodies, may result in credential revocation</li>
+      </ul>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 17: ADMINISTRATION -->
+  <section class="content-section" id="administration">
+    <div class="section-inner">
+      <div class="section-label">Section 17</div>
+      <h2 class="section-title">Administration</h2>
+
+      <h3 class="subsection-title">Institutional Functions</h3>
+      <ol>
+        <li><strong>Program Administration:</strong> Overall program management, enrollment, and institutional operations</li>
+        <li><strong>Curriculum &amp; Instruction:</strong> Course development, instructional design, and content quality assurance</li>
+        <li><strong>Certification &amp; Assessment:</strong> Examination administration, capstone evaluation, oral defense coordination, and credential issuance</li>
+        <li><strong>Student Services:</strong> Learner support, accommodations, technical assistance, and academic advising</li>
+        <li><strong>Industry Relations:</strong> Employer engagement, workforce development partnerships, and credential recognition outreach</li>
+      </ol>
+
+      <h3 class="subsection-title">Contact &amp; Support</h3>
+      <p>AI Trade School is an online institution with no physical campus. All administrative functions are conducted digitally.</p>
+      <ul>
+        <li><strong>General Support:</strong> Available through the student support portal</li>
+        <li><strong>Email:</strong> support@aitradeschool.org</li>
+        <li><strong>Accommodation Requests:</strong> Submitted through the accommodations request form</li>
+        <li><strong>Credential Verification:</strong> Available through the credential verification portal</li>
+        <li><strong>Feedback &amp; Complaints:</strong> Submitted through the institutional feedback form</li>
+      </ul>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+  <!-- SECTION 18: VERSION CONTROL -->
+  <section class="content-section" id="version">
+    <div class="section-inner">
+      <div class="section-label">Section 18</div>
+      <h2 class="section-title">Version Control</h2>
+
+      <h3 class="subsection-title">Document History</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Version</th>
+              <th>Date</th>
+              <th>Author</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1.0</td>
+              <td>August 2026</td>
+              <td>Program Administration</td>
+              <td>Initial publication</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="subsection-title">Update Policy</h3>
+      <ol>
+        <li>This handbook is reviewed and updated at minimum annually</li>
+        <li>Material changes are communicated to all currently enrolled students</li>
+        <li>Previous versions are archived and available upon request</li>
+        <li>Minor corrections (typographical, formatting) do not constitute a version change</li>
+        <li>All substantive changes are documented in the version history table above</li>
+      </ol>
+
+      <div class="callout">
+        <div class="callout-label">Document Information</div>
+        <p>This document constitutes the official Program Handbook of AI Trade School. It governs all academic policies, standards, and procedures for the institution. Questions regarding interpretation or application of any provision should be directed to Program Administration.</p>
+      </div>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </div>
+  </section>
+
+</main>
+
+<script>
+// Mobile sidebar toggle
+const toggle = document.getElementById('mobileToggle');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('mobileOverlay');
+
+toggle.addEventListener('click', () => {
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('open');
+});
+
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('open');
+});
+
+// Close mobile menu on nav link click
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth <= 960) {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+    }
+  });
+});
+
+// IntersectionObserver for active nav highlighting
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+
+const observerOptions = {
+  rootMargin: '-20% 0px -75% 0px',
+  threshold: 0
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.getAttribute('id');
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, observerOptions);
+
+sections.forEach(section => observer.observe(section));
+</script>
+</body>
+</html>
