@@ -13,6 +13,7 @@ const FOOTER_LINKS = {
   resources: [
     { href: ROUTES.HANDBOOK, label: 'Program Handbook (PDF)' },
     { href: ROUTES.CAIO_FRAMEWORK, label: 'CAIO Certification Framework' },
+    { href: ROUTES.ASSESSMENT_SYSTEM, label: 'Assessment & Validation System' },
   ],
   legal: [
     { href: '/privacy', label: 'Privacy Policy' },
