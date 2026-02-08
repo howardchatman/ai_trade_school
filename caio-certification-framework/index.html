@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAIO Certification Standards &amp; Competency Framework | AI Trade School</title>
+<meta name="description" content="Certified AI Operator (CAIO) — Certification Standards & Competency Framework. Version 1.0, Academic Year 2026–2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy-900: #0a1628;
+  --navy-800: #0f1d35;
+  --navy-700: #1a2d4d;
+  --navy-600: #243b63;
+  --blue-500: #2c5f8a;
+  --blue-400: #3a7ab8;
+  --gold-600: #b8860b;
+  --gold-500: #c9a227;
+  --gold-400: #d4b545;
+  --gold-bg: #fffcf0;
+  --gray-900: #1a1a2e;
+  --gray-800: #374151;
+  --gray-700: #4b5563;
+  --gray-600: #6b7280;
+  --gray-500: #9ca3af;
+  --gray-400: #c4c4d0;
+  --gray-300: #d1d5db;
+  --gray-200: #e5e7eb;
+  --gray-100: #f3f4f6;
+  --gray-50: #f9fafb;
+  --white: #ffffff;
+  --red-700: #b91c1c;
+  --red-50: #fef2f2;
+  --green-700: #15803d;
+  --green-50: #ecfdf5;
+  --orange-600: #d97706;
+  --orange-50: #fffbeb;
+  --sidebar-w: 290px;
+  --content-max: 940px;
+  --font-display: 'DM Serif Display', serif;
+  --font-body: 'Source Sans 3', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--font-body); color: var(--gray-800); background: var(--gray-50); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+/* Sidebar */
+.sidebar { position: fixed; top: 0; left: 0; width: var(--sidebar-w); height: 100vh; background: var(--navy-800); color: var(--gray-400); overflow-y: auto; z-index: 100; display: flex; flex-direction: column; }
+.sidebar-header { padding: 1.75rem 1.25rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.sidebar-header .institution { font-family: var(--font-display); font-size: 1.15rem; color: var(--white); }
+.sidebar-header .doc-type { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-600); margin-top: 0.2rem; font-weight: 600; }
+.sidebar-nav { flex: 1; padding: 0.75rem 0; overflow-y: auto; }
+.nav-group-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--gray-600); padding: 0.9rem 1.25rem 0.35rem; font-weight: 700; }
+.nav-link { display: block; padding: 0.35rem 1.25rem; font-size: 0.82rem; color: var(--gray-500); text-decoration: none; transition: all 0.15s; border-left: 3px solid transparent; }
+.nav-link:hover { color: var(--white); background: rgba(255,255,255,0.04); }
+.nav-link.active { color: var(--white); background: rgba(255,255,255,0.06); border-left-color: var(--gold-600); }
+.sidebar-footer { padding: 0.75rem 1.25rem; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.65rem; color: var(--gray-600); }
+
+/* Mobile */
+.mobile-toggle { display: none; position: fixed; top: 1rem; left: 1rem; z-index: 200; background: var(--navy-800); border: 1px solid rgba(255,255,255,0.1); color: var(--white); width: 44px; height: 44px; border-radius: 8px; cursor: pointer; align-items: center; justify-content: center; font-size: 1.2rem; }
+.mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 90; }
+
+/* Main */
+.main { margin-left: var(--sidebar-w); min-height: 100vh; }
+
+/* Cover */
+.cover { background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 50%, var(--navy-600) 100%); color: var(--white); padding: 5.5rem 3rem 4.5rem; position: relative; overflow: hidden; }
+.cover::before { content: ''; position: absolute; top: -40%; right: -15%; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(184,134,11,0.07) 0%, transparent 70%); }
+.cover-inner { max-width: var(--content-max); position: relative; }
+.cover .doc-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--gold-600); font-weight: 700; margin-bottom: 0.75rem; }
+.cover .institution-name { font-family: var(--font-display); font-size: 2.6rem; line-height: 1.15; margin-bottom: 0.4rem; }
+.cover .doc-title { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--gold-500); font-weight: 600; margin-bottom: 2rem; }
+.cover .meta-grid { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2rem; }
+.cover .meta-item { font-size: 0.78rem; }
+.cover .meta-label { text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-500); font-size: 0.6rem; font-weight: 700; margin-bottom: 0.1rem; }
+.cover .meta-value { color: var(--white); font-weight: 500; }
+.cover .positioning { border-left: 3px solid var(--gold-600); padding: 1rem 1.5rem; font-style: italic; color: var(--gray-300); font-size: 0.92rem; line-height: 1.7; background: rgba(255,255,255,0.03); border-radius: 0 4px 4px 0; margin-bottom: 2rem; }
+.download-bar { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+.download-bar p { font-size: 0.85rem; color: var(--gray-300); flex: 1; min-width: 200px; }
+.download-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gold-600); color: var(--navy-800); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.6rem 1.25rem; border-radius: 6px; text-decoration: none; transition: background 0.15s; white-space: nowrap; }
+.download-btn:hover { background: var(--gold-500); }
+.download-btn svg { width: 16px; height: 16px; }
+
+/* Content Sections */
+.content-section { padding: 3.5rem 3rem; border-bottom: 1px solid var(--gray-200); }
+.content-section:last-child { border-bottom: none; }
+.content-section .section-inner { max-width: var(--content-max); }
+.section-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--blue-500); font-weight: 700; margin-bottom: 0.4rem; }
+.section-title { font-family: var(--font-display); font-size: 1.9rem; color: var(--navy-800); margin-bottom: 1.25rem; line-height: 1.25; }
+.subsection-title { font-family: var(--font-display); font-size: 1.3rem; color: var(--navy-800); margin: 2.25rem 0 0.75rem; line-height: 1.3; }
+.sub-subsection-title { font-family: var(--font-body); font-size: 0.95rem; font-weight: 700; color: var(--navy-700); margin: 1.5rem 0 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
+p { margin-bottom: 0.9rem; }
+.content-section ul, .content-section ol { margin: 0.5rem 0 1rem 1.5rem; }
+.content-section li { margin-bottom: 0.35rem; padding-left: 0.2rem; }
+
+/* Tables */
+.table-wrapper { overflow-x: auto; margin: 1.25rem 0; border-radius: 6px; border: 1px solid var(--gray-200); }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 480px; }
+thead th { background: var(--navy-800); color: var(--white); padding: 0.65rem 0.9rem; text-align: left; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+tbody td { padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--gray-200); vertical-align: top; }
+tbody tr:nth-child(even) { background: var(--gray-50); }
+tbody tr:hover { background: var(--gray-100); }
+
+/* Domain Cards */
+.domain-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 10px; padding: 1.75rem 1.85rem; margin: 1.5rem 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: box-shadow 0.2s; }
+.domain-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+.domain-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+.domain-badge { width: 44px; height: 44px; min-width: 44px; background: var(--navy-800); color: var(--gold-600); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
+.domain-title { font-family: var(--font-display); font-size: 1.2rem; color: var(--navy-800); }
+.domain-desc { font-size: 0.88rem; color: var(--gray-600); margin-bottom: 1.25rem; line-height: 1.65; }
+.domain-card .sub-subsection-title { margin-top: 1.25rem; font-size: 0.7rem; }
+.domain-card ul { margin-left: 1.25rem; }
+.domain-card li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.proficiency-badge { display: inline-block; margin-top: 1.25rem; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; background: var(--green-50); color: var(--green-700); padding: 0.3rem 0.75rem; border-radius: 4px; }
+
+/* Principle Cards */
+.principle-card { display: flex; gap: 1.1rem; padding: 1.25rem 0; border-bottom: 1px solid var(--gray-100); }
+.principle-card:last-child { border-bottom: none; }
+.principle-num { width: 36px; height: 36px; min-width: 36px; border: 2px solid var(--gold-600); color: var(--gold-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1rem; background: var(--gold-bg); margin-top: 0.15rem; }
+.principle-title { font-weight: 700; color: var(--navy-800); margin-bottom: 0.3rem; }
+.principle-body p { font-size: 0.9rem; color: var(--gray-700); margin-bottom: 0; }
+
+/* Callouts */
+.callout { padding: 1.1rem 1.4rem; border-radius: 0 6px 6px 0; margin: 1.25rem 0; font-size: 0.9rem; }
+.callout-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+.callout-info { border-left: 4px solid var(--blue-500); background: rgba(44,95,138,0.05); }
+.callout-info .callout-label { color: var(--blue-500); }
+.callout-gold { border-left: 4px solid var(--gold-600); background: var(--gold-bg); }
+.callout-gold .callout-label { color: var(--gold-600); }
+.callout-warning { border-left: 4px solid var(--orange-600); background: var(--orange-50); }
+.callout-warning .callout-label { color: var(--orange-600); }
+.callout-important { border-left: 4px solid var(--red-700); background: var(--red-50); }
+.callout-important .callout-label { color: var(--red-700); }
+
+/* Credential Cards */
+.credential-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin: 1.25rem 0; }
+
+/* Back to top */
+.back-to-top { display: inline-block; margin-top: 1.75rem; font-size: 0.75rem; color: var(--gray-500); text-decoration: none; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; transition: color 0.15s; }
+.back-to-top:hover { color: var(--blue-500); }
+
+/* Footer */
+.doc-footer { background: var(--navy-800); color: var(--gray-500); text-align: center; padding: 2rem 1.5rem; font-size: 0.78rem; line-height: 1.8; }
+
+/* Responsive */
+@media (max-width: 960px) {
+  .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
+  .sidebar.open { transform: translateX(0); }
+  .mobile-toggle { display: flex; }
+  .mobile-overlay.open { display: block; }
+  .main { margin-left: 0; }
+  .cover { padding: 4.5rem 1.5rem 3rem; }
+  .content-section { padding: 2.25rem 1.5rem; }
+  .cover .institution-name { font-size: 1.9rem; }
+  .section-title { font-size: 1.5rem; }
+  .download-bar { flex-direction: column; align-items: stretch; }
+}
+
+/* Print */
+@media print {
+  .sidebar, .mobile-toggle, .mobile-overlay, .back-to-top, .download-bar, .doc-footer { display: none !important; }
+  .main { margin-left: 0; }
+  .cover { padding: 2rem 0; background: none; color: var(--navy-800); }
+  .cover .institution-name, .cover .doc-title { color: var(--navy-800); }
+  .cover .meta-label { color: var(--gray-600); }
+  .cover .meta-value { color: var(--gray-800); }
+  .cover .positioning { border-left-color: var(--gray-400); color: var(--gray-700); background: none; }
+  .content-section { padding: 1.25rem 0; page-break-inside: avoid; }
+  .domain-card { break-inside: avoid; box-shadow: none; }
+  body { font-size: 10.5pt; }
+}
+</style>
+</head>
+<body>
+
+<button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">&#9776;</button>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="institution">AI Trade School</div>
+    <div class="doc-type">CAIO Certification Framework</div>
+  </div>
+  <nav class="sidebar-nav" id="sidebarNav">
+    <a href="#cover" class="nav-link active">Cover</a>
+    <a href="#purpose" class="nav-link">Purpose &amp; Scope</a>
+    <a href="#classification" class="nav-link">Credential Classification</a>
+    <a href="#philosophy" class="nav-link">Certification Philosophy</a>
+    <a href="#eligibility" class="nav-link">Eligibility &amp; Prerequisites</a>
+    <div class="nav-group-label">Competency Framework</div>
+    <a href="#domains-overview" class="nav-link">Domain Overview</a>
+    <a href="#domains-detail" class="nav-link">Detailed Framework (1&ndash;8)</a>
+    <div class="nav-group-label">Assessment</div>
+    <a href="#assessment-model" class="nav-link">Assessment Model</a>
+    <a href="#capstone" class="nav-link">Capstone Standards</a>
+    <a href="#written-exam" class="nav-link">Written Exam Standards</a>
+    <a href="#oral-defense" class="nav-link">Oral Defense Standards</a>
+    <a href="#proficiency" class="nav-link">Proficiency Levels &amp; Rubrics</a>
+    <a href="#remediation" class="nav-link">Remediation &amp; Reassessment</a>
+    <div class="nav-group-label">Credential Policies</div>
+    <a href="#credential-award" class="nav-link">Award, Maintenance &amp; Revocation</a>
+    <a href="#integrity" class="nav-link">Credential Integrity</a>
+    <a href="#governance" class="nav-link">Framework Governance</a>
+    <div class="nav-group-label">Appendices</div>
+    <a href="#appendix-a" class="nav-link">A: Alignment Matrix</a>
+    <a href="#appendix-b" class="nav-link">B: Capstone Rubric</a>
+    <a href="#appendix-c" class="nav-link">C: Oral Defense Rubric</a>
+  </nav>
+  <div class="sidebar-footer">Version 1.0 &mdash; August 2026</div>
+</aside>
+
+<main class="main">
+
+<!-- COVER -->
+<section class="cover" id="cover">
+  <div class="cover-inner">
+    <div class="doc-label">Certification Standards &amp; Competency Framework</div>
+    <div class="institution-name">AI Trade School</div>
+    <div class="doc-title">Certified AI Operator (CAIO)</div>
+    <div class="meta-grid">
+      <div class="meta-item"><div class="meta-label">Version</div><div class="meta-value">1.0</div></div>
+      <div class="meta-item"><div class="meta-label">Academic Year</div><div class="meta-value">2026&ndash;2027</div></div>
+      <div class="meta-item"><div class="meta-label">Effective</div><div class="meta-value">August 1, 2026</div></div>
+      <div class="meta-item"><div class="meta-label">Classification</div><div class="meta-value">Institutional Standards Document</div></div>
+    </div>
+    <div class="positioning">This document establishes the competency standards, assessment requirements, and certification criteria for the Certified AI Operator (CAIO) professional credential. It serves as the authoritative reference for all CAIO certification decisions.</div>
+    <div class="download-bar">
+      <p>Download the complete framework document for offline use, institutional review, or employer distribution:</p>
+      <a href="CAIO_Certification_Standards_Competency_Framework.docx" download class="download-btn">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 3a1 1 0 011 1v8.586l2.293-2.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V4a1 1 0 011-1z"/><path d="M3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"/></svg>
+        Download .DOCX
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1: PURPOSE & SCOPE -->
+<section class="content-section" id="purpose">
+  <div class="section-inner">
+    <div class="section-label">Section 1</div>
+    <h2 class="section-title">Purpose &amp; Scope</h2>
+    <h3 class="subsection-title">Purpose</h3>
+    <p>The Certified AI Operator (CAIO) credential validates that a holder possesses the applied skills, professional judgment, ethical reasoning, and operational competence required to deploy, manage, document, monitor, and maintain artificial intelligence systems in real organizational environments. The certification is awarded exclusively on the basis of demonstrated mastery across all defined competency domains.</p>
+    <p>The CAIO addresses a critical workforce gap. While certifications exist for AI engineers, data scientists, and developers, no widely recognized credential validates the competence of professionals who operate AI systems at the organizational level &mdash; selecting, configuring, integrating, documenting, governing, and optimizing AI tools and workflows without necessarily building or training the underlying models.</p>
+    <h3 class="subsection-title">Scope</h3>
+    <p>This document establishes:</p>
+    <ul>
+      <li>Competency domains, individual competencies, observable behaviors, and performance indicators</li>
+      <li>Assessment methods, proficiency standards, and evaluation criteria</li>
+      <li>Capstone project, written examination, and oral defense requirements</li>
+      <li>Proficiency level definitions and rubric scales</li>
+      <li>Policies governing remediation, reassessment, credential award, maintenance, and revocation</li>
+      <li>Governance processes for maintaining and versioning this framework</li>
+    </ul>
+    <p><strong>Intended audience:</strong> institutional evaluators, candidates, curriculum designers, employer partners, workforce development boards, external reviewers.</p>
+    <h3 class="subsection-title">Relationship to Program Handbook</h3>
+    <p>This document supplements the AI Trade School Program Handbook. In the event of conflict between the two documents, this Certification Standards &amp; Competency Framework governs all CAIO certification matters.</p>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- SECTION 2: CREDENTIAL CLASSIFICATION -->
+<section class="content-section" id="classification">
+  <div class="section-inner">
+    <div class="section-label">Section 2</div>
+    <h2 class="section-title">Credential Classification</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Attribute</th><th>Specification</th></tr></thead>
+        <tbody>
+          <tr><td>Credential Type</td><td>Professional Workforce Certification</td></tr>
+          <tr><td>Credential Name</td><td>Certified AI Operator (CAIO)</td></tr>
+          <tr><td>Issuing Institution</td><td>AI Trade School</td></tr>
+          <tr><td>Competency Level</td><td>Intermediate&ndash;Advanced Operator</td></tr>
+          <tr><td>Assessment Basis</td><td>Competency-based (demonstrated mastery, not seat time)</td></tr>
+          <tr><td>Credential Format</td><td>Digital certificate with unique verification number</td></tr>
+          <tr><td>Regulatory Status</td><td>Non-governmental; not a required license</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="subsection-title">Target Professional Roles</h3>
+    <ul>
+      <li><strong>AI Operator (primary role):</strong> Deploy, configure, manage, document, and optimize AI systems within organizational settings</li>
+      <li><strong>AI Systems Specialist:</strong> Design and manage integrated tool ecosystems and multi-tool architectures</li>
+      <li><strong>Automation Operator:</strong> Build and maintain AI-augmented automated workflows</li>
+      <li><strong>AI Operations Manager (Junior&ndash;Mid):</strong> Oversee AI operations across teams and departments</li>
+      <li><strong>Business AI Implementation Lead:</strong> Translate organizational needs into AI-powered solutions</li>
+      <li><strong>AI Governance Coordinator:</strong> Develop and enforce AI use policies, conduct risk assessments</li>
+    </ul>
+    <h3 class="subsection-title">Role Distinction</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Role</th><th>Primary Function</th><th>Distinction from AI Operator</th></tr></thead>
+        <tbody>
+          <tr><td>AI Engineer</td><td>Builds and trains models</td><td>Model development vs. deployment and organizational use</td></tr>
+          <tr><td>Data Scientist</td><td>Statistical models, data analysis</td><td>Data and analytics vs. system operations and integration</td></tr>
+          <tr><td>Software Developer</td><td>Application code</td><td>Code-focused vs. tools and platforms without coding</td></tr>
+          <tr><td>IT Administrator</td><td>General tech infrastructure</td><td>Infrastructure vs. AI system operations specifically</td></tr>
+          <tr><td>Project Manager</td><td>Scope, timeline, resources</td><td>Project delivery vs. hands-on technical competence</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- SECTION 3: CERTIFICATION PHILOSOPHY -->
+<section class="content-section" id="philosophy">
+  <div class="section-inner">
+    <div class="section-label">Section 3</div>
+    <h2 class="section-title">Certification Philosophy</h2>
+    <div class="principle-card">
+      <div class="principle-num">1</div>
+      <div><div class="principle-title">Competency Over Completion</div><p>The CAIO is awarded on the basis of demonstrated competency, not course completion, seat hours, or elapsed time. A candidate who completes all coursework but fails to demonstrate mastery in any competency domain will not receive certification. Every holder of the credential has met the same rigorous standard.</p></div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-num">2</div>
+      <div><div class="principle-title">Demonstration Over Declaration</div><p>Competency is established through observable, evaluable work products and performances &mdash; not through self-assessment or declarations of knowledge. Portfolio artifacts, capstone project, written examination, and oral defense collectively provide evaluators with direct evidence of what the candidate can do, not merely what they claim to know.</p></div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-num">3</div>
+      <div><div class="principle-title">Systems Over Tools</div><p>The CAIO assesses systems-level thinking &mdash; integrated architectures, data flow management, multi-tool ecosystems, organizational alignment &mdash; not single-tool proficiency alone. Individual tools evolve and are replaced; systems competence remains transferable across tools, platforms, and organizational contexts.</p></div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-num">4</div>
+      <div><div class="principle-title">Ethics Over Speed</div><p>Ethical reasoning and professional judgment are core competencies, not supplementary considerations. A candidate who demonstrates exceptional technical skill but inadequate ethical reasoning will not receive certification. The CAIO holder is expected to slow down, question assumptions, apply ethical frameworks, and prioritize responsible deployment over rapid deployment. This is non-negotiable.</p></div>
+    </div>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- SECTION 4: ELIGIBILITY & PREREQUISITES -->
+<section class="content-section" id="eligibility">
+  <div class="section-inner">
+    <div class="section-label">Section 4</div>
+    <h2 class="section-title">Eligibility &amp; Prerequisites</h2>
+    <h3 class="subsection-title">Required Prerequisites</h3>
+    <ol>
+      <li>Completion of all Tier 1 foundational courses and receipt of the AI Literacy Certificate</li>
+      <li>Completion of all Tier 2 core applied courses and receipt of the Applied AI Practitioner Certificate</li>
+      <li>Complete professional portfolio with all Tier 2 artifacts rated Competent</li>
+      <li>Formal enrollment in CAIO candidacy and payment of the certification fee</li>
+    </ol>
+    <h3 class="subsection-title">Portfolio Readiness Review</h3>
+    <p>Prior to beginning the capstone phase, the institution conducts a portfolio readiness review to verify that all required artifacts are present and meet competency standards. Candidates may not proceed to capstone development until readiness is confirmed.</p>
+    <h3 class="subsection-title">Time Limits</h3>
+    <p>Candidates have a maximum of 12 months from the date of CAIO candidacy enrollment to complete all certification requirements, including capstone, written examination, and oral defense. Extensions of up to 6 months may be granted for documented extenuating circumstances. Expired candidacy requires re-enrollment and payment of a new certification fee.</p>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- SECTION 5: DOMAIN OVERVIEW -->
+<section class="content-section" id="domains-overview">
+  <div class="section-inner">
+    <div class="section-label">Section 5</div>
+    <h2 class="section-title">Competency Domain Overview</h2>
+    <p>The CAIO certification assesses competence across eight professional domains. All eight domains are required; none may be waived or substituted.</p>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>#</th><th>Domain</th><th>Focus</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>AI Literacy &amp; Operational Understanding</td><td>Understanding capabilities, limitations, operational context for responsible deployment</td></tr>
+          <tr><td>2</td><td>Prompt Engineering &amp; Human&ndash;AI Interaction</td><td>Designing structured, reliable prompts for consistent, high-quality outputs</td></tr>
+          <tr><td>3</td><td>AI Workflow &amp; Automation Design</td><td>Designing, building, testing, documenting AI-assisted workflows</td></tr>
+          <tr><td>4</td><td>AI System Integration &amp; Architecture</td><td>Integrating multiple tools into cohesive, documented system architectures</td></tr>
+          <tr><td>5</td><td>Business &amp; Operational Application</td><td>Applying AI to organizational needs and measuring operational impact</td></tr>
+          <tr><td>6</td><td>Governance, Ethics &amp; Risk Management</td><td>Responsible deployment: ethics, privacy, bias, accountability</td></tr>
+          <tr><td>7</td><td>Documentation, SOPs &amp; Knowledge Transfer</td><td>Professional documentation for maintenance, auditing, knowledge transfer</td></tr>
+          <tr><td>8</td><td>Deployment, Monitoring &amp; Optimization</td><td>Deploying, monitoring performance, continuously improving outcomes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Domains are assessed through a combination of portfolio review, capstone project, written examination, and oral defense. See Appendix A for the complete alignment matrix.</p>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- SECTION 6: DETAILED FRAMEWORK -->
+<section class="content-section" id="domains-detail">
+  <div class="section-inner">
+    <div class="section-label">Section 6</div>
+    <h2 class="section-title">Detailed Competency Framework &mdash; Domains 1&ndash;8</h2>
+
+    <!-- DOMAIN 1 -->
+    <div class="domain-card">
+      <div class="domain-header"><div class="domain-badge">1</div><div class="domain-title">AI Literacy &amp; Operational Understanding</div></div>
+      <p class="domain-desc">Understand AI capabilities, limitations, and operational context for responsible deployment and accurate stakeholder communication.</p>
+      <div class="sub-subsection-title">Competencies</div>
+      <ul>
+        <li>Explain AI capabilities, constraints, and failure modes in plain language for non-technical audiences</li>
+        <li>Distinguish between AI, machine learning, rule-based automation, and traditional software with practical implications for tool selection</li>
+        <li>Identify appropriate AI use cases and recognize scenarios where non-AI solutions are more appropriate</li>
+        <li>Describe LLM architecture concepts (token limits, context windows, temperature, hallucination) at a level sufficient for operational decision-making</li>
+        <li>Assess tool maturity, reliability, and operational readiness using structured evaluation criteria</li>
+        <li>Explain organizational AI adoption implications including workforce impact and change management requirements</li>
+      </ul>
+      <div class="sub-subsection-title">Observable Behaviors</div>
+      <ul>
+        <li>Selects appropriate tools for specific tasks; avoids tool-first thinking</li>
+        <li>Identifies tasks unsuitable for AI with clear reasoning</li>
+        <li>Communicates AI capabilities to stakeholders without overpromising or underpromising</li>
+        <li>Recognizes output errors, hallucinations, and quality degradation</li>
+        <li>Avoids over-automation and misapplication of AI tools</li>
+        <li>Maintains current awareness of industry developments and tool landscape</li>
+      </ul>
+      <div class="sub-subsection-title">Assessment Methods</div>
+      <ul>
+        <li>Written examination, scenario analysis, capstone organizational context, oral defense panel questions</li>
+      </ul>
+      <div class="proficiency-badge">Operational Literacy with Accurate Judgment</div>
+    </div>
+
+    <!-- DOMAIN 2 -->
+    <div class="domain-card">
+      <div class="domain-header"><div class="domain-badge">2</div><div class="domain-title">Prompt Engineering &amp; Human&ndash;AI Interaction</div></div>
+      <p class="domain-desc">Design, structure, test, refine, and document AI interactions for consistent, high-quality outputs. Reliability over novelty.</p>
+      <div class="sub-subsection-title">Competencies</div>
+      <ul>
+        <li>Design role-based, task-specific prompts using structured frameworks (role-task-format-constraint)</li>
+        <li>Apply output constraints including formatting, length, tone, audience, and factual accuracy requirements</li>
+        <li>Build multi-step prompt sequences and prompt chaining architectures</li>
+        <li>Conduct systematic testing using controlled variation, edge cases, and adversarial inputs</li>
+        <li>Iterate and refine prompts with version control and performance documentation</li>
+        <li>Develop reusable, documented prompt libraries for organizational deployment</li>
+        <li>Manage context across extended interactions and complex task sequences</li>
+        <li>Adapt prompt strategies across multiple AI platforms and models</li>
+      </ul>
+      <div class="sub-subsection-title">Observable Behaviors</div>
+      <ul>
+        <li>Produces consistent, high-quality outputs across repeated uses and contexts</li>
+        <li>Exercises deliberate control over tone, format, length, audience, and factual content</li>
+        <li>Identifies and corrects failures and hallucinations systematically</li>
+        <li>Documents prompts with instructions, expected outputs, limitations, and usage guidelines</li>
+        <li>Maintains version control and iterative improvement records</li>
+        <li>Applies consistent methodology rather than ad-hoc experimentation</li>
+      </ul>
+      <div class="sub-subsection-title">Assessment Methods</div>
+      <ul>
+        <li>Portfolio (Prompt Library artifact), capstone prompt systems, written examination, oral defense</li>
+      </ul>
+      <div class="proficiency-badge">Advanced Operational Prompting</div>
+    </div>
+
+    <!-- DOMAIN 3 -->
+    <div class="domain-card">
+      <div class="domain-header"><div class="domain-badge">3</div><div class="domain-title">AI Workflow &amp; Automation Design</div></div>
+      <p class="domain-desc">Design AI-assisted workflows integrating AI into organizational processes, from concept through implementation to documented handoff.</p>
+      <div class="sub-subsection-title">Competencies</div>
+      <ul>
+        <li>Map existing workflows identifying decision points, manual steps, data flows, and bottlenecks</li>
+        <li>Identify and prioritize automation opportunities based on impact, feasibility, risk, and organizational readiness</li>
+        <li>Design trigger-action-condition logic with AI decision points and branching pathways</li>
+        <li>Implement error handling, fallback logic, and human-in-the-loop escalation procedures</li>
+        <li>Build multi-step automated workflows using platforms such as Zapier, Make, or equivalent</li>
+        <li>Test automated systems under normal, edge-case, and failure conditions</li>
+        <li>Document automated workflows for handoff, maintenance, and troubleshooting</li>
+      </ul>
+      <div class="sub-subsection-title">Observable Behaviors</div>
+      <ul>
+        <li>Measurably reduces manual effort through well-designed automation</li>
+        <li>Identifies potential failure points before deployment</li>
+        <li>Designs with error handling and fallbacks, not ideal-case assumptions</li>
+        <li>Documents completely: triggers, actions, error handling, maintenance procedures</li>
+        <li>Avoids brittle, silent-failure automation designs</li>
+        <li>Tests adversarial and edge cases before production deployment</li>
+      </ul>
+      <div class="proficiency-badge">Independent Workflow Design Capability</div>
+    </div>
+
+    <!-- DOMAIN 4 -->
+    <div class="domain-card">
+      <div class="domain-header"><div class="domain-badge">4</div><div class="domain-title">AI System Integration &amp; Architecture</div></div>
+      <p class="domain-desc">Integrate multiple AI tools into cohesive architectures using conceptual APIs, data flow management, and tool chaining. System-level thinking, not software engineering.</p>
+      <div class="sub-subsection-title">Competencies</div>
+      <ul>
+        <li>Design multi-tool architecture with tool selection rationale and integration points</li>
+        <li>Describe data flow between tools, platforms, and data sources at an operational level</li>
+        <li>Evaluate tools for interoperability, scalability, security, data handling, cost, and organizational fit</li>
+        <li>Configure integrations using APIs, native connectors, automation platforms, and webhooks</li>
+        <li>Document system architecture including diagrams, data flow maps, tool inventories, and integration specifications</li>
+        <li>Plan and execute system audits for performance, reliability, and optimization</li>
+      </ul>
+      <div class="sub-subsection-title">Observable Behaviors</div>
+      <ul>
+        <li>Connects tools logically with documented dependencies and data flows</li>
+        <li>Avoids unnecessary complexity in system design</li>
+        <li>Documents systems for third-party maintenance and continuity</li>
+        <li>Identifies data integrity and security risks in integrated architectures</li>
+        <li>Selects tools based on requirements and fit, not personal preference</li>
+        <li>Demonstrates cost and scalability awareness in architecture decisions</li>
+      </ul>
+      <div class="proficiency-badge">System-Level Thinking (Non-Coding)</div>
+    </div>
+
+    <!-- DOMAIN 5 -->
+    <div class="domain-card">
+      <div class="domain-header"><div class="domain-badge">5</div><div class="domain-title">Business &amp; Operational Application</div></div>
+      <p class="domain-desc">Apply AI to real organizational needs, translate business requirements into AI solutions, evaluate ROI, and communicate value to stakeholders.</p>
+      <div class="sub-subsection-title">Competencies</div>
+      <ul>
+        <li>Conduct organizational AI readiness assessments covering infrastructure, workforce, data, and culture</li>
+        <li>Translate business problems into specific, measurable AI solution specifications</li>
+        <li>Develop phased implementation plans including timelines, resources, budgets, risks, and success criteria</li>
+        <li>Evaluate and communicate ROI and operational impact of AI implementations</li>
+        <li>Conduct vendor evaluation, selection, and onboarding processes</li>
+        <li>Communicate AI capabilities, limitations, and outcomes to non-technical stakeholders clearly and accurately</li>
+        <li>Align AI implementations with organizational change management requirements</li>
+      </ul>
+      <div class="sub-subsection-title">Observable Behaviors</div>
+      <ul>
+        <li>Addresses genuine organizational problems rather than deploying AI for novelty</li>
+        <li>Develops realistic, phased plans that account for organizational constraints</li>
+        <li>Communicates to stakeholders without overselling or underselling AI capabilities</li>
+        <li>Evaluates vendors on organizational fit, not marketing claims</li>
+        <li>Measures impact with relevant, defensible metrics</li>
+        <li>Recognizes when AI is not the appropriate solution</li>
+      </ul>
+      <div class="proficiency-badge">Business-Aligned AI Deployment</div>
+    </div>
+
+    <!-- DOMAIN 6 -->
+    <div class="domain-card">
+      <div class="domain-header"><div class="domain-badge">6</div><div class="domain-title">Governance, Ethics &amp; Risk Management</div></div>
+      <p class="domain-desc">Deploy AI responsibly with attention to ethics, privacy, bias, accountability, and organizational risk. Assessed across all assessment methods. Inadequate ethical reasoning results in certification failure regardless of technical skill.</p>
+      <div class="sub-subsection-title">Competencies</div>
+      <ul>
+        <li>Identify ethical risks including bias amplification, privacy violations, consent failures, transparency deficits, and accountability gaps</li>
+        <li>Apply ethical frameworks including fairness, transparency, accountability, non-maleficence, and human autonomy</li>
+        <li>Implement human oversight mechanisms including human-in-the-loop procedures, escalation protocols, and override procedures</li>
+        <li>Conduct structured risk assessments evaluating probability, severity, and mitigation strategies</li>
+        <li>Develop organizational AI use policies covering acceptable use, disclosure requirements, data handling, and incident response</li>
+        <li>Recognize and mitigate algorithmic bias across training data, selection, measurement, and aggregation</li>
+        <li>Ensure appropriate disclosure of AI use in all relevant contexts</li>
+        <li>Monitor regulatory developments and emerging governance standards</li>
+      </ul>
+      <div class="sub-subsection-title">Observable Behaviors</div>
+      <ul>
+        <li>Discloses AI use proactively and transparently</li>
+        <li>Avoids high-risk deployments without prior assessment, oversight, and safeguards</li>
+        <li>Documents ethics and governance considerations for every significant deployment</li>
+        <li>Raises ethical concerns proactively, even when inconvenient</li>
+        <li>Recommends against deployment when risks outweigh benefits</li>
+        <li>Applies ethical frameworks consistently, not selectively</li>
+      </ul>
+      <div class="callout callout-gold">
+        <div class="callout-label">Assessment Emphasis</div>
+        <p>Domain 6 carries 15&ndash;18% of written examination weight and includes a dedicated 10-minute ethical scenario response in the oral defense. This domain is also assessed through the required Ethical &amp; Risk Assessment component of the capstone project.</p>
+      </div>
+      <div class="proficiency-badge">Responsible AI Judgment</div>
+    </div>
+
+    <!-- DOMAIN 7 -->
+    <div class="domain-card">
+      <div class="domain-header"><div class="domain-badge">7</div><div class="domain-title">Documentation, SOPs &amp; Knowledge Transfer</div></div>
+      <p class="domain-desc">Document AI systems at a professional standard that enables operational continuity, maintenance, auditing, and knowledge transfer. An undocumented system is an unmanageable system.</p>
+      <div class="sub-subsection-title">Competencies</div>
+      <ul>
+        <li>Write standard operating procedures (SOPs) enabling system operation by personnel not involved in original design</li>
+        <li>Create workflow documentation covering triggers, actions, decision logic, error handling, and dependencies</li>
+        <li>Produce architecture documentation including tool inventories, integration specifications, data flow diagrams, and maintenance schedules</li>
+        <li>Develop user-facing documentation and training materials for non-technical system users</li>
+        <li>Maintain version control for all documentation artifacts</li>
+        <li>Create documentation supporting compliance, auditing, and regulatory review requirements</li>
+      </ul>
+      <div class="sub-subsection-title">Observable Behaviors</div>
+      <ul>
+        <li>Produces clear, complete documentation usable without verbal supplementation</li>
+        <li>Enables system handoff without operational disruption</li>
+        <li>Updates documentation when systems change</li>
+        <li>Maintains consistent version control practices</li>
+        <li>Adjusts technical level appropriately for different audiences</li>
+        <li>Treats documentation as a concurrent activity, not an afterthought</li>
+      </ul>
+      <div class="proficiency-badge">Professional Documentation Standards</div>
+    </div>
+
+    <!-- DOMAIN 8 -->
+    <div class="domain-card">
+      <div class="domain-header"><div class="domain-badge">8</div><div class="domain-title">Deployment, Monitoring &amp; Optimization</div></div>
+      <p class="domain-desc">Move AI systems from development to production, monitor performance, identify degradation, and improve continuously. Deployment is the beginning of operational management, not the end.</p>
+      <div class="sub-subsection-title">Competencies</div>
+      <ul>
+        <li>Deploy AI systems with documented procedures including staged rollout, testing protocols, and stakeholder notification</li>
+        <li>Establish monitoring frameworks tracking performance, output quality, usage patterns, error rates, and user satisfaction</li>
+        <li>Identify performance degradation, model drift, and failure modes through systematic monitoring</li>
+        <li>Implement corrective actions including prompt refinement, workflow adjustment, reconfiguration, and escalation</li>
+        <li>Conduct periodic reviews and audits to ensure continued alignment and output quality</li>
+        <li>Optimize system performance through iterative refinement based on data and user feedback</li>
+        <li>Plan and execute system updates, migrations, and decommissions with documentation and continuity planning</li>
+      </ul>
+      <div class="sub-subsection-title">Observable Behaviors</div>
+      <ul>
+        <li>Follows structured deployment procedures rather than ad-hoc releases</li>
+        <li>Identifies drift and degradation before organizational harm occurs</li>
+        <li>Adjusts systems based on documented analysis, not intuition alone</li>
+        <li>Maintains system reliability over time through proactive management</li>
+        <li>Documents all deployment, monitoring, and optimization activities</li>
+        <li>Communicates system status and changes proactively to stakeholders</li>
+      </ul>
+      <div class="proficiency-badge">Operational Ownership</div>
+    </div>
+
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- SECTION 7: ASSESSMENT MODEL -->
+<section class="content-section" id="assessment-model">
+  <div class="section-inner">
+    <div class="section-label">Section 7</div>
+    <h2 class="section-title">Assessment Model</h2>
+    <p>CAIO certification requires successful completion of four assessment components. Failure in any single component prevents certification, regardless of performance on other components.</p>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Component</th><th>Type</th><th>Weight</th><th>Passing Standard</th></tr></thead>
+        <tbody>
+          <tr><td>Portfolio Review</td><td>Artifact evaluation</td><td>Prerequisite gate</td><td>All artifacts rated Competent</td></tr>
+          <tr><td>Capstone Project</td><td>Applied project</td><td>40%</td><td>Competent on all rubric dimensions</td></tr>
+          <tr><td>Written Examination</td><td>Proctored exam</td><td>30%</td><td>80% overall; 70% per domain</td></tr>
+          <tr><td>Oral Defense</td><td>Presentation &amp; Q&amp;A</td><td>30%</td><td>Pass on all evaluation criteria</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- SECTION 8: CAPSTONE STANDARDS -->
+<section class="content-section" id="capstone">
+  <div class="section-inner">
+    <div class="section-label">Section 8</div>
+    <h2 class="section-title">Capstone Project Standards</h2>
+    <h3 class="subsection-title">Purpose</h3>
+    <p>The capstone project is the centerpiece assessment of the CAIO certification. Candidates design, implement, document, evaluate, and defend a comprehensive AI operations solution for a real or realistic organizational context. The capstone must demonstrate competence across all eight competency domains.</p>
+    <h3 class="subsection-title">Required Deliverables</h3>
+    <ol>
+      <li><strong>Organizational Context Analysis:</strong> Assessment of the target organization&rsquo;s mission, structure, operational challenges, technology environment, workforce context, and AI opportunity</li>
+      <li><strong>AI System Design &amp; Architecture:</strong> Architecture diagram, tool selection rationale, data flow documentation, integration design, workflow specifications, and prompt strategy</li>
+      <li><strong>Implementation Documentation:</strong> Step-by-step implementation including configurations, automation specifications, prompt libraries, integration procedures, testing protocols, and deployment steps</li>
+      <li><strong>Standard Operating Procedures:</strong> At least two formal SOPs for system operation, maintenance, and troubleshooting</li>
+      <li><strong>Ethical &amp; Risk Assessment:</strong> Risk identification, probability and severity analysis, mitigation strategies, human oversight provisions, and governance documentation</li>
+      <li><strong>Impact Evaluation:</strong> Metrics framework, baseline measurements, results (or projected results with documented assumptions), and analysis</li>
+      <li><strong>Stakeholder Communication Package:</strong> At least one professional artifact designed for a non-technical audience (executive summary, briefing memo, presentation, or stakeholder briefing)</li>
+    </ol>
+    <p>The capstone is evaluated against the rubric in Appendix B. Candidates must achieve a rating of Competent (3) on all rubric dimensions.</p>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- SECTION 9: WRITTEN EXAM -->
+<section class="content-section" id="written-exam">
+  <div class="section-inner">
+    <div class="section-label">Section 9</div>
+    <h2 class="section-title">Written Examination Standards</h2>
+    <h3 class="subsection-title">Exam Format</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Question Type</th><th>Count</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>Multiple-Choice</td><td>60</td><td>Breadth of knowledge across all domains</td></tr>
+          <tr><td>Short-Answer</td><td>20</td><td>Application of knowledge to specific scenarios</td></tr>
+          <tr><td>Scenario-Based / Extended</td><td>20</td><td>Complex reasoning, multi-domain integration, professional judgment</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="subsection-title">Exam Specifications</h3>
+    <ul>
+      <li><strong>Total Questions:</strong> 100</li>
+      <li><strong>Duration:</strong> 3 hours</li>
+      <li><strong>Passing Standard:</strong> 80% overall</li>
+      <li><strong>Domain Minimum:</strong> 70% in each domain</li>
+      <li><strong>Proctoring:</strong> Online with identity verification, screen monitoring, and session recording</li>
+      <li><strong>Security:</strong> Multiple exam versions, secured item bank, content confidential</li>
+    </ul>
+    <h3 class="subsection-title">Domain Weight Distribution</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Domain</th><th>Weight</th></tr></thead>
+        <tbody>
+          <tr><td>1. AI Literacy &amp; Operational Understanding</td><td>10&ndash;12%</td></tr>
+          <tr><td>2. Prompt Engineering &amp; Human&ndash;AI Interaction</td><td>12&ndash;15%</td></tr>
+          <tr><td>3. AI Workflow &amp; Automation Design</td><td>12&ndash;15%</td></tr>
+          <tr><td>4. AI System Integration &amp; Architecture</td><td>10&ndash;12%</td></tr>
+          <tr><td>5. Business &amp; Operational Application</td><td>12&ndash;15%</td></tr>
+          <tr><td>6. Governance, Ethics &amp; Risk Management</td><td>15&ndash;18%</td></tr>
+          <tr><td>7. Documentation, SOPs &amp; Knowledge Transfer</td><td>8&ndash;10%</td></tr>
+          <tr><td>8. Deployment, Monitoring &amp; Optimization</td><td>10&ndash;12%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-gold">
+      <div class="callout-label">Assessment Emphasis</div>
+      <p>Domain 6 carries intentionally elevated weight, reflecting the certification philosophy that ethical reasoning is a core professional competency, not a supplementary consideration.</p>
+    </div>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- SECTION 10: ORAL DEFENSE -->
+<section class="content-section" id="oral-defense">
+  <div class="section-inner">
+    <div class="section-label">Section 10</div>
+    <h2 class="section-title">Oral Defense Standards</h2>
+    <h3 class="subsection-title">Purpose</h3>
+    <p>The oral defense evaluates professional presence, communication under pressure, real-time critical thinking, and the ability to defend technical and ethical decisions before a review panel.</p>
+    <h3 class="subsection-title">Defense Structure</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Component</th><th>Duration</th><th>Evaluation Focus</th></tr></thead>
+        <tbody>
+          <tr><td>Capstone Presentation</td><td>20 minutes</td><td>Clarity, thoroughness, professionalism, logical structure, conveying complex information</td></tr>
+          <tr><td>Panel Questions</td><td>20 minutes</td><td>Technical depth, decision rationale, awareness of alternatives, critical thinking under challenge</td></tr>
+          <tr><td>Ethical Scenario Response</td><td>10 minutes</td><td>Novel scenario analysis, framework application, risk and stakeholder identification, actionable recommendation</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="subsection-title">Panel &amp; Delivery Requirements</h3>
+    <ul>
+      <li>Minimum of 2 reviewers; both must independently rate Pass. In the event of a split decision, a third reviewer is assigned</li>
+      <li>Conducted via live video conference with camera, microphone, and stable connection required</li>
+      <li>Recorded for institutional quality assurance purposes; candidate consent required</li>
+    </ul>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- SECTION 11: PROFICIENCY LEVELS -->
+<section class="content-section" id="proficiency">
+  <div class="section-inner">
+    <div class="section-label">Section 11</div>
+    <h2 class="section-title">Proficiency Levels &amp; Rubric Scale</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Rating</th><th>Level</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><strong>4</strong></td><td>Exemplary</td><td>Exceeds professional standards. Demonstrates exceptional depth, originality, and sophistication. Work serves as a model for others.</td></tr>
+          <tr><td><strong>3</strong></td><td>Competent</td><td>Meets professional standards. Demonstrates the required knowledge, skill, and judgment. <strong>Minimum rating required for certification.</strong></td></tr>
+          <tr><td><strong>2</strong></td><td>Developing</td><td>Approaches but does not meet professional standards. Demonstrates partial competence with gaps that affect functionality or reliability. Requires revision.</td></tr>
+          <tr><td><strong>1</strong></td><td>Beginning</td><td>Does not approach professional standards. Demonstrates fundamental gaps in knowledge, skill, or judgment. Substantial additional work required.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-important">
+      <div class="callout-label">Important</div>
+      <p>No averaging or compensatory scoring is permitted. A rating of 2 or 1 on any rubric dimension results in certification failure, regardless of ratings on other dimensions.</p>
+    </div>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- SECTION 12: REMEDIATION -->
+<section class="content-section" id="remediation">
+  <div class="section-inner">
+    <div class="section-label">Section 12</div>
+    <h2 class="section-title">Remediation &amp; Reassessment</h2>
+    <h3 class="subsection-title">Capstone Project</h3>
+    <p>Candidates who receive a rating below Competent on any capstone dimension are permitted one revision opportunity. Revisions must be substantive and address all identified deficiencies &mdash; cosmetic changes are insufficient. If the revised capstone does not meet standards, a 90-day waiting period applies before a new capstone may be submitted.</p>
+    <h3 class="subsection-title">Written Examination</h3>
+    <p>Candidates who fail the written examination are permitted one retake after a minimum 30-day waiting period. A different exam version is administered. A second failure requires a 6-month waiting period and re-enrollment in the certification process for a third attempt.</p>
+    <h3 class="subsection-title">Oral Defense</h3>
+    <p>Candidates who do not pass the oral defense are permitted one reattempt after a minimum 30-day waiting period. A written response to panel feedback is required prior to reattempt. Revision of the capstone project may be required based on panel recommendations. A third attempt requires a 6-month waiting period and re-enrollment.</p>
+    <h3 class="subsection-title">Petition Process</h3>
+    <p>Candidates who exhaust standard reassessment opportunities may submit a written petition to Program Administration that includes a competency gap remediation plan. Petitions are evaluated on a case-by-case basis and approval is not guaranteed.</p>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- SECTION 13: CREDENTIAL AWARD -->
+<section class="content-section" id="credential-award">
+  <div class="section-inner">
+    <div class="section-label">Section 13</div>
+    <h2 class="section-title">Credential Award, Maintenance &amp; Revocation</h2>
+    <h3 class="subsection-title">Award</h3>
+    <p>The CAIO credential is awarded upon successful completion of all four assessment components: portfolio review, capstone project, written examination, and oral defense. Candidates receive a digital certificate with a unique verification number.</p>
+    <h3 class="subsection-title">Professional Designation</h3>
+    <p>Certified holders may use the designation &ldquo;CAIO&rdquo; after their name (e.g., &ldquo;Jane Smith, CAIO&rdquo;) while the credential is active.</p>
+    <h3 class="subsection-title">Maintenance</h3>
+    <p>The institution reserves the right to introduce recertification requirements, continuing education obligations, or competency updates in the future. Any such requirements will be communicated with advance notice and applied prospectively.</p>
+    <h3 class="subsection-title">Revocation</h3>
+    <p>The CAIO credential may be revoked for:</p>
+    <ul>
+      <li>Academic dishonesty or fraud in the certification process</li>
+      <li>Misrepresentation of the credential (e.g., claiming it is an academic degree or government-issued license)</li>
+      <li>Material ethical violations in professional AI practice</li>
+    </ul>
+    <p>Revocation process includes written notification, opportunity to respond, investigation, determination, and right of appeal.</p>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- SECTION 14: CREDENTIAL INTEGRITY -->
+<section class="content-section" id="integrity">
+  <div class="section-inner">
+    <div class="section-label">Section 14</div>
+    <h2 class="section-title">Credential Integrity</h2>
+    <ul>
+      <li><strong>Assessment Integrity:</strong> All assessments are designed to prevent fraud. Examinations are proctored, capstones are reviewed for originality, and oral defenses are conducted live and recorded.</li>
+      <li><strong>Evaluator Standards:</strong> All evaluators receive calibration training and inter-rater reliability is monitored to ensure consistent, fair evaluation.</li>
+      <li><strong>Candidate Confidentiality:</strong> Assessment results, feedback, and records are shared only with authorized institutional personnel and the candidate.</li>
+      <li><strong>Conflict of Interest:</strong> Evaluators with personal, financial, or professional relationships with candidates must recuse themselves from evaluation.</li>
+      <li><strong>Continuous Quality Assurance:</strong> Assessment instruments, rubrics, and evaluation processes are reviewed periodically for effectiveness, fairness, and alignment with competency standards.</li>
+      <li><strong>Completion Does Not Guarantee Certification:</strong> The CAIO credential is awarded solely on the basis of demonstrated competency. Completing all program requirements does not automatically result in certification.</li>
+    </ul>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- SECTION 15: FRAMEWORK GOVERNANCE -->
+<section class="content-section" id="governance">
+  <div class="section-inner">
+    <div class="section-label">Section 15</div>
+    <h2 class="section-title">Framework Governance</h2>
+    <h3 class="subsection-title">Review Cycle</h3>
+    <ul>
+      <li><strong>Annual Review:</strong> All competency domains, assessment standards, and rubrics reviewed annually</li>
+      <li><strong>Comprehensive Biennial Review:</strong> Full framework review every two years incorporating external expert input</li>
+      <li><strong>Triggered Review:</strong> Immediate review initiated by significant AI industry developments, regulatory changes, or emerging workforce needs</li>
+    </ul>
+    <h3 class="subsection-title">Revision Authority</h3>
+    <p>Framework revisions are developed by the Curriculum &amp; Instruction team in collaboration with Certification &amp; Assessment, subject matter experts, and external advisors. All revisions require approval by institutional leadership.</p>
+    <h3 class="subsection-title">Version Control</h3>
+    <p>Each published version of this framework is assigned a version number and effective date. Candidates are assessed against the version of the framework in effect at the time of their candidacy enrollment. Previous versions are archived and retained for a minimum of 7 years.</p>
+    <h3 class="subsection-title">Stakeholder Input</h3>
+    <p>Feedback is actively solicited from employers, workforce development partners, program graduates, instructors, and industry practitioners to inform framework revisions and ensure continued relevance.</p>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- APPENDIX A -->
+<section class="content-section" id="appendix-a">
+  <div class="section-inner">
+    <div class="section-label">Appendix A</div>
+    <h2 class="section-title">Domain&ndash;Assessment Alignment Matrix</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Domain</th><th>Portfolio</th><th>Capstone</th><th>Written Exam</th><th>Oral Defense</th></tr></thead>
+        <tbody>
+          <tr><td>1. AI Literacy &amp; Operational Understanding</td><td>&mdash;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+          <tr><td>2. Prompt Engineering &amp; Human&ndash;AI Interaction</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+          <tr><td>3. AI Workflow &amp; Automation Design</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+          <tr><td>4. AI System Integration &amp; Architecture</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+          <tr><td>5. Business &amp; Operational Application</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+          <tr><td>6. Governance, Ethics &amp; Risk Management</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+          <tr><td>7. Documentation, SOPs &amp; Knowledge Transfer</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+          <tr><td>8. Deployment, Monitoring &amp; Optimization</td><td>&mdash;</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- APPENDIX B -->
+<section class="content-section" id="appendix-b">
+  <div class="section-inner">
+    <div class="section-label">Appendix B</div>
+    <h2 class="section-title">Capstone Project Evaluation Rubric</h2>
+    <p>Each dimension is evaluated on the 4-point proficiency scale. Candidates must achieve a minimum rating of 3 (Competent) on all dimensions.</p>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Rubric Dimension</th><th>Evaluation Criteria</th></tr></thead>
+        <tbody>
+          <tr><td>Organizational Context Analysis</td><td>Accuracy of organizational assessment; appropriateness of identified AI opportunity; depth of stakeholder analysis; realism of stated constraints</td></tr>
+          <tr><td>System Design &amp; Architecture</td><td>Design coherence; tool selection rationale; data flow quality; integration documentation; evidence of systems-level thinking</td></tr>
+          <tr><td>Prompt Engineering Quality</td><td>Reliability and consistency of prompts; documentation quality; testing evidence; version control; organizational suitability</td></tr>
+          <tr><td>Workflow &amp; Automation Design</td><td>Process mapping quality; automation reliability; error handling design; fallback procedures; edge-case testing evidence</td></tr>
+          <tr><td>Implementation Documentation</td><td>Completeness; clarity; third-party replicability; formatting and organization; SOP quality</td></tr>
+          <tr><td>Ethical &amp; Risk Assessment</td><td>Thoroughness of risk identification; quality of mitigation strategies; human oversight provisions; governance documentation</td></tr>
+          <tr><td>Impact Evaluation</td><td>Metric appropriateness; methodology rigor; honesty of results; analysis quality; acknowledgment of limitations</td></tr>
+          <tr><td>Stakeholder Communication</td><td>Clarity for non-technical audiences; accuracy without oversimplification; professionalism; actionability of recommendations</td></tr>
+          <tr><td>Cross-Domain Integration</td><td>Coherence across all components; evidence of integration vs. siloed sections; overall professionalism and presentation</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+<!-- APPENDIX C -->
+<section class="content-section" id="appendix-c">
+  <div class="section-inner">
+    <div class="section-label">Appendix C</div>
+    <h2 class="section-title">Oral Defense Evaluation Rubric</h2>
+    <p>Each dimension is evaluated on the 4-point proficiency scale. Candidates must achieve a minimum rating of 3 (Competent) on all dimensions. Both panelists must independently rate 3 or above.</p>
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Rubric Dimension</th><th>Evaluation Criteria</th></tr></thead>
+        <tbody>
+          <tr><td>Presentation Clarity &amp; Structure</td><td>Logical organization; clear communication; effective use of visuals; appropriate pacing and delivery</td></tr>
+          <tr><td>Technical Depth &amp; Accuracy</td><td>Factual accuracy; depth of understanding; command of technical details and system architecture</td></tr>
+          <tr><td>Response to Questioning</td><td>Quality of responses; critical thinking under pressure; willingness to acknowledge limitations; constructive engagement with challenges</td></tr>
+          <tr><td>Professional Judgment &amp; Decision Rationale</td><td>Ability to explain and defend decisions; trade-off analysis; awareness of alternative approaches</td></tr>
+          <tr><td>Ethical Reasoning (Scenario)</td><td>Quality of analysis; application of ethical frameworks; identification of risks and stakeholders; practical, actionable recommendations</td></tr>
+          <tr><td>Stakeholder Communication Ability</td><td>Audience adaptation; ability to explain complex concepts clearly; avoidance of unnecessary jargon; professional presence</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="doc-footer">
+  <p>AI Trade School &mdash; Certification Standards &amp; Competency Framework &mdash; Version 1.0 &mdash; Academic Year 2026&ndash;2027</p>
+  <p>End of Document</p>
+</footer>
+
+<script>
+const toggle = document.getElementById('mobileToggle');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('mobileOverlay');
+toggle.addEventListener('click', () => { sidebar.classList.toggle('open'); overlay.classList.toggle('open'); });
+overlay.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('open'); });
+document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => { if (window.innerWidth <= 960) { sidebar.classList.remove('open'); overlay.classList.remove('open'); } }));
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.getAttribute('id');
+      navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + id));
+    }
+  });
+}, { rootMargin: '-20% 0px -75% 0px', threshold: 0 });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
