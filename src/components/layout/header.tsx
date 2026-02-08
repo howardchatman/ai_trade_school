@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 const NAV_LINKS = [
   { href: ROUTES.TRACKS, label: 'Tracks' },
   { href: ROUTES.CERTIFICATIONS, label: 'Certifications' },
+  { href: ROUTES.HANDBOOK, label: 'Academic Framework' },
   { href: ROUTES.FOUNDERS, label: 'About' },
 ];
 

@@ -7,7 +7,11 @@ const FOOTER_LINKS = {
   product: [
     { href: ROUTES.TRACKS, label: 'Tracks' },
     { href: ROUTES.CERTIFICATIONS, label: 'Certifications' },
+    { href: ROUTES.HANDBOOK, label: 'Academic Framework' },
     { href: ROUTES.FOUNDERS, label: 'About' },
+  ],
+  resources: [
+    { href: ROUTES.HANDBOOK, label: 'Program Handbook (PDF)' },
   ],
   legal: [
     { href: '/privacy', label: 'Privacy Policy' },
@@ -70,9 +74,22 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Legal Links */}
+          {/* Resources Links */}
           <div>
-            <h3 className="text-sm font-semibold mb-4 text-white">Legal</h3>
+            <h3 className="text-sm font-semibold mb-4 text-white">Resources</h3>
+            <ul className="space-y-3">
+              {FOOTER_LINKS.resources.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-slate-400 hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <h3 className="text-sm font-semibold mb-4 mt-6 text-white">Legal</h3>
             <ul className="space-y-3">
               {FOOTER_LINKS.legal.map((link) => (
                 <li key={link.href}>

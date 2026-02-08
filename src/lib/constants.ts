@@ -28,6 +28,7 @@ export const ROUTES = {
   TRACKS: '/tracks',
   CERTIFICATIONS: '/certifications',
   FOUNDERS: '/founders',
+  HANDBOOK: '/handbook',
   APP: '/app',
   APP_TRACK: (slug: string) => `/app/track/${slug}`,
   APP_LESSON: (slug: string) => `/app/lesson/${slug}`,
