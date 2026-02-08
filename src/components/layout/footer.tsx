@@ -12,6 +12,7 @@ const FOOTER_LINKS = {
   ],
   resources: [
     { href: ROUTES.HANDBOOK, label: 'Program Handbook (PDF)' },
+    { href: ROUTES.CAIO_FRAMEWORK, label: 'CAIO Certification Framework' },
   ],
   legal: [
     { href: '/privacy', label: 'Privacy Policy' },

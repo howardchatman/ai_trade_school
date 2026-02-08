@@ -29,6 +29,7 @@ export const ROUTES = {
   CERTIFICATIONS: '/certifications',
   FOUNDERS: '/founders',
   HANDBOOK: '/handbook',
+  CAIO_FRAMEWORK: '/caio-framework',
   APP: '/app',
   APP_TRACK: (slug: string) => `/app/track/${slug}`,
   APP_LESSON: (slug: string) => `/app/lesson/${slug}`,
