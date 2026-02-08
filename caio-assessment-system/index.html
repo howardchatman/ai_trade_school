@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAIO Assessment &amp; Validation System — AI Trade School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0f1d35;
+  --navy-mid: #1a2d4d;
+  --navy-light: #243b63;
+  --blue: #2c5f8a;
+  --gold: #b8860b;
+  --gold-light-bg: #fffcf0;
+  --text-dark: #374151;
+  --text-mid: #6b7280;
+  --text-light: #9ca3af;
+  --border: #e5e7eb;
+  --bg: #f9fafb;
+  --white: #ffffff;
+  --red: #b91c1c;
+  --red-bg: #fef2f2;
+  --green: #15803d;
+  --green-bg: #ecfdf5;
+  --orange: #d97706;
+  --orange-bg: #fffbeb;
+  --sidebar-w: 290px;
+  --font-display: 'DM Serif Display', serif;
+  --font-body: 'Source Sans 3', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  background: var(--bg);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--navy);
+  color: var(--white);
+  overflow-y: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-brand {
+  padding: 32px 24px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar-brand h1 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+
+.sidebar-brand .subtitle {
+  font-size: 0.78rem;
+  color: var(--gold);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 16px 0;
+  overflow-y: auto;
+}
+
+.nav-group-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-light);
+  padding: 18px 24px 6px;
+}
+
+.sidebar-nav a {
+  display: block;
+  padding: 7px 24px;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+
+.sidebar-nav a:hover {
+  color: var(--white);
+  background: rgba(255,255,255,0.04);
+}
+
+.sidebar-nav a.active {
+  color: var(--gold);
+  border-left-color: var(--gold);
+  background: rgba(184,134,11,0.06);
+}
+
+.sidebar-footer {
+  padding: 16px 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.72rem;
+  color: var(--text-light);
+}
+
+/* ── Main Content ── */
+.main {
+  margin-left: var(--sidebar-w);
+  min-height: 100vh;
+}
+
+/* ── Hamburger ── */
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 200;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: var(--navy);
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 90;
+}
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 50%, var(--navy-light) 100%);
+  color: var(--white);
+  padding: 80px 60px 60px;
+}
+
+.hero-doctype {
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.hero-institution {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin-bottom: 6px;
+  color: rgba(255,255,255,0.85);
+}
+
+.hero h2 {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 28px;
+}
+
+.hero-meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hero-positioning {
+  border-left: 3px solid var(--gold);
+  padding: 16px 20px;
+  font-style: italic;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 32px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 0 6px 6px 0;
+}
+
+.download-bar {
+  background: rgba(0,0,0,0.2);
+  border-radius: 8px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.download-bar p {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.8);
+  flex: 1;
+  min-width: 200px;
+}
+
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold);
+  color: var(--white);
+  padding: 10px 22px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.btn-download:hover { background: #9a7209; }
+
+/* ── Content Sections ── */
+.content {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+section {
+  padding: 56px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+section:last-child { border-bottom: none; }
+
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+section h3 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--navy);
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+section h4 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--navy);
+  margin: 32px 0 14px;
+}
+
+section h5 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 24px 0 10px;
+}
+
+section p {
+  margin-bottom: 16px;
+  color: var(--text-dark);
+}
+
+section ul, section ol {
+  margin: 0 0 16px 20px;
+}
+
+section li {
+  margin-bottom: 8px;
+}
+
+.back-to-top {
+  display: inline-block;
+  font-size: 0.78rem;
+  color: var(--blue);
+  text-decoration: none;
+  margin-top: 16px;
+}
+
+.back-to-top:hover { text-decoration: underline; }
+
+/* ── Tables ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0 24px;
+  font-size: 0.9rem;
+}
+
+thead th {
+  background: var(--navy);
+  color: var(--white);
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+tbody td {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+tbody tr:nth-child(even) { background: #f8f9fb; }
+
+/* ── Rubric Cards ── */
+.rubric-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px 30px;
+  margin: 24px 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.rubric-card h4 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--navy);
+  margin: 0 0 4px;
+}
+
+.artifact-label {
+  font-size: 0.82rem;
+  color: var(--text-mid);
+  margin-bottom: 16px;
+}
+
+/* ── Rubric Tables ── */
+.rubric-wrap {
+  overflow-x: auto;
+  margin: 18px 0 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.rubric-wrap table {
+  min-width: 800px;
+  margin: 0;
+}
+
+.rubric-wrap thead th {
+  font-size: 0.72rem;
+  padding: 10px 12px;
+}
+
+.rubric-wrap tbody td {
+  font-size: 0.82rem;
+  padding: 9px 12px;
+  line-height: 1.5;
+}
+
+.rubric-wrap tbody td:first-child {
+  font-weight: 600;
+  color: var(--navy);
+  min-width: 140px;
+}
+
+/* ── Callout Boxes ── */
+.callout {
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 20px 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.callout-info {
+  background: #eff6ff;
+  border-left: 4px solid var(--blue);
+}
+
+.callout-gold {
+  background: var(--gold-light-bg);
+  border-left: 4px solid var(--gold);
+}
+
+.callout-warning {
+  background: var(--orange-bg);
+  border-left: 4px solid var(--orange);
+}
+
+.callout-important {
+  background: var(--red-bg);
+  border-left: 4px solid var(--red);
+  color: var(--red);
+}
+
+.callout-important strong { color: var(--red); }
+
+.callout-success {
+  background: var(--green-bg);
+  border-left: 4px solid var(--green);
+  color: var(--green);
+}
+
+.callout-success strong { color: var(--green); }
+
+/* ── Principle Pills ── */
+.pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  margin: 20px 0;
+}
+
+.principle-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 18px;
+  margin: 4px 6px 4px 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.principle-pill .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ── Definition List ── */
+dl.definitions {
+  margin: 20px 0;
+}
+
+dl.definitions dt {
+  font-weight: 700;
+  color: var(--navy);
+  margin-top: 14px;
+}
+
+dl.definitions dd {
+  margin-left: 0;
+  padding-left: 18px;
+  border-left: 2px solid var(--border);
+  color: var(--text-dark);
+  margin-top: 4px;
+  padding-bottom: 8px;
+}
+
+/* ── Flow Steps ── */
+.flow-step {
+  display: flex;
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.flow-step:last-child { border-bottom: none; }
+
+.step-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--navy);
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.flow-step .pass { color: var(--green); font-weight: 700; }
+.flow-step .fail { color: var(--red); font-weight: 700; }
+
+.flow-content h5 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+}
+
+.flow-content p {
+  margin-bottom: 6px;
+  font-size: 0.92rem;
+}
+
+/* ── Numbered Steps ── */
+.numbered-steps {
+  counter-reset: step;
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.numbered-steps li {
+  counter-increment: step;
+  display: flex;
+  gap: 14px;
+  margin-bottom: 14px;
+  align-items: flex-start;
+}
+
+.numbered-steps li::before {
+  content: counter(step);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── Page Footer ── */
+.page-footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+  padding: 40px 24px;
+  font-size: 0.85rem;
+}
+
+.page-footer p { color: rgba(255,255,255,0.6); margin-bottom: 6px; }
+
+.page-footer .end-doc {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.35);
+  margin-top: 12px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .overlay.open {
+    display: block;
+  }
+
+  .main {
+    margin-left: 0;
+  }
+
+  .hero {
+    padding: 80px 24px 40px;
+  }
+
+  .hero h2 { font-size: 1.8rem; }
+
+  .content {
+    padding: 0 24px;
+  }
+
+  .download-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .rubric-card {
+    padding: 20px 16px;
+  }
+}
+
+/* ── Print ── */
+@media print {
+  .sidebar, .hamburger, .overlay, .download-bar, .back-to-top { display: none !important; }
+  .main { margin-left: 0; }
+  .hero { padding: 40px 20px; }
+  .content { padding: 0 20px; max-width: 100%; }
+  section { page-break-inside: avoid; }
+  table { font-size: 0.8rem; }
+  .rubric-wrap { overflow: visible; }
+  .rubric-wrap table { min-width: unset; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hamburger -->
+<button class="hamburger" id="hamburger" aria-label="Open navigation">
+  <span></span><span></span><span></span>
+</button>
+<div class="overlay" id="overlay"></div>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <h1>AI Trade School</h1>
+    <div class="subtitle">Assessment &amp; Validation System</div>
+  </div>
+  <nav class="sidebar-nav" id="sidebarNav">
+    <a href="#cover">Cover</a>
+    <a href="#philosophy">Assessment Philosophy</a>
+    <a href="#architecture">Three-Level Model</a>
+
+    <div class="nav-group-label">Course Assessment</div>
+    <a href="#tier1">Tier 1 Standards</a>
+    <a href="#tier2">Tier 2 Standards</a>
+    <a href="#rubrics">Course-Level Rubrics</a>
+
+    <div class="nav-group-label">Domain &amp; Certification</div>
+    <a href="#domain-validation">Domain Validation</a>
+    <a href="#capstone">Capstone Assessment</a>
+    <a href="#written-exam">Written Examination</a>
+    <a href="#oral-defense">Oral Defense</a>
+
+    <div class="nav-group-label">Standards &amp; Policies</div>
+    <a href="#proficiency-scale">Unified Proficiency Scale</a>
+    <a href="#pass-fail">Pass / Fail Logic</a>
+    <a href="#remediation">Remediation &amp; Reassessment</a>
+    <a href="#evaluator">Evaluator Standards</a>
+    <a href="#integrity">Assessment Integrity</a>
+
+    <div class="nav-group-label">Records &amp; Governance</div>
+    <a href="#records">Records &amp; Audit Trail</a>
+    <a href="#governance">Governance &amp; Revision</a>
+
+    <div class="nav-group-label">Appendices</div>
+    <a href="#appendix-a">A: Capstone Rubric</a>
+    <a href="#appendix-b">B: Oral Defense Rubric</a>
+    <a href="#appendix-c">C: Domain Checklist</a>
+    <a href="#appendix-d">D: Decision Flowchart</a>
+  </nav>
+  <div class="sidebar-footer">Version 1.0 &mdash; August 2026</div>
+</aside>
+
+<!-- Main Content -->
+<div class="main">
+
+  <!-- HERO / COVER -->
+  <div class="hero" id="cover">
+    <div class="hero-doctype">Assessment &amp; Validation System</div>
+    <div class="hero-institution">AI Trade School</div>
+    <h2>Certified AI Operator (CAIO)</h2>
+    <div class="hero-meta">
+      <span>Version 1.0</span>
+      <span>Academic Year 2026&ndash;2027</span>
+      <span>Effective August 1, 2026</span>
+      <span>Classification: Institutional Assessment Standards</span>
+    </div>
+    <div class="hero-positioning">
+      This document defines the assessment methods, rubric standards, scoring models, pass/fail criteria, remediation policies, and evaluator standards for the CAIO certification program.
+    </div>
+    <div class="download-bar">
+      <p>Download the complete assessment system document for institutional review, evaluator training, or audit preparation:</p>
+      <a href="CAIO_Assessment_Validation_System.docx" class="btn-download">Download .DOCX</a>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- SECTION 1: Assessment Philosophy -->
+    <section id="philosophy">
+      <div class="section-label">Section 1</div>
+      <h3>Assessment Philosophy</h3>
+
+      <p>The AI Trade School CAIO certification program employs a competency-based assessment model. Credentials are awarded on the basis of demonstrated mastery&mdash;not seat hours, content consumption, or time in program. Every assessment instrument answers a single question: <em>can this individual perform this competency to a professional standard under authentic conditions?</em></p>
+
+      <p>Assessment protects three things simultaneously: the value of the credential, employer confidence in certified operators, and the institutional integrity of AI Trade School.</p>
+
+      <h4>Assessment Principles</h4>
+
+      <div class="pills-row">
+        <span class="principle-pill"><span class="dot"></span>Applied</span>
+        <span class="principle-pill"><span class="dot"></span>Observable</span>
+        <span class="principle-pill"><span class="dot"></span>Measurable</span>
+        <span class="principle-pill"><span class="dot"></span>Repeatable</span>
+        <span class="principle-pill"><span class="dot"></span>Aligned</span>
+        <span class="principle-pill"><span class="dot"></span>Transparent</span>
+        <span class="principle-pill"><span class="dot"></span>Ethical</span>
+      </div>
+
+      <dl class="definitions">
+        <dt>Applied</dt>
+        <dd>Assessment requires application to authentic tasks. Rote memorization of definitions, terminology, or procedures is insufficient to demonstrate competency.</dd>
+        <dt>Observable</dt>
+        <dd>Competency is demonstrated through work products, performances, and demonstrations. Self-report is not accepted as evidence of competency.</dd>
+        <dt>Measurable</dt>
+        <dd>All assessments use published criteria, rubrics, and scoring models with defined proficiency levels. No unconstrained subjectivity in evaluation.</dd>
+        <dt>Repeatable</dt>
+        <dd>Assessment instruments are standardized so that different evaluators, evaluating the same work, reach the same conclusion. Inter-rater reliability is a design priority.</dd>
+        <dt>Aligned</dt>
+        <dd>Every assessment is aligned to specific competency domains and credential requirements. No assessment exists without a direct connection to certification standards.</dd>
+        <dt>Transparent</dt>
+        <dd>All rubrics, criteria, and standards are published and available to candidates in advance. No hidden requirements or undisclosed evaluation criteria.</dd>
+        <dt>Ethical</dt>
+        <dd>Assessment is free from bias, conflict of interest, and arbitrary decision-making. Candidates have the right to fair evaluation and appeals processes.</dd>
+      </dl>
+
+      <h4>What Assessment Is Not</h4>
+      <p>The following do not constitute evidence of competency and are not used in certification decisions:</p>
+      <ul>
+        <li>Attendance or login records</li>
+        <li>Content consumption metrics (videos watched, pages viewed)</li>
+        <li>Peer ratings or endorsements</li>
+        <li>Self-assessment or self-reported skill levels</li>
+        <li>Forum participation (unless rubric-evaluated)</li>
+        <li>Time spent on platform or in coursework</li>
+      </ul>
+      <p>Certification decisions are made exclusively on the basis of evaluated performance against published standards.</p>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- SECTION 2: Three-Level Model -->
+    <section id="architecture">
+      <div class="section-label">Section 2</div>
+      <h3>Three-Level Assessment Architecture</h3>
+
+      <p>The CAIO assessment system operates across three sequential levels. Candidates cannot advance to a higher level without completing the prior level in full.</p>
+
+      <table>
+        <thead>
+          <tr><th>Level</th><th>Purpose</th><th>Scope</th><th>Instruments</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Course-Level</strong></td><td>Skill acquisition &amp; knowledge verification</td><td>Individual courses (Tier 1 &amp; Tier 2)</td><td>Quizzes, demonstrations, rubric-evaluated artifacts</td></tr>
+          <tr><td><strong>Domain-Level</strong></td><td>Competency validation across domains</td><td>8 CAIO competency domains</td><td>Portfolio review, cross-course evaluation, domain scoring</td></tr>
+          <tr><td><strong>Certification-Level</strong></td><td>Certification readiness &amp; credential award</td><td>Complete CAIO candidacy</td><td>Capstone project, written exam, oral defense</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Assessment Flow</h4>
+      <ol class="numbered-steps">
+        <li><span>Complete all Tier 1 courses; pass all knowledge checks and activities.</span></li>
+        <li><span>Complete all Tier 2 courses; achieve Proficient or above on all rubric-evaluated artifacts.</span></li>
+        <li><span>Portfolio Readiness Review and Domain-Level Validation across all 8 competency domains.</span></li>
+        <li><span>Enroll as CAIO candidate upon successful domain validation.</span></li>
+        <li><span>Submit capstone project for evaluation.</span></li>
+        <li><span>Sit written examination under proctored conditions.</span></li>
+        <li><span>Complete oral defense before evaluation panel.</span></li>
+        <li><span>Institution reviews all assessment results and makes credential determination.</span></li>
+      </ol>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- SECTION 3: Tier 1 Standards -->
+    <section id="tier1">
+      <div class="section-label">Section 3</div>
+      <h3>Tier 1 Assessment Standards</h3>
+
+      <p>Tier 1 courses serve a gatekeeping function. They verify foundational knowledge and basic competency required to enter applied coursework. Tier 1 performance does not contribute to CAIO certification scoring.</p>
+
+      <table>
+        <thead>
+          <tr><th>Course</th><th>Assessment Type</th><th>Passing Standard</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>ATS-101: AI Foundations</strong></td><td>Multiple-choice knowledge assessment; short-answer reflection</td><td>75%; reflection complete</td></tr>
+          <tr><td><strong>ATS-102: ChatGPT Fundamentals</strong></td><td>Prompt portfolio (3 categories); limitations quiz</td><td>75% on quiz; portfolio complete</td></tr>
+          <tr><td><strong>ATS-103: AI Tools Overview</strong></td><td>Tool Evaluation Matrix (5 tools); knowledge assessment</td><td>75%; matrix complete</td></tr>
+          <tr><td><strong>ATS-104: AI Productivity</strong></td><td>Productivity Audit with metrics; knowledge assessment</td><td>75%; audit complete</td></tr>
+          <tr><td><strong>ATS-105: AI Careers &amp; Ethics</strong></td><td>Ethical Case Analysis (2 scenarios); Career Plan; assessment</td><td>75%; both artifacts complete</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Grading Model</h4>
+      <p>All Tier 1 courses are graded <strong>Pass / Not Yet Passed</strong>. There is no partial credit. Knowledge assessments permit up to 3 retakes with a 48-hour waiting period between attempts. Activity-based assessments permit 1 revision. Upon exhaustion of all attempts, candidates must wait 60 days and re-enroll in the course.</p>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- SECTION 4: Tier 2 Standards -->
+    <section id="tier2">
+      <div class="section-label">Section 4</div>
+      <h3>Tier 2 Assessment Standards</h3>
+
+      <p>Tier 2 courses assess applied competence through portfolio artifacts evaluated on a standardized 4-level rubric. These artifacts form the foundation of the candidate&rsquo;s professional portfolio and contribute directly to domain-level validation.</p>
+
+      <h4>Unified Rubric Scale</h4>
+      <table>
+        <thead>
+          <tr><th>Level</th><th>Label</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>4</strong></td><td>Distinguished</td><td>Production-ready, exemplary work. Exceeds professional standards. Could serve as a model for others.</td></tr>
+          <tr><td><strong>3</strong></td><td>Proficient</td><td>Meets professional standards. Competent, reliable, suitable for professional use. <strong>Minimum for course completion.</strong></td></tr>
+          <tr><td><strong>2</strong></td><td>Developing</td><td>Approaches but does not meet professional standards. Gaps present affecting reliability. Requires revision.</td></tr>
+          <tr><td><strong>1</strong></td><td>Deficient</td><td>Does not approach professional standards. Incomplete or fundamentally incorrect. Substantial work required.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-important">
+        <strong>Course Pass Rule:</strong> Every criterion on every rubric must achieve Level 3 (Proficient) or above. There is no averaging. A score of 4 on one criterion does not compensate for a score of 2 on another. Artifacts scoring below Level 3 on any criterion are returned for revision.
+      </div>
+
+      <p>Candidates are permitted 2 revisions per course. Revisions must be substantive&mdash;cosmetic changes without addressing evaluator feedback do not qualify. Failure to achieve Proficient after 2 revisions requires a 30-day waiting period followed by retaking the full course.</p>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- SECTION 5: Course-Level Rubrics -->
+    <section id="rubrics">
+      <div class="section-label">Section 5</div>
+      <h3>Course-Level Rubrics</h3>
+
+      <p>The following rubrics define the evaluation criteria for each Tier 2 course. Each artifact is evaluated across 5 criteria on the 4-level proficiency scale. All criteria must achieve Level 3 (Proficient) or above for course completion.</p>
+
+      <!-- ATS-201 -->
+      <div class="rubric-card">
+        <h4>ATS-201: Prompt Engineering for Business Operations</h4>
+        <div class="artifact-label">Artifact: Organizational Prompt Library (20+ reusable prompts)</div>
+        <div class="rubric-wrap">
+          <table>
+            <thead>
+              <tr><th>Criterion</th><th>1 &mdash; Deficient</th><th>2 &mdash; Developing</th><th>3 &mdash; Proficient</th><th>4 &mdash; Distinguished</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Prompt Structure &amp; Design</td>
+                <td>Vague, unstructured, missing elements</td>
+                <td>Basic structure, inconsistent</td>
+                <td>Clear structure with role/task/format/constraints; consistent methodology</td>
+                <td>Highly optimized; chaining, conditional logic, multi-step</td>
+              </tr>
+              <tr>
+                <td>Output Reliability</td>
+                <td>Unpredictable, unreliable</td>
+                <td>Some consistency, frequent variation</td>
+                <td>Consistent, controlled; tone/length/format reliable</td>
+                <td>Production-grade with tested edge cases; QA documented</td>
+              </tr>
+              <tr>
+                <td>Iteration &amp; Version Control</td>
+                <td>No refinement evidence</td>
+                <td>Minimal iteration, no tracking</td>
+                <td>Logical refinement documented; version history maintained</td>
+                <td>Strategic optimization with A/B testing; comprehensive versioning</td>
+              </tr>
+              <tr>
+                <td>Documentation Quality</td>
+                <td>Incomplete or missing</td>
+                <td>Basic descriptions, unclear instructions</td>
+                <td>Clear instructions, expected outputs, limitations, audience</td>
+                <td>Professional-grade; team deployment ready; troubleshooting guides</td>
+              </tr>
+              <tr>
+                <td>Organizational Applicability</td>
+                <td>Not professionally relevant</td>
+                <td>Limited applicability, generic</td>
+                <td>Business-ready, aligned to specific functions</td>
+                <td>Enterprise-grade; organized by department; governance guidelines</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ATS-202 -->
+      <div class="rubric-card">
+        <h4>ATS-202: AI Automation &amp; Workflow Design</h4>
+        <div class="artifact-label">Artifact: AI Workflow Blueprint</div>
+        <div class="rubric-wrap">
+          <table>
+            <thead>
+              <tr><th>Criterion</th><th>1 &mdash; Deficient</th><th>2 &mdash; Developing</th><th>3 &mdash; Proficient</th><th>4 &mdash; Distinguished</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Process Mapping</td>
+                <td>No clear map; disorganized</td>
+                <td>Basic flow; missing decision points</td>
+                <td>Complete with inputs, outputs, decisions, data flows, bottlenecks</td>
+                <td>Comprehensive with optimization analysis; current vs. improved</td>
+              </tr>
+              <tr>
+                <td>Automation Logic</td>
+                <td>Broken or absent</td>
+                <td>Partial; triggers/actions incomplete</td>
+                <td>Functional trigger-action-condition with branching and sequencing</td>
+                <td>Robust; parallel processing; dynamic conditions</td>
+              </tr>
+              <tr>
+                <td>Error Handling</td>
+                <td>None</td>
+                <td>Minimal; happy-path only</td>
+                <td>Appropriate fallback logic and human escalation</td>
+                <td>Comprehensive error taxonomy; graceful degradation</td>
+              </tr>
+              <tr>
+                <td>Testing &amp; Validation</td>
+                <td>No testing evidence</td>
+                <td>Limited; ideal conditions only</td>
+                <td>Tested normal and edge-case; documented</td>
+                <td>Systematic plan including adversarial; regression testing</td>
+              </tr>
+              <tr>
+                <td>Documentation &amp; Handoff</td>
+                <td>Incomplete or unusable</td>
+                <td>Basic; gaps in maintenance</td>
+                <td>Clear; enables third-party maintenance</td>
+                <td>Professional ops manual with runbooks and SLA definitions</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ATS-203 -->
+      <div class="rubric-card">
+        <h4>ATS-203: AI for Business Operations</h4>
+        <div class="artifact-label">Artifact: AI Operations Plan</div>
+        <div class="rubric-wrap">
+          <table>
+            <thead>
+              <tr><th>Criterion</th><th>1 &mdash; Deficient</th><th>2 &mdash; Developing</th><th>3 &mdash; Proficient</th><th>4 &mdash; Distinguished</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Readiness Assessment</td>
+                <td>None or superficial</td>
+                <td>Basic; missing key dimensions</td>
+                <td>Thorough: infrastructure, workforce, data, culture</td>
+                <td>Comprehensive maturity scoring with gap analysis</td>
+              </tr>
+              <tr>
+                <td>Solution Alignment</td>
+                <td>Doesn&rsquo;t address need</td>
+                <td>Some connection; vague</td>
+                <td>Clear alignment with specific, measurable objectives</td>
+                <td>Strategic alignment with organizational roadmap</td>
+              </tr>
+              <tr>
+                <td>Implementation Planning</td>
+                <td>None or unrealistic</td>
+                <td>Basic timeline only</td>
+                <td>Phased: timeline, resources, budget, risks</td>
+                <td>Detailed with milestones, gates, contingencies, change management</td>
+              </tr>
+              <tr>
+                <td>ROI &amp; Impact</td>
+                <td>No metrics</td>
+                <td>Generic; no baseline</td>
+                <td>Appropriate metrics with baseline and methodology</td>
+                <td>Comprehensive framework; leading/lagging indicators</td>
+              </tr>
+              <tr>
+                <td>Stakeholder Communication</td>
+                <td>None</td>
+                <td>Excessive jargon or inaccurate</td>
+                <td>Clear, accurate for non-technical decision-makers</td>
+                <td>Executive-grade with visualization and recommendations</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ATS-204 -->
+      <div class="rubric-card">
+        <h4>ATS-204: AI Content &amp; Communication Systems</h4>
+        <div class="artifact-label">Artifact: AI Content System Blueprint</div>
+        <div class="rubric-wrap">
+          <table>
+            <thead>
+              <tr><th>Criterion</th><th>1 &mdash; Deficient</th><th>2 &mdash; Developing</th><th>3 &mdash; Proficient</th><th>4 &mdash; Distinguished</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Content Strategy</td>
+                <td>No coherent strategy</td>
+                <td>Basic; no channel/audience specifics</td>
+                <td>Multi-channel, audience-aligned, brand-voiced</td>
+                <td>Sophisticated with calendar, KPIs, optimization cycle</td>
+              </tr>
+              <tr>
+                <td>Prompt Templates</td>
+                <td>Vague or unusable</td>
+                <td>Basic; inconsistent output</td>
+                <td>Reliable brand-aligned templates across formats</td>
+                <td>Advanced with tone calibration and audience variants</td>
+              </tr>
+              <tr>
+                <td>QA System</td>
+                <td>None</td>
+                <td>Basic; no structured criteria</td>
+                <td>Documented workflow with criteria, gates, revision</td>
+                <td>Multi-layer QA with automated checks and quality metrics</td>
+              </tr>
+              <tr>
+                <td>Editorial Workflow</td>
+                <td>None</td>
+                <td>Informal; unclear roles</td>
+                <td>Structured with roles, handoffs, timelines, escalation</td>
+                <td>Professional editorial ops with version control and audit</td>
+              </tr>
+              <tr>
+                <td>Governance</td>
+                <td>None</td>
+                <td>Minimal; key policies missing</td>
+                <td>Comprehensive: disclosure, attribution, data handling, acceptable use</td>
+                <td>Enterprise framework with compliance monitoring and incident response</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ATS-205 -->
+      <div class="rubric-card">
+        <h4>ATS-205: AI Tool Integration &amp; System Design</h4>
+        <div class="artifact-label">Artifact: AI System Architecture Document</div>
+        <div class="rubric-wrap">
+          <table>
+            <thead>
+              <tr><th>Criterion</th><th>1 &mdash; Deficient</th><th>2 &mdash; Developing</th><th>3 &mdash; Proficient</th><th>4 &mdash; Distinguished</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Architecture Design</td>
+                <td>No coherent architecture</td>
+                <td>Basic; unclear integration</td>
+                <td>Logical, cohesive with documented rationale</td>
+                <td>Elegant, scalable with migration paths</td>
+              </tr>
+              <tr>
+                <td>Tool Selection</td>
+                <td>No rationale</td>
+                <td>Basic; missing criteria</td>
+                <td>Documented evaluation: interoperability, cost, security</td>
+                <td>Strategic with TCO modeling and vendor risk</td>
+              </tr>
+              <tr>
+                <td>Data Flow</td>
+                <td>Unclear or broken</td>
+                <td>Basic; missing dependencies</td>
+                <td>Complete with dependencies, transformations, integrity checks</td>
+                <td>Comprehensive with lineage, validation, monitoring</td>
+              </tr>
+              <tr>
+                <td>Security &amp; Risk</td>
+                <td>None</td>
+                <td>Minimal attention</td>
+                <td>Documented: access control, data handling, vulnerability</td>
+                <td>Comprehensive with threat modeling and incident procedures</td>
+              </tr>
+              <tr>
+                <td>Maintenance &amp; Audit</td>
+                <td>None</td>
+                <td>Basic notes only</td>
+                <td>Documented schedule, audit procedures, update protocols</td>
+                <td>Professional ops with dashboards, SLA tracking, capacity planning</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- SECTION 6: Domain Validation -->
+    <section id="domain-validation">
+      <div class="section-label">Section 6</div>
+      <h3>Domain Validation</h3>
+
+      <p>Domain validation bridges course-level and certification-level assessment. It evaluates whether a candidate has achieved competency across each of the 8 CAIO competency domains using evidence drawn from multiple courses and artifacts.</p>
+
+      <h4>Domain Scoring Model</h4>
+      <table>
+        <thead>
+          <tr><th>Score</th><th>Label</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>M</strong></td><td>Mastery</td><td>Independent, professional-level competency. Could operate autonomously in this domain. Consistently Distinguished performance.</td></tr>
+          <tr><td><strong>C</strong></td><td>Competent</td><td>Safe, reliable competency. Sufficient knowledge, skill, and judgment for professional practice. Consistently Proficient or above. <strong>Minimum for certification.</strong></td></tr>
+          <tr><td><strong>R</strong></td><td>Needs Remediation</td><td>Gaps present. Insufficient evidence for unsupervised practice. Targeted remediation required before proceeding.</td></tr>
+          <tr><td><strong>I</strong></td><td>Insufficient</td><td>Fundamental gaps across multiple competency areas. Must retake relevant course(s).</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-gold">
+        <strong>Passing:</strong> Competent (C) or Mastery (M) on ALL eight domains. A score of R or I on any domain blocks advancement to certification-level assessment.
+      </div>
+
+      <h4>Portfolio Readiness Review</h4>
+      <ol class="numbered-steps">
+        <li><span>Verify all required artifacts are present and scored Proficient or above on all rubric criteria.</span></li>
+        <li><span>Evaluate aggregate evidence for each of the 8 competency domains across all submitted artifacts.</span></li>
+        <li><span>Assign M, C, R, or I to each domain based on the totality of evidence.</span></li>
+        <li><span>Document rationale for each domain score with specific evidence citations.</span></li>
+        <li><span>Communicate results to the candidate in writing with actionable feedback.</span></li>
+      </ol>
+
+      <h4>Remediation</h4>
+      <p>Candidates scoring <strong>R (Needs Remediation)</strong> on any domain receive specific feedback identifying competency gaps and targeted remediation activities. Upon completion, the domain is reevaluated. Candidates scoring <strong>I (Insufficient)</strong> must retake the relevant course(s) in full.</p>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- SECTION 7: Capstone -->
+    <section id="capstone">
+      <div class="section-label">Section 7</div>
+      <h3>Capstone Assessment</h3>
+
+      <p>The capstone project is the centerpiece of the CAIO certification assessment. It requires candidates to integrate all 8 competency domains into a single comprehensive project demonstrating professional-level AI operations competency. The capstone carries a weight of <strong>40%</strong> in the final certification determination.</p>
+
+      <h4>Required Deliverables</h4>
+      <ol>
+        <li><strong>Organizational Context Analysis</strong></li>
+        <li><strong>AI System Design &amp; Architecture</strong></li>
+        <li><strong>Implementation Documentation</strong></li>
+        <li><strong>Standard Operating Procedures</strong> (minimum 2)</li>
+        <li><strong>Ethical &amp; Risk Assessment</strong></li>
+        <li><strong>Impact Evaluation</strong></li>
+        <li><strong>Stakeholder Communication Package</strong></li>
+      </ol>
+
+      <p>A missing deliverable results in automatic return of the capstone without evaluation. All 7 deliverables must be present before the capstone enters the evaluation queue.</p>
+
+      <p>Capstone projects are evaluated by a minimum of 2 independent evaluators using the rubric defined in Appendix A. All 9 rubric dimensions must achieve Level 3 (Proficient) or above. One revision is permitted. Failure to achieve Proficient after revision requires a 90-day waiting period followed by submission of a new capstone project.</p>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- SECTION 8: Written Exam -->
+    <section id="written-exam">
+      <div class="section-label">Section 8</div>
+      <h3>Written Examination</h3>
+
+      <table>
+        <thead>
+          <tr><th>Question Type</th><th>Count</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Multiple-Choice</strong></td><td>60</td><td>Breadth of knowledge; one correct answer, three distractors</td></tr>
+          <tr><td><strong>Short-Answer</strong></td><td>20</td><td>Application to specific scenarios; scored 0&ndash;2</td></tr>
+          <tr><td><strong>Scenario-Based</strong></td><td>20</td><td>Complex reasoning, multi-domain integration, professional judgment; scored 0&ndash;4</td></tr>
+        </tbody>
+      </table>
+
+      <p><strong>Specifications:</strong> 100 questions total, 3-hour time limit, 80% passing threshold, minimum 70% per domain, remotely proctored, multiple exam versions drawn from a secured item bank. The written examination carries a weight of <strong>30%</strong> in the final certification determination.</p>
+
+      <h4>Domain Weight Distribution</h4>
+      <table>
+        <thead>
+          <tr><th>Domain</th><th>Weight</th><th>Approx. Questions</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1. AI Literacy</td><td>10&ndash;12%</td><td>10&ndash;12</td></tr>
+          <tr><td>2. Prompt Engineering</td><td>12&ndash;15%</td><td>12&ndash;15</td></tr>
+          <tr><td>3. Workflow &amp; Automation</td><td>12&ndash;15%</td><td>12&ndash;15</td></tr>
+          <tr><td>4. System Integration</td><td>10&ndash;12%</td><td>10&ndash;12</td></tr>
+          <tr><td>5. Business Application</td><td>12&ndash;15%</td><td>12&ndash;15</td></tr>
+          <tr><td>6. Ethics &amp; Governance</td><td>15&ndash;18%</td><td>15&ndash;18</td></tr>
+          <tr><td>7. Documentation &amp; SOPs</td><td>8&ndash;10%</td><td>8&ndash;10</td></tr>
+          <tr><td>8. Deployment &amp; Monitoring</td><td>10&ndash;12%</td><td>10&ndash;12</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-gold">
+        <strong>Note:</strong> Domain 6 (Ethics &amp; Governance) carries intentionally elevated weight. Ethical reasoning is a core professional competency for certified AI operators and is weighted accordingly.
+      </div>
+
+      <p>One retake is permitted with a 30-day waiting period. The retake uses a different exam version. A second failure requires a 6-month waiting period followed by re-enrollment in the certification program.</p>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- SECTION 9: Oral Defense -->
+    <section id="oral-defense">
+      <div class="section-label">Section 9</div>
+      <h3>Oral Defense</h3>
+
+      <table>
+        <thead>
+          <tr><th>Component</th><th>Duration</th><th>Focus</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Capstone Presentation</strong></td><td>20 minutes</td><td>Clarity, thoroughness, professionalism, logical structure</td></tr>
+          <tr><td><strong>Panel Questions</strong></td><td>20 minutes</td><td>Depth of understanding, rationale for decisions, alternatives considered, critical thinking under challenge</td></tr>
+          <tr><td><strong>Ethical Scenario</strong></td><td>10 minutes</td><td>Novel scenario requiring framework application and actionable recommendation</td></tr>
+        </tbody>
+      </table>
+
+      <p>The oral defense panel consists of a minimum of 2 qualified reviewers. Both panelists must independently rate the candidate as passing. In the event of a split decision, a third panelist is brought in to make the determination. The defense is conducted via live video, recorded with candidate consent. The oral defense carries a weight of <strong>30%</strong> in the final certification determination.</p>
+
+      <h4>Fail Conditions</h4>
+      <p>The oral defense is failed if any of the following are observed:</p>
+      <ul>
+        <li>Candidate cannot explain their own system design or implementation decisions</li>
+        <li>Candidate misrepresents AI capabilities or limitations</li>
+        <li>Candidate demonstrates ethical blind spots on direct questioning</li>
+        <li>Candidate cannot engage constructively with critical challenge or feedback</li>
+        <li>Any dimension on the defense rubric scores below Level 3</li>
+      </ul>
+
+      <p>One reattempt is permitted with a 30-day waiting period. The candidate must submit a written response addressing evaluator feedback before the reattempt. A second failure requires a 6-month waiting period and re-enrollment in the certification program.</p>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- SECTION 10: Unified Proficiency Scale -->
+    <section id="proficiency-scale">
+      <div class="section-label">Section 10</div>
+      <h3>Unified Proficiency Scale</h3>
+
+      <p>The following 4-point proficiency scale is applied identically across all rubric-evaluated assessments: Tier 2 course rubrics, the Capstone Rubric (Appendix A), and the Oral Defense Rubric (Appendix B). All evaluators are calibrated to this scale.</p>
+
+      <table>
+        <thead>
+          <tr><th>Level</th><th>Label</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>4</strong></td><td>Distinguished</td><td>Exceeds professional standards. Exceptional depth, originality, and quality. Could serve as a model for other candidates.</td></tr>
+          <tr><td><strong>3</strong></td><td>Proficient</td><td>Meets professional standards. Competent, reliable work suitable for professional use. <strong>Minimum for course completion and CAIO certification.</strong></td></tr>
+          <tr><td><strong>2</strong></td><td>Developing</td><td>Approaches but does not meet professional standards. Gaps present that affect reliability. Requires revision.</td></tr>
+          <tr><td><strong>1</strong></td><td>Deficient</td><td>Does not approach professional standards. Fundamental gaps in understanding or execution. Substantial work required.</td></tr>
+        </tbody>
+      </table>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- SECTION 11: Pass / Fail Logic -->
+    <section id="pass-fail">
+      <div class="section-label">Section 11</div>
+      <h3>Pass / Fail Logic</h3>
+
+      <h4>Certification Awarded When ALL Conditions Are Met</h4>
+      <ol>
+        <li>All 5 Tier 1 courses passed</li>
+        <li>All 5 Tier 2 courses passed with all rubric criteria at Level 3 or above</li>
+        <li>All 8 competency domains scored at Competent (C) or Mastery (M)</li>
+        <li>Capstone project scored Level 3 or above on all 9 dimensions</li>
+        <li>Written examination score of 80% or above overall, with no domain below 70%</li>
+        <li>Oral defense scored Level 3 or above on all 6 dimensions by both panelists</li>
+      </ol>
+
+      <h4>Certification Withheld If Any of the Following Apply</h4>
+      <ul>
+        <li>Any Tier 1 or Tier 2 course not passed</li>
+        <li>Any Tier 2 rubric criterion below Level 3</li>
+        <li>Any competency domain scored R or I (unremediated)</li>
+        <li>Any capstone dimension below Level 3</li>
+        <li>Written exam score below 80% overall or any domain below 70%</li>
+        <li>Any oral defense dimension below Level 3</li>
+      </ul>
+
+      <div class="callout callout-important">
+        <strong>No compensatory scoring at any level.</strong> A Level 4 on System Design does not compensate for a Level 2 on Ethics. A 95% exam score does not compensate for a failed oral defense. Every competency matters independently.
+      </div>
+
+      <h4>Weight Summary</h4>
+      <table>
+        <thead>
+          <tr><th>Component</th><th>Weight</th><th>Passing Standard</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Portfolio / Domain Review</td><td>Prerequisite Gate</td><td>C or M on all 8 domains</td></tr>
+          <tr><td>Capstone Project</td><td>40%</td><td>Level 3+ on all 9 dimensions</td></tr>
+          <tr><td>Written Examination</td><td>30%</td><td>80% overall; 70% per domain</td></tr>
+          <tr><td>Oral Defense</td><td>30%</td><td>Level 3+ on all 6 dimensions</td></tr>
+        </tbody>
+      </table>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- SECTION 12: Remediation -->
+    <section id="remediation">
+      <div class="section-label">Section 12</div>
+      <h3>Remediation &amp; Reassessment</h3>
+
+      <table>
+        <thead>
+          <tr><th>Assessment</th><th>Remediation</th><th>Wait Period</th><th>After Exhaustion</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Tier 1 Knowledge Assessments</td><td>3 retakes</td><td>48 hours</td><td>60-day wait; re-enroll in course</td></tr>
+          <tr><td>Tier 1 Activities</td><td>1 revision</td><td>None</td><td>60-day wait; re-enroll in course</td></tr>
+          <tr><td>Tier 2 Artifacts</td><td>2 revisions</td><td>None</td><td>30-day wait; retake course</td></tr>
+          <tr><td>Domain Validation</td><td>Targeted remediation</td><td>As prescribed</td><td>Retake relevant course(s)</td></tr>
+          <tr><td>Capstone Project</td><td>1 revision</td><td>None</td><td>90-day wait; submit new capstone</td></tr>
+          <tr><td>Written Examination</td><td>1 retake</td><td>30 days</td><td>6-month wait; re-enroll</td></tr>
+          <tr><td>Oral Defense</td><td>1 reattempt</td><td>30 days</td><td>6-month wait; re-enroll</td></tr>
+        </tbody>
+      </table>
+
+      <p>All revisions must be substantive. Cosmetic changes without addressing evaluator feedback do not qualify as a substantive revision. Candidates who have exhausted standard remediation opportunities may petition for additional attempts; petitions are reviewed on a case-by-case basis and are not guaranteed.</p>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- SECTION 13: Evaluator Standards -->
+    <section id="evaluator">
+      <div class="section-label">Section 13</div>
+      <h3>Evaluator Standards</h3>
+
+      <h4>Qualifications</h4>
+      <ul>
+        <li>Minimum 3 years of relevant professional experience</li>
+        <li>Demonstrated domain competence in assigned evaluation areas</li>
+        <li>Completed institutional Evaluator Training program</li>
+        <li>Familiar with all rubrics, scoring models, and assessment frameworks</li>
+        <li>No conflicts of interest with candidates under evaluation</li>
+      </ul>
+
+      <h4>Responsibilities</h4>
+      <p>Evaluators are responsible for applying rubrics consistently and without bias, documenting all scoring decisions with evidence-based rationale, providing actionable feedback that guides candidate improvement, participating in regular calibration sessions, reporting any concerns regarding candidate integrity or assessment instrument validity, and maintaining strict confidentiality of all candidate materials and results.</p>
+
+      <h4>Calibration</h4>
+      <p>All evaluators undergo an onboarding training program that includes scoring benchmark artifacts at each proficiency level. Quarterly calibration sessions ensure ongoing alignment. Annual inter-rater reliability analysis targets a Cohen&rsquo;s kappa of 0.80 or above. Evaluators whose scores consistently deviate from calibrated standards receive additional training or are removed from the evaluation panel.</p>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- SECTION 14: Assessment Integrity -->
+    <section id="integrity">
+      <div class="section-label">Section 14</div>
+      <h3>Assessment Integrity</h3>
+
+      <h4>Academic Integrity</h4>
+      <p>All submitted work must be the candidate&rsquo;s own. AI tools may be used as instructed within the curriculum, but submissions must demonstrate the candidate&rsquo;s personal understanding, judgment, and professional competence. The following constitute violations of academic integrity:</p>
+      <ul>
+        <li>Submitting AI-generated work without meaningful personal contribution</li>
+        <li>Plagiarism of any form, including uncredited use of others&rsquo; work</li>
+        <li>Fabrication or falsification of data, results, or evidence</li>
+        <li>Unauthorized collaboration on individually assessed work</li>
+        <li>Sharing exam content, questions, or answers with other candidates</li>
+      </ul>
+
+      <h4>Exam Security</h4>
+      <p>Written examinations are remotely proctored with identity verification, screen monitoring, and session recording. Multiple exam versions are drawn from a secured item bank to prevent content leakage. Any violation of exam security protocols results in immediate termination of the exam session and initiation of disciplinary proceedings.</p>
+
+      <h4>Capstone Originality</h4>
+      <p>Capstone projects are reviewed for evidence of genuine intellectual engagement. Submissions that appear AI-generated without meaningful candidate contribution are flagged for additional review and may be rejected. Consequences for integrity violations range from assignment failure to program dismissal and credential revocation, depending on severity.</p>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- SECTION 15: Records & Audit Trail -->
+    <section id="records">
+      <div class="section-label">Section 15</div>
+      <h3>Records &amp; Audit Trail</h3>
+
+      <p>The following records are maintained for every candidate who enters the CAIO certification program: portfolio artifacts, capstone projects, completed rubric evaluation sheets, domain scoring records, examination results, oral defense recordings, remediation and appeals records, and final certification determinations.</p>
+
+      <h4>Retention Schedule</h4>
+      <table>
+        <thead>
+          <tr><th>Record Type</th><th>Retention Period</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Credential and certification records</td><td>Indefinite</td></tr>
+          <tr><td>Portfolio and capstone materials</td><td>7 years</td></tr>
+          <tr><td>Rubric evaluation sheets and evaluator notes</td><td>7 years</td></tr>
+          <tr><td>Examination results and item responses</td><td>7 years</td></tr>
+          <tr><td>Oral defense recordings</td><td>5 years</td></tr>
+          <tr><td>Remediation and appeals records</td><td>7 years</td></tr>
+        </tbody>
+      </table>
+
+      <p>All records are encrypted and access-controlled. Candidates may access their own records at any time. No third-party access to candidate records is permitted without explicit written consent from the candidate.</p>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- SECTION 16: Governance & Revision -->
+    <section id="governance">
+      <div class="section-label">Section 16</div>
+      <h3>Governance &amp; Revision</h3>
+
+      <p>The CAIO Assessment &amp; Validation System is subject to the following governance processes:</p>
+      <ul>
+        <li><strong>Annual review</strong> of all assessment instruments, rubrics, and scoring models</li>
+        <li><strong>Comprehensive review every 2 years</strong> incorporating external stakeholder input and industry alignment analysis</li>
+        <li><strong>Triggered review</strong> in response to significant developments in AI technology, regulation, or professional practice</li>
+        <li><strong>Version control:</strong> candidates are assessed under the version of the assessment system in effect at the time of their enrollment; all prior versions are archived for a minimum of 7 years</li>
+      </ul>
+
+      <h4>Continuous Improvement</h4>
+      <p>The assessment system is continuously improved through analysis of: evaluator feedback and calibration data, candidate performance patterns, pass/fail rate analysis by assessment component, item-level analysis for written examinations, rubric reliability metrics, and stakeholder feedback from employers and industry partners.</p>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- APPENDIX A: Capstone Rubric -->
+    <section id="appendix-a">
+      <div class="section-label">Appendix A</div>
+      <h3>Capstone Project Rubric</h3>
+
+      <p>All 9 dimensions are evaluated on the 4-point proficiency scale. The candidate must achieve Level 3 (Proficient) or above on ALL 9 dimensions. No compensatory scoring.</p>
+
+      <div class="rubric-wrap">
+        <table>
+          <thead>
+            <tr><th>Dimension</th><th>1 &mdash; Deficient</th><th>2 &mdash; Developing</th><th>3 &mdash; Proficient</th><th>4 &mdash; Distinguished</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Organizational Context</td>
+              <td>Superficial; no clear need identified</td>
+              <td>Basic context; missing key dimensions</td>
+              <td>Thorough analysis with clear opportunity and constraints identified</td>
+              <td>Exceptional depth; maturity assessment; multi-stakeholder analysis</td>
+            </tr>
+            <tr>
+              <td>System Design</td>
+              <td>Disorganized; no coherent design</td>
+              <td>Basic design; unclear integration points</td>
+              <td>Logical, cohesive system with documented design rationale</td>
+              <td>Elegant, scalable architecture with migration paths</td>
+            </tr>
+            <tr>
+              <td>Prompt Engineering</td>
+              <td>Weak prompts; unreliable outputs</td>
+              <td>Inconsistent results; limited documentation</td>
+              <td>Controlled, reliable, documented, and tested prompts</td>
+              <td>Optimized with systematic testing methodology</td>
+            </tr>
+            <tr>
+              <td>Workflow &amp; Automation</td>
+              <td>Broken or absent automation</td>
+              <td>Partial automation; happy-path only</td>
+              <td>Functional automation with error handling and fallback</td>
+              <td>Robust with adversarial testing; graceful degradation</td>
+            </tr>
+            <tr>
+              <td>Implementation Docs</td>
+              <td>Incomplete; unusable by others</td>
+              <td>Basic documentation; significant gaps</td>
+              <td>Clear documentation; enables third-party replication</td>
+              <td>Professional ops manual with runbooks</td>
+            </tr>
+            <tr>
+              <td>Ethics &amp; Risk</td>
+              <td>Missing or token treatment</td>
+              <td>Minimal; key risks not addressed</td>
+              <td>Responsible treatment with mitigation and oversight plans</td>
+              <td>Exemplary with proactive identification and governance framework</td>
+            </tr>
+            <tr>
+              <td>Impact Evaluation</td>
+              <td>No metrics defined</td>
+              <td>Generic metrics; no methodology</td>
+              <td>Appropriate metrics with methodology and honest analysis</td>
+              <td>Comprehensive framework; limitation acknowledgment</td>
+            </tr>
+            <tr>
+              <td>Stakeholder Communication</td>
+              <td>Absent or incomprehensible</td>
+              <td>Overly technical or inaccurate</td>
+              <td>Clear, accurate communication for non-technical audience</td>
+              <td>Executive-grade with visualization and recommendations</td>
+            </tr>
+            <tr>
+              <td>Cross-Domain Integration</td>
+              <td>Components disconnected; no coherence</td>
+              <td>Loosely connected; siloed thinking</td>
+              <td>Coherent integration across domains; professional presentation</td>
+              <td>Seamless systems thinking; operational maturity</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- APPENDIX B: Oral Defense Rubric -->
+    <section id="appendix-b">
+      <div class="section-label">Appendix B</div>
+      <h3>Oral Defense Rubric</h3>
+
+      <p>All 6 dimensions are evaluated on the 4-point proficiency scale. Both panelists must independently rate the candidate at Level 3 (Proficient) or above on all dimensions.</p>
+
+      <div class="rubric-wrap">
+        <table>
+          <thead>
+            <tr><th>Dimension</th><th>1 &mdash; Deficient</th><th>2 &mdash; Developing</th><th>3 &mdash; Proficient</th><th>4 &mdash; Distinguished</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Presentation Clarity</td>
+              <td>Disorganized; unclear communication</td>
+              <td>Basic organization; some clarity issues</td>
+              <td>Well-organized, clear, professional presentation</td>
+              <td>Compelling; executive-level communication</td>
+            </tr>
+            <tr>
+              <td>Technical Depth</td>
+              <td>Fundamental inaccuracies present</td>
+              <td>Surface-level understanding; gaps in knowledge</td>
+              <td>Accurate understanding with demonstrated depth</td>
+              <td>Exceptional depth; nuanced trade-off analysis</td>
+            </tr>
+            <tr>
+              <td>Response to Questions</td>
+              <td>Cannot respond meaningfully; defensive</td>
+              <td>Partial responses; difficulty with challenge</td>
+              <td>Thoughtful responses; engages constructively with challenge</td>
+              <td>Exceptional critical thinking; offers novel insight</td>
+            </tr>
+            <tr>
+              <td>Decision Rationale</td>
+              <td>Cannot explain design or implementation choices</td>
+              <td>Basic explanations; limited trade-off awareness</td>
+              <td>Clear defense of decisions with trade-off analysis</td>
+              <td>Sophisticated reasoning with awareness of alternatives</td>
+            </tr>
+            <tr>
+              <td>Ethical Reasoning</td>
+              <td>Fails to identify obvious ethical risks</td>
+              <td>Identifies some risks; weak analysis</td>
+              <td>Systematic framework application; practical recommendations</td>
+              <td>Exemplary; proactive identification; nuanced judgment</td>
+            </tr>
+            <tr>
+              <td>Communication Ability</td>
+              <td>Jargon-heavy; cannot adapt to audience</td>
+              <td>Some audience adaptation; inconsistent</td>
+              <td>Adapts communication to audience; clear; professional</td>
+              <td>Natural audience adaptation; inspires confidence</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- APPENDIX C: Domain Checklist -->
+    <section id="appendix-c">
+      <div class="section-label">Appendix C</div>
+      <h3>Domain Validation Checklist</h3>
+
+      <p>Evaluators use the following checklist during the Portfolio Readiness Review. Assign M (Mastery), C (Competent), R (Needs Remediation), or I (Insufficient) for each domain based on aggregate evidence.</p>
+
+      <table>
+        <thead>
+          <tr><th>#</th><th>Domain</th><th>Primary Evidence Sources</th><th>Score</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>AI Literacy</td><td>Capstone context analysis; cross-artifact evidence</td><td>____</td></tr>
+          <tr><td>2</td><td>Prompt Engineering</td><td>ATS-201 Prompt Library; capstone prompts</td><td>____</td></tr>
+          <tr><td>3</td><td>Workflow &amp; Automation</td><td>ATS-202 Workflow Blueprint; capstone automation</td><td>____</td></tr>
+          <tr><td>4</td><td>System Integration</td><td>ATS-205 System Architecture; capstone design</td><td>____</td></tr>
+          <tr><td>5</td><td>Business Application</td><td>ATS-203 Operations Plan; capstone context/impact</td><td>____</td></tr>
+          <tr><td>6</td><td>Ethics &amp; Governance</td><td>ATS-105 Ethics Analysis; ATS-203 risk assessment; capstone ethics</td><td>____</td></tr>
+          <tr><td>7</td><td>Documentation</td><td>Quality across all artifacts; ATS-202 handoff; capstone SOPs</td><td>____</td></tr>
+          <tr><td>8</td><td>Deployment &amp; Monitoring</td><td>Capstone deployment/monitoring plan; ATS-202 maintenance</td><td>____</td></tr>
+        </tbody>
+      </table>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+    <!-- APPENDIX D: Decision Flowchart -->
+    <section id="appendix-d">
+      <div class="section-label">Appendix D</div>
+      <h3>Certification Decision Flowchart</h3>
+
+      <p>The following decision flowchart summarizes the sequential gates a candidate must pass to receive the CAIO credential.</p>
+
+      <div class="flow-step">
+        <div class="step-num">1</div>
+        <div class="flow-content">
+          <h5>Course-Level Gate</h5>
+          <p><strong>Question:</strong> All Tier 1 and Tier 2 courses passed, all rubric criteria Level 3+?</p>
+          <p><span class="pass">YES &rarr;</span> Proceed to Step 2</p>
+          <p><span class="fail">NO &rarr;</span> Must complete or remediate. Cannot proceed.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="step-num">2</div>
+        <div class="flow-content">
+          <h5>Domain Validation Gate</h5>
+          <p><strong>Question:</strong> C or M on all eight competency domains?</p>
+          <p><span class="pass">YES &rarr;</span> Eligible for candidacy. Proceed to Step 3.</p>
+          <p><span class="fail">NO &rarr;</span> Domain remediation required.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="step-num">3</div>
+        <div class="flow-content">
+          <h5>Capstone Evaluation</h5>
+          <p><strong>Question:</strong> Level 3+ on all nine capstone dimensions?</p>
+          <p><span class="pass">YES &rarr;</span> Capstone accepted. Proceed to Step 4.</p>
+          <p><span class="fail">NO &rarr;</span> Returned for revision per remediation policy.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="step-num">4</div>
+        <div class="flow-content">
+          <h5>Written Examination</h5>
+          <p><strong>Question:</strong> 80%+ overall, no domain below 70%?</p>
+          <p><span class="pass">YES &rarr;</span> Examination passed. Proceed to Step 5.</p>
+          <p><span class="fail">NO &rarr;</span> Retake per remediation policy.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="step-num">5</div>
+        <div class="flow-content">
+          <h5>Oral Defense</h5>
+          <p><strong>Question:</strong> Level 3+ on all six dimensions from both panelists?</p>
+          <p><span class="pass">YES &rarr;</span> Defense passed. Proceed to Step 6.</p>
+          <p><span class="fail">NO &rarr;</span> Reattempt per remediation policy.</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="step-num">6</div>
+        <div class="flow-content">
+          <h5>Certification Determination</h5>
+          <p><strong>Question:</strong> All five gates passed?</p>
+          <div class="callout callout-success" style="margin-top:10px;">
+            <strong>YES:</strong> CAIO credential awarded. Digital certificate issued with unique verification number.
+          </div>
+          <div class="callout callout-important" style="margin-top:10px;">
+            <strong>NO:</strong> Credential withheld. Candidate follows the applicable remediation pathway.
+          </div>
+        </div>
+      </div>
+
+      <a href="#cover" class="back-to-top">&uarr; Back to top</a>
+    </section>
+
+  </div><!-- /content -->
+
+  <!-- Page Footer -->
+  <div class="page-footer">
+    <p>AI Trade School &mdash; Assessment &amp; Validation System &mdash; Version 1.0 &mdash; Academic Year 2026&ndash;2027</p>
+    <p class="end-doc">End of Document</p>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+// Hamburger toggle
+const hamburger = document.getElementById('hamburger');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+hamburger.addEventListener('click', () => {
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('open');
+});
+
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('open');
+});
+
+// Close sidebar on nav click (mobile)
+document.querySelectorAll('.sidebar-nav a').forEach(link => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth < 960) {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+    }
+  });
+});
+
+// IntersectionObserver for active nav
+const sections = document.querySelectorAll('section[id], .hero[id]');
+const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+const observerOptions = {
+  rootMargin: '-80px 0px -70% 0px',
+  threshold: 0
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.getAttribute('id');
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, observerOptions);
+
+sections.forEach(section => observer.observe(section));
+</script>
+</body>
+</html>
