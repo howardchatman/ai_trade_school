@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     title: "AI Trade School",
     description: "Master the AI Economy",
     type: "website",
-    images: ["/logo-white.png"],
+    images: ["/logo-og.png"],
   },
 };
 
